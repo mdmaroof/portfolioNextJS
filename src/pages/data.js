@@ -9,8 +9,8 @@ export const data = {
     {
       organisation: "56 Secure",
       role: "Frontend Developer",
-      from: "2021-03",
-      to: "2023-10",
+      from: "March 2021",
+      to: "October 2023",
       location: "Remote",
       labels: [
         "Worked On Map Integration for Live Guard Location.",
@@ -26,8 +26,8 @@ export const data = {
     {
       organisation: "Noon Academy",
       role: "Frontend Developer",
-      from: "2019-11",
-      to: "2021-02",
+      from: "November 2019",
+      to: "February 2021",
       location: "Bangalore",
       labels: [
         "Worked on Real-Time Call (RTC) and Real-Time Messaging (RTM)",
@@ -42,8 +42,8 @@ export const data = {
     {
       organisation: "Preleaf Technology",
       role: "Fullstack Developer",
-      from: "2018-02",
-      to: "2019-10",
+      from: "February 2018",
+      to: "October 2019",
       location: "Lucknow",
       labels: [
         "Made Maatritva React.JS and Node.JS Website from scratch (that's how I get into React & Node)",

@@ -31,7 +31,7 @@ const IndividualBlock = ({
           <span className="hexa"></span>
           <div className="flag text-black">{organisation}</div>
           <span className="time-wrapper">
-            <div className="time !bg-red-600">
+            <div className="time !bg-red-500 border-2 border-white border-solid">
               {from} - {to}
             </div>
           </span>

@@ -23,12 +23,12 @@ const IndividualBlock = ({
   labels,
 }: objectWork) => {
   return (
-    <div className="bg-white rounded w-full px-10 py-10 font-normal mb-10">
+    <div className="bg-white text-sm md:text-md rounded w-full px-5 md:px-10 py-10 font-normal mb-10">
       <div className="flex gap-2 items-center mb-2">
         <MdWork size={26} />
         <span className="text-lg font-semibold">{organisation}</span>
       </div>
-      <div className="leading-8">
+      <div className="leading-7 md:leading-8">
         <div>{role}</div>
         <div>{location}</div>
         <div className="text-gray-400">
@@ -36,7 +36,7 @@ const IndividualBlock = ({
         </div>
       </div>
 
-      <ul className="list-disc ml-10 leading-10 mt-2">
+      <ul className="list-disc ml-4 font-light md:font-normal md:ml-10 leading-8 md:leading-10 mt-2">
         {labels.map((x, i) => (
           <li key={i}>{x}</li>
         ))}
@@ -49,7 +49,7 @@ export const WorkHistory = ({ work }: Props) => {
   return (
     <>
       <Heading>Work Experience</Heading>
-      <div className="py-10 text-black">
+      <div className="py-5 md:py-10 text-black">
         {work?.map((z, i) => (
           <IndividualBlock key={i} {...z} />
         ))}

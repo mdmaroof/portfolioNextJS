@@ -1,7 +1,7 @@
 import { Heading } from "./heading";
 import { MdWork } from "react-icons/md";
 
-interface objectWork {
+export interface objectWork {
   organisation: string;
   role: string;
   from: string;

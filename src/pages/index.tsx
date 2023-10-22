@@ -1,10 +1,10 @@
 import { Open_Sans } from "next/font/google";
-import { HeaderComponent } from "./component/header.section";
-import { OverviewSection } from "./component/overview.section";
+import { HeaderComponent } from "../component/header.section";
+import { OverviewSection } from "../component/overview.section";
 import { data } from "./data";
-import { WorkHistory } from "./component/workHistory.section";
-import { SkillSection } from "./component/skills.section";
-import { Timeline } from "./component/timeline.section";
+import { WorkHistory } from "../component/workHistory.section";
+import { SkillSection } from "../component/skills.section";
+import { Timeline } from "../component/timeline.section";
 import Head from "next/head";
 
 const openSans = Open_Sans({

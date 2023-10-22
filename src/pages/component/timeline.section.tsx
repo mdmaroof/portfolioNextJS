@@ -1,3 +1,4 @@
+import { Heading } from "./heading";
 import { objectWork } from "./workHistory.section";
 
 interface PropsIndividual {
@@ -46,6 +47,7 @@ const IndividualBlock = ({
 export const Timeline = ({ work }: Props) => {
   return (
     <div className="pb-20">
+      <Heading>Timeline</Heading>
       <ul className="timeline">
         {work?.map((z, i) => (
           <IndividualBlock key={i} {...z} indexValue={i + 1} />

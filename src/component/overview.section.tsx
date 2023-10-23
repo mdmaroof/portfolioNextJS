@@ -13,7 +13,7 @@ const IdividualBlock = ({ heading, years }: Props) => {
           {heading}
         </div>
       </div>
-      <div className="absolute top-0 right-[-40px] text-gray-300 text-[180px] h-[200px] items-center flex">
+      <div className="absolute top-0 right-[-20px] md:right-[-40px] text-gray-300 text-[100px] md:text-[180px] h-[125px] md:h-[200px] items-center flex">
         {years}
       </div>
     </div>
@@ -25,7 +25,7 @@ export const OverviewSection = () => {
     <>
       <Heading>Overview</Heading>
       <div className="flex flex-col md:flex-row md:gap-10 pt-10 pb-20">
-        <IdividualBlock heading="years of professional experience" years="6" />
+        <IdividualBlock heading="years of professional experience" years="5" />
         <IdividualBlock years="2" heading="languages" />
       </div>
     </>

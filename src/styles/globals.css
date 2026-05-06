@@ -4,6 +4,7 @@
 
 html {
     scroll-behavior: smooth;
+    position: relative;
 }
 
 
@@ -32,6 +33,25 @@ body {
     box-shadow: 0 8px 32px rgba(2, 6, 23, 0.35);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+}
+
+.glass-subcard {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.45), rgba(30, 41, 59, 0.2));
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-chip {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.float-card {
+    animation: floatCard 7s ease-in-out infinite;
 }
 
 body::before,
@@ -118,6 +138,30 @@ html::before {
     animation: starTwinkle 6s ease-in-out infinite alternate, starDrift 50s linear infinite;
 }
 
+html::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(1px 1px at 4% 12%, rgba(255, 255, 255, 0.9) 50%, transparent 55%),
+        radial-gradient(1px 1px at 10% 28%, rgba(255, 255, 255, 0.85) 50%, transparent 55%),
+        radial-gradient(1px 1px at 16% 44%, rgba(191, 219, 254, 0.8) 50%, transparent 55%),
+        radial-gradient(1px 1px at 24% 60%, rgba(255, 255, 255, 0.9) 50%, transparent 55%),
+        radial-gradient(1px 1px at 32% 18%, rgba(224, 231, 255, 0.85) 50%, transparent 55%),
+        radial-gradient(1px 1px at 40% 76%, rgba(255, 255, 255, 0.82) 50%, transparent 55%),
+        radial-gradient(1px 1px at 48% 36%, rgba(186, 230, 253, 0.8) 50%, transparent 55%),
+        radial-gradient(1px 1px at 56% 52%, rgba(255, 255, 255, 0.9) 50%, transparent 55%),
+        radial-gradient(1px 1px at 64% 24%, rgba(224, 231, 255, 0.86) 50%, transparent 55%),
+        radial-gradient(1px 1px at 72% 68%, rgba(255, 255, 255, 0.86) 50%, transparent 55%),
+        radial-gradient(1px 1px at 80% 40%, rgba(191, 219, 254, 0.82) 50%, transparent 55%),
+        radial-gradient(1px 1px at 88% 84%, rgba(255, 255, 255, 0.86) 50%, transparent 55%),
+        radial-gradient(1px 1px at 94% 22%, rgba(224, 231, 255, 0.84) 50%, transparent 55%);
+    opacity: 0.75;
+    animation: starTwinkle 4s ease-in-out infinite alternate-reverse, starDriftB 70s linear infinite;
+}
+
 @keyframes starTwinkle {
     0% {
         opacity: 0.45;
@@ -135,6 +179,30 @@ html::before {
 
     100% {
         transform: translateX(-18px);
+    }
+}
+
+@keyframes starDriftB {
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+
+    100% {
+        transform: translateX(16px) translateY(-6px);
+    }
+}
+
+@keyframes floatCard {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0px);
     }
 }
 

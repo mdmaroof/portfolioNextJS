@@ -6,7 +6,7 @@ interface Props {
 }
 const IdividualBlock = ({ heading, years }: Props) => {
   return (
-    <div className="relative my-4 h-[125px] w-full overflow-hidden rounded-xl border border-white/10 bg-slate-800/80 text-white md:my-auto md:h-[180px]">
+    <div className="glass-subcard float-card relative my-4 h-[125px] w-full overflow-hidden rounded-xl text-white md:my-auto md:h-[180px]">
       <div className="w-[90%] left-[5%] md:w-[70%] md:left-[15%] h-[125px] md:h-[200px] flex gap-5 items-center relative z-10">
         <div className="text-[64px] font-semibold md:text-[90px]">{years}</div>
         <div className="text-lg font-light uppercase md:text-2xl">

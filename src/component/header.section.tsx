@@ -107,30 +107,41 @@ export const HeaderComponent = ({ data }: Props) => {
       )}
       {/* modal close */}
       <div>
-        <section>
-          <Heading>{data?.name ?? null}</Heading>
-          <div className="mt-2 flex flex-col gap-3 text-base text-slate-200 md:flex-row md:items-center md:gap-8 md:text-lg">
-            <div className="flex items-center gap-2">
-              <MdWork />
+        <section className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-start">
+          <div>
+            <Heading>{data?.name ?? null}</Heading>
+            <div className="mt-3 inline-flex rounded-full border border-sky-700/50 bg-sky-500/10 px-3 py-1 text-sm text-sky-100">
               {data?.position ?? null}
             </div>
-            <div className="flex items-center gap-2">
-              <MdLocationOn />
-              {data?.location ?? null}
+            <div className="mt-4 flex flex-col gap-3 text-base text-slate-300 md:text-lg">
+              <div className="flex items-center gap-2">
+                <MdLocationOn />
+                {data?.location ?? null}
+              </div>
+              <div className="flex items-center gap-2">
+                <MdWork />
+                6+ years experience
+              </div>
             </div>
           </div>
-          <div
-            onClick={() => setModalOpen(true)}
-            className="mt-6 flex w-[160px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-red-600 py-3 font-medium text-white transition-colors duration-150 hover:bg-red-700 md:mt-8"
-          >
-            <FaPaperPlane />
-            Message
+
+          <div className="flex flex-col gap-3 md:items-end">
+            <div
+              onClick={() => setModalOpen(true)}
+              className="flex w-[160px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-red-600 py-3 font-medium text-white transition-colors duration-150 hover:bg-red-700"
+            >
+              <FaPaperPlane />
+              Message
+            </div>
+            <div className="rounded-lg border border-slate-700/60 bg-slate-900/60 px-3 py-2 text-xs text-slate-300">
+              Open to Remote / Contract
+            </div>
           </div>
         </section>
 
         <section className="mt-10 md:mt-12">
           <Heading>Summary</Heading>
-          <div className="mt-4 max-w-4xl text-justify text-base font-light leading-8 text-slate-200 md:text-lg">
+          <div className="mt-4 max-w-4xl rounded-xl border border-slate-800/80 bg-slate-950/45 p-4 text-justify text-base font-light leading-8 text-slate-200 md:p-5 md:text-lg">
             {data?.summary ?? null}
           </div>
         </section>

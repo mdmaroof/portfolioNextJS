@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MdWork } from "react-icons/md";
 import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { Heading } from "./heading";
@@ -107,37 +106,41 @@ export const HeaderComponent = ({ data }: Props) => {
       )}
       {/* modal close */}
       <div>
-        <section className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-start">
-          <div>
-            <Heading>{data?.name ?? null}</Heading>
-            <div className="mt-3 inline-flex rounded-full border border-sky-700/50 bg-sky-500/10 px-3 py-1 text-sm text-sky-100">
-              {data?.position ?? null}
-            </div>
-            <div className="mt-4 flex flex-col gap-3 text-base text-slate-300 md:text-lg">
-              <div className="flex items-center gap-2">
-                <MdWork />
-                6+ years experience
+        <section>
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <Heading>{data?.name ?? null}</Heading>
+              <p className="mt-2 text-lg text-slate-200 md:text-xl">
+                {data?.position ?? null}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-300">
+                <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1">
+                  {data?.country ?? "India"}
+                </span>
+                <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1">
+                  6+ years experience
+                </span>
+                <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1">
+                  React • Next.js • React Native
+                </span>
               </div>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-3 md:items-end">
-            <div
+            <button
               onClick={() => setModalOpen(true)}
-              className="flex w-[160px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-red-600 py-3 font-medium text-white transition-colors duration-150 hover:bg-red-700"
+              className="flex w-[170px] items-center justify-center gap-2 rounded-lg border border-slate-700/70 bg-slate-900/70 py-3 font-medium text-slate-100 transition-colors duration-150 hover:bg-slate-800/80"
             >
               <FaPaperPlane />
-              Message
-            </div>
-            <div className="rounded-lg border border-slate-700/60 bg-slate-900/60 px-3 py-2 text-xs text-slate-300">
-              {data?.country ?? "India"}
-            </div>
+              Contact
+            </button>
           </div>
         </section>
 
-        <section className="mt-10 md:mt-12">
-          <Heading>Summary</Heading>
-          <div className="mt-4 max-w-4xl rounded-xl border border-slate-800/80 bg-slate-950/45 p-4 text-justify text-base font-light leading-8 text-slate-200 md:p-5 md:text-lg">
+        <section className="mt-8 md:mt-10">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+            Summary
+          </h3>
+          <div className="mt-3 rounded-xl border border-slate-800/70 bg-slate-950/40 p-4 text-justify text-base font-light leading-8 text-slate-200 md:p-5 md:text-lg">
             {data?.summary ?? null}
           </div>
         </section>

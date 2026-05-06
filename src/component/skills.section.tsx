@@ -35,9 +35,9 @@ export const SkillSection = ({ skills }: Props) => {
 
   const visibleGroups = matched.filter((group) => group.values.length > 0);
   const cardClass =
-    "rounded-2xl border border-slate-800/90 bg-slate-950/75 p-6 shadow-[0_10px_30px_rgba(2,6,23,0.35)] backdrop-blur-lg md:p-7";
+    "rounded-xl border border-slate-800/80 bg-slate-950/55 px-5 py-5 md:px-7 md:py-6";
   const chipClass =
-    "w-full rounded-xl border border-slate-700/70 bg-slate-900/90 px-4 py-2.5 text-sm leading-5 text-slate-200";
+    "inline-flex w-fit rounded-md border border-sky-800/60 bg-sky-900/20 px-2.5 py-1 text-sm leading-5 text-sky-100";
 
   return (
     <div>
@@ -48,7 +48,7 @@ export const SkillSection = ({ skills }: Props) => {
             key={group.title}
             className={`${cardClass} mb-4 break-inside-avoid`}
           >
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between border-b border-slate-800/70 pb-4">
               <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
                 {group.title}
               </h3>
@@ -56,7 +56,7 @@ export const SkillSection = ({ skills }: Props) => {
                 {group.values.length}
               </span>
             </div>
-            <div className="grid grid-cols-1 gap-2.5">
+            <div className="flex flex-wrap gap-2">
               {group.values.map((item) => (
                 <span key={item} className={chipClass}>
                   {item}
@@ -70,10 +70,12 @@ export const SkillSection = ({ skills }: Props) => {
           <section
             className={`${cardClass} mb-4 break-inside-avoid`}
           >
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
-              Additional
-            </h3>
-            <div className="grid grid-cols-1 gap-2.5">
+            <div className="mb-4 border-b border-slate-800/70 pb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
+                Additional
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
               {extras.map((extra) => (
                 <span key={extra} className={chipClass}>
                   {extra}

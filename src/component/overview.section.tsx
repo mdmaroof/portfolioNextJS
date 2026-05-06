@@ -7,17 +7,14 @@ interface Props {
 }
 const IdividualBlock = ({ heading, years, subheading }: Props) => {
   return (
-    <div className="relative h-full overflow-hidden rounded-xl border border-slate-800/90 bg-slate-950/60 p-5 text-white md:p-6">
-      <div className="relative z-10 flex h-full flex-col">
-        <div className="text-5xl font-semibold text-sky-200 md:text-6xl">{years}</div>
-        <div className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-slate-100 md:text-base">
+    <div className="h-full rounded-xl border border-slate-800/80 bg-slate-950/55 p-5 text-white md:p-6">
+      <div className="flex items-start justify-between gap-4">
+        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-200 md:text-sm">
           {heading}
         </div>
-        <div className="mt-1 text-sm leading-6 text-slate-300">{subheading}</div>
+        <div className="text-3xl font-semibold text-sky-200 md:text-4xl">{years}</div>
       </div>
-      <div className="pointer-events-none absolute right-3 top-0 text-[88px] font-semibold text-slate-800/70 md:text-[110px]">
-        {years}
-      </div>
+      <div className="mt-3 text-sm leading-6 text-slate-300">{subheading}</div>
     </div>
   );
 };
@@ -27,7 +24,7 @@ export const OverviewSection = () => {
     <>
       <Heading>Overview</Heading>
       <div className="mt-3 text-sm text-slate-300 md:text-base">
-        Snapshot of delivery focus and engineering depth.
+        Key highlights from projects, delivery, and technical ownership.
       </div>
       <div className="grid grid-cols-1 items-stretch gap-4 pt-6 md:grid-cols-3 md:pt-8">
         <IdividualBlock

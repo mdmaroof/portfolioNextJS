@@ -9,17 +9,133 @@ html {
 
 
 body {
-    background-color: #020617;
+    background-color: #030712;
     background-image:
-        radial-gradient(circle at 10% 10%, rgba(14, 116, 144, 0.2), transparent 35%),
-        radial-gradient(circle at 90% 20%, rgba(99, 102, 241, 0.18), transparent 30%),
-        linear-gradient(180deg, #020617 0%, #0f172a 100%);
+        radial-gradient(circle at 0% 0%, rgba(34, 211, 238, 0.2), transparent 30%),
+        radial-gradient(circle at 100% 10%, rgba(99, 102, 241, 0.22), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(236, 72, 153, 0.15), transparent 34%),
+        linear-gradient(180deg, #020617 0%, #0b1120 55%, #020617 100%);
     min-height: 100vh;
     color: #fff;
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
 }
 
 .reveal-up {
     animation: revealUp 0.5s ease both;
+}
+
+.glass-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.55), rgba(30, 41, 59, 0.3));
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: -10% -20%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    filter: blur(14px);
+}
+
+body::before {
+    background:
+        radial-gradient(38% 24% at 18% 24%, rgba(248, 250, 252, 0.36) 0%, rgba(248, 250, 252, 0) 76%),
+        radial-gradient(36% 22% at 70% 28%, rgba(219, 234, 254, 0.34) 0%, rgba(219, 234, 254, 0) 74%),
+        radial-gradient(40% 24% at 46% 70%, rgba(224, 231, 255, 0.28) 0%, rgba(224, 231, 255, 0) 78%);
+    animation: cloudDriftA 28s ease-in-out infinite alternate;
+}
+
+body::after {
+    background:
+        radial-gradient(32% 20% at 80% 20%, rgba(186, 230, 253, 0.28) 0%, rgba(186, 230, 253, 0) 74%),
+        radial-gradient(36% 22% at 24% 58%, rgba(233, 213, 255, 0.24) 0%, rgba(233, 213, 255, 0) 76%),
+        radial-gradient(30% 18% at 60% 84%, rgba(207, 250, 254, 0.2) 0%, rgba(207, 250, 254, 0) 78%);
+    animation: cloudDriftB 34s ease-in-out infinite alternate;
+}
+
+@keyframes cloudDriftA {
+    0% {
+        transform: translate3d(-2%, 0%, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(3%, 2%, 0) scale(1.06);
+    }
+}
+
+@keyframes cloudDriftB {
+    0% {
+        transform: translate3d(2%, -1%, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(-3%, 2%, 0) scale(1.08);
+    }
+}
+
+html::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(2px 2px at 8% 18%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 22% 34%, rgba(191, 219, 254, 0.85) 50%, transparent 52%),
+        radial-gradient(2px 2px at 36% 12%, rgba(255, 255, 255, 0.95) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 52% 28%, rgba(186, 230, 253, 0.9) 50%, transparent 52%),
+        radial-gradient(2px 2px at 68% 16%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 82% 30%, rgba(224, 231, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(2px 2px at 14% 62%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 30% 78%, rgba(186, 230, 253, 0.85) 50%, transparent 52%),
+        radial-gradient(2px 2px at 48% 64%, rgba(255, 255, 255, 0.92) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 64% 82%, rgba(224, 231, 255, 0.88) 50%, transparent 52%),
+        radial-gradient(2px 2px at 78% 70%, rgba(255, 255, 255, 0.94) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 90% 86%, rgba(191, 219, 254, 0.86) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 5% 42%, rgba(255, 255, 255, 0.8) 50%, transparent 52%),
+        radial-gradient(2px 2px at 18% 50%, rgba(224, 231, 255, 0.84) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 27% 8%, rgba(186, 230, 253, 0.82) 50%, transparent 52%),
+        radial-gradient(2px 2px at 41% 38%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 57% 6%, rgba(191, 219, 254, 0.8) 50%, transparent 52%),
+        radial-gradient(2px 2px at 73% 44%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 88% 54%, rgba(224, 231, 255, 0.82) 50%, transparent 52%),
+        radial-gradient(2px 2px at 11% 90%, rgba(255, 255, 255, 0.86) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 25% 92%, rgba(186, 230, 253, 0.8) 50%, transparent 52%),
+        radial-gradient(2px 2px at 37% 86%, rgba(255, 255, 255, 0.88) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 53% 94%, rgba(224, 231, 255, 0.82) 50%, transparent 52%),
+        radial-gradient(2px 2px at 69% 92%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 83% 94%, rgba(191, 219, 254, 0.82) 50%, transparent 52%),
+        radial-gradient(2px 2px at 95% 74%, rgba(255, 255, 255, 0.86) 50%, transparent 52%);
+    opacity: 0.88;
+    animation: starTwinkle 6s ease-in-out infinite alternate, starDrift 50s linear infinite;
+}
+
+@keyframes starTwinkle {
+    0% {
+        opacity: 0.45;
+    }
+
+    100% {
+        opacity: 0.85;
+    }
+}
+
+@keyframes starDrift {
+    0% {
+        transform: translateX(0px);
+    }
+
+    100% {
+        transform: translateX(-18px);
+    }
 }
 
 @keyframes revealUp {

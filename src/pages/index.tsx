@@ -22,39 +22,41 @@ export default function Home() {
           content="Mohd Maroof - Senior Frontend Developer portfolio and resume"
         />
       </Head>
-      <main className={`${openSans.className} min-h-screen px-4 py-8 md:px-8 md:py-12`}>
+      <main
+        className={`${openSans.className} relative z-10 min-h-screen px-4 py-8 md:px-8 md:py-12`}
+      >
         <div className="mx-auto w-full max-w-6xl space-y-10 md:space-y-14">
           <section
             id="about"
-            className="reveal-up rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-black/20 backdrop-blur-sm md:p-10"
+            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <HeaderComponent data={data} />
           </section>
 
           <section
             id="overview"
-            className="reveal-up rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-black/20 backdrop-blur-sm md:p-10"
+            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <OverviewSection />
           </section>
 
           <section
             id="experience"
-            className="reveal-up rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-black/20 backdrop-blur-sm md:p-10"
+            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <WorkHistory work={data.work} />
           </section>
 
           <section
             id="skills"
-            className="reveal-up rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-black/20 backdrop-blur-sm md:p-10"
+            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <SkillSection skills={data.skills} />
           </section>
 
           <section
             id="timeline"
-            className="reveal-up rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-black/20 backdrop-blur-sm md:p-10"
+            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <Timeline work={data.work} />
           </section>

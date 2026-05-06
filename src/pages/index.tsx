@@ -16,15 +16,8 @@ const openSans = Open_Sans({
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Mohd Maroof</title>
-        <meta
-          name="description"
-          content="Mohd Maroof - Senior Frontend Developer portfolio and resume"
-        />
-      </Head>
       <main
-        className={`${openSans.className} relative z-10 min-h-screen px-4 py-8 md:px-8 md:py-12`}
+        className={`${openSans.className} safe-area-main relative z-10 min-h-screen`}
       >
         <div className="mx-auto w-full max-w-6xl space-y-10 md:space-y-14">
           <section

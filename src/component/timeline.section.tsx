@@ -1,48 +1,115 @@
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import { Heading } from "./heading";
 import { objectWork } from "./workHistory.section";
-
-interface PropsIndividual {
-  organisation: string;
-  from: string;
-  to: string;
-}
 
 interface Props {
   work?: objectWork[];
 }
 
-const IndividualBlock = ({
-  organisation,
-  from,
-  to,
-}: PropsIndividual) => {
-  return (
-    <li className="group relative pl-10 md:pl-12">
-      <span className="absolute left-[3px] top-[22px] h-3.5 w-3.5 rounded-full border border-indigo-200/60 bg-indigo-300 shadow-[0_0_0_5px_rgba(165,180,252,0.22)] transition-transform duration-200 group-hover:scale-110" />
-      <div className="glass-chip rounded-xl px-4 py-3 md:px-5">
-        <div className="text-xs uppercase tracking-[0.12em] text-indigo-200/80">
-          {from} - {to}
-        </div>
-        <div className="mt-1 text-base font-semibold tracking-wide text-slate-100 md:text-lg">
-          {organisation}
-        </div>
-      </div>
-    </li>
-  );
-};
-
 export const Timeline = ({ work }: Props) => {
+  const items = work ?? [];
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    dragFree: false,
+    watchDrag: false,
+    containScroll: "trimSnaps",
+  });
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  useEffect(() => {
+    if (!emblaApi || items.length <= 1) return;
+    const timer = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, [emblaApi, items.length]);
+
   return (
     <div>
       <Heading>Timeline</Heading>
-      <p className="mt-2 text-sm text-slate-300 md:text-base">
-        Quick journey view of roles over time.
-      </p>
-      <ul className="relative mt-6 space-y-3 before:absolute before:bottom-0 before:left-[9px] before:top-0 before:w-[2px] before:rounded-full before:bg-gradient-to-b before:from-indigo-300/80 before:to-fuchsia-300/60">
-        {work?.map((z, i) => (
-          <IndividualBlock key={i} {...z} />
-        ))}
-      </ul>
+      <p className="mt-2 text-sm text-slate-300 md:text-base">Career path and role progression.</p>
+      <div className="mt-6 -mx-6 md:-mx-10">
+        <div className="relative overflow-hidden">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {items.map((item, index) => {
+                const isActive = index === selectedIndex;
+                return (
+                  <article
+                    key={`${item.organisation}-${index}`}
+                    className="min-w-0 shrink-0 grow-0 basis-[72%] px-2 md:basis-[36%]"
+                  >
+                    <div
+                      className={`h-[280px] w-full overflow-hidden rounded-xl border 
+                        px-4 py-4 
+                        shadow-[0_14px_28px_rgba(2,6,23,0.35)] 
+                        backdrop-blur-sm transition-all duration-300 md:h-[260px] ${isActive
+                          ? "scale-100 border-slate-700/75 bg-slate-950/60 opacity-100"
+                          : "scale-[0.7] border-slate-800/80 bg-slate-950/45 opacity-60"
+                        }`}
+                    >
+                      <div className="flex h-full flex-col justify-between">
+                        <div>
+                          <h3 className="text-base font-semibold text-slate-100">{item.organisation}</h3>
+                          <p className="mt-1 text-sm text-slate-300">{item.role}</p>
+                          <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-400">
+                            {item.labels?.[0] ?? "Delivered key frontend features and improvements."}
+                          </p>
+                        </div>
+
+                        <div>
+                          <div className="mb-2 h-px w-full bg-slate-800/80" />
+                          <div className="flex items-center justify-between">
+                            <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-2 py-0.5 text-[11px] text-slate-300">
+                              {item.location}
+                            </span>
+                            <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-slate-400">
+                              {item.from} - {item.to}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-5 flex items-center justify-center gap-2">
+            {items.map((_, index) => (
+              <div
+                key={`dot-${index}`}
+                onClick={() => { }}//emblaApi?.scrollTo(index)
+                aria-label={`Go to timeline item ${index + 1}`}
+                className={`h-1 w-1 rounded-full transition-all ${index === selectedIndex
+                  ? "bg-sky-300 ring-2 ring-sky-400/30 w-4"
+                  : "bg-slate-600 hover:bg-slate-500"
+                  }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

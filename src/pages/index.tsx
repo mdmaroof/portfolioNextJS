@@ -6,7 +6,6 @@ import { WorkHistory } from "../component/workHistory.section";
 import { SkillSection } from "../component/skills.section";
 import { Timeline } from "../component/timeline.section";
 import { ProjectsSection } from "../component/projects.section";
-import Head from "next/head";
 
 const openSans = Open_Sans({
   subsets: ["latin"],

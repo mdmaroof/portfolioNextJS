@@ -11,6 +11,7 @@ export const HeaderComponent = ({ data }: Props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -19,7 +20,11 @@ export const HeaderComponent = ({ data }: Props) => {
     setModalOpen(false);
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
+    if (isSending) {
+      return;
+    }
+
     if (!name) {
       alert("Please type your name");
       return;
@@ -37,12 +42,37 @@ export const HeaderComponent = ({ data }: Props) => {
       return;
     }
 
-    const payload = {
-      name,
-      message,
-      email,
-    };
-    console.log(payload);
+    try {
+      setIsSending(true);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          message,
+          email,
+        }),
+      });
+
+      const result = (await response.json()) as { ok: boolean; message: string };
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "Failed to send message");
+      }
+
+      alert("Message sent successfully");
+      setName("");
+      setEmail("");
+      setMessage("");
+      setModalOpen(false);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to send message";
+      alert(errorMessage);
+    } finally {
+      setIsSending(false);
+    }
   };
   return (
     <>
@@ -73,6 +103,7 @@ export const HeaderComponent = ({ data }: Props) => {
                 <label className="mb-1 text-sm text-slate-300">Name</label>
                 <input
                   type="name"
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400"
                 />
@@ -81,6 +112,7 @@ export const HeaderComponent = ({ data }: Props) => {
                 <label className="mb-1 text-sm text-slate-300">Email</label>
                 <input
                   type="email"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400"
                 />
@@ -88,6 +120,7 @@ export const HeaderComponent = ({ data }: Props) => {
               <div className="flex flex-col my-2">
                 <label className="mb-1 text-sm text-slate-300">Message</label>
                 <textarea
+                  value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400"
                   rows={3}
@@ -96,9 +129,13 @@ export const HeaderComponent = ({ data }: Props) => {
 
               <div
                 onClick={sendMessage}
-                className="mt-3 flex w-[120px] cursor-pointer items-center justify-center rounded-md bg-red-600 py-2 text-white transition-colors duration-100 hover:bg-red-700"
+                className={`mt-3 flex w-[120px] items-center justify-center rounded-md py-2 text-white transition-colors duration-100 ${
+                  isSending
+                    ? "cursor-not-allowed bg-red-400"
+                    : "cursor-pointer bg-red-600 hover:bg-red-700"
+                }`}
               >
-                Send
+                {isSending ? "Sending..." : "Send"}
               </div>
             </div>
           </div>

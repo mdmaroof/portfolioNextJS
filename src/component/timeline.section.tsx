@@ -57,41 +57,46 @@ export const Timeline = ({ work }: Props) => {
                 const distance = Math.min(rawDistance, total - rawDistance);
                 const visualClass =
                   distance === 0
-                    ? "scale-100 translate-y-0 opacity-100 border-slate-700/75 bg-slate-950/60"
+                    ? "scale-100 opacity-100 border-slate-700/75 bg-slate-950/60"
                     : distance === 1
                       ? "scale-100 opacity-60 border-slate-800/80 bg-slate-950/45"
                       : "scale-100 opacity-40 border-slate-800/80 bg-slate-950/45";
                 return (
                   <article
                     key={`${item.organisation}-${index}`}
-                    className="min-w-0 shrink-0 grow-0 basis-[84%] px-2 md:basis-[36%]"
+                    className="min-w-0 shrink-0 grow-0 basis-[92%] px-1.5 md:basis-[36%] md:px-2"
                   >
-                    <div className="flex h-[280px] items-end md:h-[240px]">
+                    <div className="flex h-[290px] items-end md:h-[260px]">
                       <div
-                        className={`h-[280px] w-full overflow-hidden rounded-xl border 
-                        px-4 py-4 
-                        shadow-[0_14px_28px_rgba(2,6,23,0.35)] 
-                        backdrop-blur-sm transition-all duration-300 md:h-[220px] ${visualClass}`}
+                        className={`h-full w-full overflow-hidden rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 ${visualClass}`}
                       >
-                        <div className="flex h-full flex-col justify-between">
-                          <div>
-                            <h3 className="text-base font-semibold text-slate-100">{item.organisation}</h3>
-                            <p className="mt-1 text-sm text-slate-300">{item.role}</p>
-                            <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-400">
+                        <div className="flex h-full flex-col">
+                          <div className="mt-1 md:mt-3">
+                            <p className="text-[11px] font-medium tracking-[0.08em] text-slate-400">Role</p>
+                            <h3 className="mt-1 text-base font-semibold text-slate-100">{item.role}</h3>
+                            <p className="mt-1 text-sm text-slate-300">{item.organisation}</p>
+                          </div>
+
+                          <div className="mt-2 flex-1">
+                            <p className="line-clamp-3 text-xs leading-5 text-slate-400">
                               {item.labels?.[0] ?? "Delivered key frontend features and improvements."}
                             </p>
                           </div>
 
-                          <div>
-                            <div className="mb-2 h-px w-full bg-slate-800/80" />
-                            <div className="flex items-center justify-between">
-                              <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-2 py-0.5 text-[11px] text-slate-300">
-                                {item.location}
-                              </span>
-                              <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-slate-400">
-                                {item.from} - {item.to}
-                              </span>
-                            </div>
+                          {/* <div className="mt-3 h-px w-full bg-slate-800/80" /> */}
+                          <div className="mt-3 flex items-center justify-end">
+                            <span className="rounded-full bg-sky-400/10 px-2.5 py-1 text-[10px] font-medium text-sky-300">
+                              {item.location}
+                            </span>
+                          </div>
+                          <div className="mt-2 flex items-center justify-end">
+                            <span className="inline-flex rounded-lg 
+                            border border-slate-700/50 bg-slate-900/45 
+                            px-2.5 py-1 text-[10px] font-medium leading-4 text-slate-300 md:px-2.5 md:py-1.5 md:text-[11px]">
+                              <span className="block md:hidden">{item.from}</span>
+                              <span className="mx-1 hidden text-slate-500 md:inline">-</span>
+                              <span className="block text-slate-400">{item.to}</span>
+                            </span>
                           </div>
                         </div>
                       </div>

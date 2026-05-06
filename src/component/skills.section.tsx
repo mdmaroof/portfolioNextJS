@@ -2,17 +2,17 @@ import { Heading } from "./heading";
 import { BsDot } from "react-icons/bs";
 
 interface Props {
-  skills: String[];
+  skills: string[];
 }
 
 export const SkillSection = ({ skills }: Props) => {
   return (
-    <div className="pb-1">
+    <div>
       <Heading>Skills</Heading>
-      <div className="mt-10 mb-20 px-10 py-10 font-light md:font-normal bg-white text-black grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="mt-8 grid grid-cols-1 gap-3 rounded-xl border border-white/10 bg-slate-800/80 px-5 py-6 text-slate-100 md:grid-cols-2 md:gap-4 md:px-8 md:py-8 lg:grid-cols-3">
         {skills.map((z, i) => (
-          <div key={i} className="flex gap-2 items-center">
-            <BsDot />
+          <div key={i} className="flex items-center gap-2 rounded-md border border-white/5 bg-slate-900/60 px-3 py-2">
+            <BsDot className="text-sky-300" />
             {z}
           </div>
         ))}

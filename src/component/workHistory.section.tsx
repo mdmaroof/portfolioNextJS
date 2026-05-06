@@ -23,20 +23,24 @@ const IndividualBlock = ({
   labels,
 }: objectWork) => {
   return (
-    <div className="bg-white text-sm md:text-md rounded w-full px-5 md:px-10 py-10 font-normal mb-10">
-      <div className="flex gap-2 items-center mb-2">
-        <MdWork size={26} />
-        <span className="text-lg font-semibold">{organisation}</span>
+    <div className="mb-6 w-full rounded-xl border border-white/10 bg-slate-800/80 px-5 py-6 text-sm text-slate-100 md:px-8 md:py-8 md:text-base">
+      <div className="mb-2 flex items-center gap-2">
+        <MdWork size={22} className="text-sky-300" />
+        <span className="text-lg font-semibold md:text-xl">{organisation}</span>
       </div>
-      <div className="leading-7 md:leading-8">
-        <div>{role}</div>
-        <div>{location}</div>
-        <div className="text-gray-400">
-          From {from} To {to}
+      <div className="leading-7 text-slate-200 md:leading-8">
+        <div className="font-medium text-slate-100">{role}</div>
+        <div className="mt-1 inline-flex items-center gap-2">
+          <span className="rounded-full border border-white/15 bg-slate-900/70 px-2 py-0.5 text-xs text-slate-300 md:text-sm">
+            {location}
+          </span>
+          <span className="rounded-full border border-sky-400/30 bg-sky-500/10 px-2 py-0.5 text-xs text-sky-200 md:text-sm">
+            {from} - {to}
+          </span>
         </div>
       </div>
 
-      <ul className="list-disc ml-4 font-light md:font-normal md:ml-10 leading-8 md:leading-10 mt-2">
+      <ul className="mt-3 ml-5 list-disc leading-7 text-slate-300 md:ml-6 md:leading-8">
         {labels.map((x, i) => (
           <li key={i}>{x}</li>
         ))}
@@ -49,7 +53,7 @@ export const WorkHistory = ({ work }: Props) => {
   return (
     <>
       <Heading>Work Experience</Heading>
-      <div className="py-5 md:py-10 text-black">
+      <div className="py-5 md:py-8">
         {work?.map((z, i) => (
           <IndividualBlock key={i} {...z} />
         ))}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdWork, MdLocationOn } from "react-icons/md";
+import { MdWork } from "react-icons/md";
 import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { Heading } from "./heading";
@@ -115,10 +115,6 @@ export const HeaderComponent = ({ data }: Props) => {
             </div>
             <div className="mt-4 flex flex-col gap-3 text-base text-slate-300 md:text-lg">
               <div className="flex items-center gap-2">
-                <MdLocationOn />
-                {data?.location ?? null}
-              </div>
-              <div className="flex items-center gap-2">
                 <MdWork />
                 6+ years experience
               </div>
@@ -134,7 +130,7 @@ export const HeaderComponent = ({ data }: Props) => {
               Message
             </div>
             <div className="rounded-lg border border-slate-700/60 bg-slate-900/60 px-3 py-2 text-xs text-slate-300">
-              Open to Remote / Contract
+              {data?.country ?? "India"}
             </div>
           </div>
         </section>

@@ -98,4 +98,18 @@ export const data = {
     "Dashboard Development",
     "Reusable Component Architecture",
   ],
+  projects: [
+    {
+      name: "Graple.ai",
+      description: "Engagement and retention experimentation platform.",
+    },
+    {
+      name: "SnapAid",
+      description: "Emergency medical guidance web application.",
+    },
+    {
+      name: "Twist N Words",
+      description: "Interactive word shuffle game.",
+    },
+  ],
 };

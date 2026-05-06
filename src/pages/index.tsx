@@ -5,6 +5,7 @@ import { data } from "../data";
 import { WorkHistory } from "../component/workHistory.section";
 import { SkillSection } from "../component/skills.section";
 import { Timeline } from "../component/timeline.section";
+import { ProjectsSection } from "../component/projects.section";
 import Head from "next/head";
 
 const openSans = Open_Sans({
@@ -59,6 +60,10 @@ export default function Home() {
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <Timeline work={data.work} />
+          </section>
+
+          <section className="glass-card reveal-up rounded-2xl p-6 md:p-10">
+            <ProjectsSection projects={data.projects} />
           </section>
         </div>
       </main>

@@ -5,8 +5,9 @@ import { Heading } from "./heading";
 
 interface Props {
   data: any;
+  onMessageSentSuccess?: () => void;
 }
-export const HeaderComponent = ({ data }: Props) => {
+export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -61,7 +62,7 @@ export const HeaderComponent = ({ data }: Props) => {
         throw new Error(result.message || "Failed to send message");
       }
 
-      alert("Message sent successfully");
+      onMessageSentSuccess?.();
       setName("");
       setEmail("");
       setMessage("");
@@ -104,8 +105,9 @@ export const HeaderComponent = ({ data }: Props) => {
                 <input
                   type="name"
                   value={name}
+                  disabled={isSending}
                   onChange={(e) => setName(e.target.value)}
-                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400"
+                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
                 />
               </div>
               <div className="flex flex-col my-2">
@@ -113,16 +115,18 @@ export const HeaderComponent = ({ data }: Props) => {
                 <input
                   type="email"
                   value={email}
+                  disabled={isSending}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400"
+                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
                 />
               </div>
               <div className="flex flex-col my-2">
                 <label className="mb-1 text-sm text-slate-300">Message</label>
                 <textarea
                   value={message}
+                  disabled={isSending}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400"
+                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
                   rows={3}
                 />
               </div>

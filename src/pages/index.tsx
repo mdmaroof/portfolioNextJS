@@ -1,4 +1,5 @@
 import { Open_Sans } from "next/font/google";
+import { useState } from "react";
 import { HeaderComponent } from "../component/header.section";
 import { OverviewSection } from "../component/overview.section";
 import { data } from "../data";
@@ -13,8 +14,22 @@ const openSans = Open_Sans({
 });
 
 export default function Home() {
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+
+  const handleMessageSentSuccess = () => {
+    setShowSuccessToast(true);
+    setTimeout(() => {
+      setShowSuccessToast(false);
+    }, 5000);
+  };
+
   return (
     <>
+      {showSuccessToast && (
+        <div className="fixed right-4 top-4 z-[60] rounded-md border border-emerald-400/40 bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-emerald-900/30">
+          Message sent successfully
+        </div>
+      )}
       <main
         className={`${openSans.className} safe-area-main relative z-10 min-h-screen`}
       >
@@ -23,7 +38,10 @@ export default function Home() {
             id="about"
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
-            <HeaderComponent data={data} />
+            <HeaderComponent
+              data={data}
+              onMessageSentSuccess={handleMessageSentSuccess}
+            />
           </section>
 
           <section

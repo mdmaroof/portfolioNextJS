@@ -14,10 +14,10 @@ const companyIcons: Record<string, IconType> = {
   "Noon Academy": FiRadio,
 };
 
-const ExperienceCard = ({ item, index, isLast }: { item: objectWork; index: number; isLast: boolean }) => {
+const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) => {
   const CompanyIcon = companyIcons[item.organisation] || FiCode;
   return (
-  <article className={`experience-card group ${index === 0 || isLast ? "experience-card-wide" : ""} ${index === 0 ? "experience-card-featured" : ""}`}>
+  <article className="experience-card group">
     <div className="experience-card-top">
       <div className="company-orbit" aria-hidden="true">
         <span className="company-orbit-ring" />
@@ -57,7 +57,7 @@ export const WorkHistory = ({ work = [] }: Props) => (
       <p>Building thoughtful interfaces and reliable product experiences since 2019.</p>
     </div>
     <div className="experience-grid mt-8 md:mt-10">
-      {work.map((item, index) => <ExperienceCard key={`${item.organisation}-${item.from}`} item={item} index={index} isLast={index === work.length - 1} />)}
+      {work.map((item, index) => <ExperienceCard key={`${item.organisation}-${item.from}`} item={item} index={index} />)}
     </div>
   </div>
 );

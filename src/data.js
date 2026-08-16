@@ -123,7 +123,7 @@ export const data = {
         "Campaign builder with drag-and-drop",
       ],
       status: "Live",
-      link: "https://graple.ai",
+      link: "https://graple-theta.vercel.app/",
     },
     {
       name: "SnapAid",

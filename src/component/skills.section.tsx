@@ -21,7 +21,6 @@ export const SkillSection = ({ skills }: Props) => {
         <div className="skills-ring skills-ring-one" />
         <div className="skills-ring skills-ring-two" />
         <div className="skills-ring skills-ring-three" />
-        <div className="skills-core" aria-hidden="true"><span>Product</span><strong>Engineering</strong></div>
         <span className="skills-satellite skills-satellite-one" aria-hidden="true" />
         <span className="skills-satellite skills-satellite-two" aria-hidden="true" />
         <span className="skills-satellite skills-satellite-three" aria-hidden="true" />

@@ -104,7 +104,7 @@ export default function Home() {
 
           <section
             id="timeline"
-            className="orbital-section reveal-up"
+            className="orbital-section reveal-up !p-0"
           >
             <Timeline work={data.work} />
           </section>

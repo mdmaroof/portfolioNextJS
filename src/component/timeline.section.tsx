@@ -1,33 +1,40 @@
+import { m } from "framer-motion";
 import { FiArrowUpRight, FiMapPin } from "react-icons/fi";
 import { Heading } from "./heading";
 import { objectWork } from "./workHistory.section";
-import { m } from "framer-motion";
 
 interface Props { work?: objectWork[]; }
 
 export const Timeline = ({ work = [] }: Props) => (
   <div className="career-orbit">
-    <div className="relative z-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <div className="section-heading-row">
       <div><span className="eyebrow">Career trajectory</span><Heading className="mt-3">The journey so far</Heading></div>
-      <p className="max-w-xs text-sm leading-6 text-slate-400 md:text-right">A continuous path from frontend craft to product ownership.</p>
+      <p>Every role added a new layer—from realtime experiences to product ownership.</p>
     </div>
-    <div className="relative z-10 mt-10 hidden grid-cols-3 gap-x-4 gap-y-8 md:grid xl:grid-cols-6">
+
+    <div className="timeline-stage mt-7 hidden md:block">
+      <div className="timeline-arc timeline-arc-one" />
+      <div className="timeline-arc timeline-arc-two" />
+      <div className="timeline-arc timeline-arc-three" />
+      <p className="timeline-statement">A continuous path from frontend craft to product ownership.</p>
+      <div className="timeline-track">
+        {work.map((item, index) => (
+          <m.article key={`${item.organisation}-${item.from}`} className="timeline-stop" initial={{ opacity: 0, scale: .75 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .45, delay: index * .07, ease: [0.16, 1, 0.3, 1] }}>
+            <div className="timeline-node">{String(index + 1).padStart(2, "0")}</div>
+            <div className="timeline-stop-copy"><strong>{item.organisation}</strong><span>{item.from.split(" ").slice(-1)}</span></div>
+          </m.article>
+        ))}
+      </div>
+    </div>
+
+    <div className="mt-5 space-y-3 md:hidden">
       {work.map((item, index) => (
-        <m.article key={`${item.organisation}-${item.from}`} className="timeline-orbit-item" initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .42, delay: index * .055 }}>
-          <div className="timeline-node"><span>{String(work.length - index).padStart(2, "0")}</span></div>
-          <p className="mt-5 text-xs font-medium tracking-[0.12em] text-cyan-200/80">{item.from.split(" ").slice(-1)}</p>
-          <h3 className="mt-2 text-sm font-semibold leading-5 text-white">{item.role}</h3>
-          <p className="mt-1.5 text-xs leading-5 text-slate-400">{item.organisation}</p>
+        <m.article key={`${item.organisation}-${item.from}`} className="timeline-mobile-card" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .4, delay: index * .04 }}>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <div><h3>{item.role}</h3><p>{item.organisation} · {item.from} — {item.to}</p></div>
         </m.article>
       ))}
     </div>
-    <div className="relative z-10 mt-8 space-y-3 md:hidden">
-      {work.map((item, index) => (
-        <m.article key={`${item.organisation}-${item.from}`} className="rounded-2xl border border-white/[0.08] bg-slate-950/35 p-4" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .4, delay: index * .04 }}>
-          <div className="flex items-start gap-3"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-violet-400/15 text-xs font-semibold text-violet-200">{String(work.length - index).padStart(2, "0")}</span><div><h3 className="font-semibold text-white">{item.role}</h3><p className="mt-1 text-sm text-slate-400">{item.organisation} · {item.from} — {item.to}</p></div></div>
-        </m.article>
-      ))}
-    </div>
-    <div className="relative z-10 mt-8 flex flex-wrap gap-3 border-t border-white/[0.08] pt-6 text-xs text-slate-400"><span className="inline-flex items-center gap-1.5"><FiMapPin className="text-cyan-300" /> India & remote</span><span className="inline-flex items-center gap-1.5"><FiArrowUpRight className="text-violet-300" /> Frontend to product leadership</span></div>
+    <div className="timeline-meta"><span><FiMapPin /> India & remote</span><span><FiArrowUpRight /> Frontend to product leadership</span></div>
   </div>
 );

@@ -980,68 +980,147 @@ textarea:focus-visible {
 /* Timeline */
 .career-orbit {
     position: relative;
-    overflow: hidden;
-    min-height: 24rem;
-    /* padding: .25rem; */
-    padding: clamp(0.25rem, 4vw, 3.5rem);
+    min-width: 0;
 }
 
-.career-orbit::before {
-    content: "";
-    position: absolute;
-    width: 42rem;
-    height: 42rem;
-    right: -9rem;
-    top: -28rem;
-    border-radius: 50%;
-    background: repeating-radial-gradient(circle, transparent 0 4rem, rgba(200, 186, 255, .12) 4.04rem 4.1rem)
-}
-
-.career-orbit::after {
-    content: "";
-    position: absolute;
-    width: 25rem;
-    height: 25rem;
-    right: 0;
-    top: -10rem;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 120, 122, .1), transparent 68%)
-}
-
-.timeline-orbit-item {
+.timeline-stage {
     position: relative;
-    min-height: 10rem
+    min-height: 27rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .075);
+    border-radius: 1.4rem;
+    background: radial-gradient(circle at 58% 20%, rgba(255, 120, 122, .07), transparent 37%), rgba(9, 8, 17, .28);
 }
 
-.timeline-orbit-item::before {
+.timeline-arc {
+    position: absolute;
+    left: 58%;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 186, 255, .15);
+    transform: translateX(-50%);
+}
+
+.timeline-arc-one {
+    width: 21rem;
+    height: 21rem;
+    top: -16rem;
+}
+
+.timeline-arc-two {
+    width: 39rem;
+    height: 39rem;
+    top: -29rem;
+}
+
+.timeline-arc-three {
+    width: 60rem;
+    height: 60rem;
+    top: -44rem;
+}
+
+.timeline-statement {
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    width: min(38rem, 66%);
+    color: #a8a2bd;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    line-height: 1.7;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.timeline-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2.2rem;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.timeline-track::before {
     content: "";
     position: absolute;
-    top: 1.2rem;
-    left: 2.5rem;
-    right: -1rem;
+    left: 0;
+    right: 0;
+    top: 1.5rem;
     height: 1px;
-    background: linear-gradient(90deg, rgba(100, 231, 255, .45), rgba(155, 124, 255, .12))
+    background: linear-gradient(90deg, rgba(100, 231, 255, .12), rgba(100, 231, 255, .62), rgba(155, 124, 255, .18));
 }
 
-.timeline-orbit-item:last-child::before {
-    display: none
+.timeline-stop {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 14%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .timeline-node {
-    position: relative;
-    z-index: 1;
     display: grid;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     place-items: center;
-    border: 1px solid rgba(200, 186, 255, .45);
+    border: 1px solid rgba(200, 186, 255, .58);
     border-radius: 50%;
     background: #181528;
     box-shadow: 0 0 0 .35rem rgba(155, 124, 255, .07), 0 0 22px rgba(100, 231, 255, .13);
     color: #e7deff;
-    font-size: .66rem;
+    font-size: .72rem;
     font-weight: 750
 }
+
+.timeline-stop-copy {
+    display: flex;
+    min-height: 2.2rem;
+    flex-direction: column;
+    gap: .15rem;
+    margin-top: .75rem;
+}
+
+.timeline-stop-copy strong {
+    color: #d8d2e4;
+    font-size: .66rem;
+}
+
+.timeline-stop-copy span {
+    color: #716b80;
+    font-size: .58rem;
+}
+
+.timeline-mobile-card {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 1rem;
+    background: rgba(3, 7, 18, .22);
+}
+
+.timeline-mobile-card>span {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: .6rem;
+    background: rgba(155, 124, 255, .14);
+    color: #d8ccff;
+    font-size: .65rem;
+    font-weight: 700;
+}
+
+.timeline-mobile-card h3 { color: white; font-size: .85rem; font-weight: 650; }
+.timeline-mobile-card p { margin-top: .2rem; color: #898397; font-size: .68rem; line-height: 1.5; }
+.timeline-meta { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, .07); color: #817a91; font-size: .66rem; }
+.timeline-meta span { display: inline-flex; align-items: center; gap: .35rem; }
+.timeline-meta svg { color: #9b7cff; }
 
 /* Projects */
 .project-orbit-grid {

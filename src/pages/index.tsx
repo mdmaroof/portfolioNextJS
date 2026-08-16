@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { FiCheck } from "react-icons/fi";
 import { Navbar } from "../component/navbar.section";
 import { HeaderComponent } from "../component/header.section";
 import { OverviewSection } from "../component/overview.section";
@@ -12,7 +13,6 @@ import { Footer } from "../component/footer.section";
 
 export default function Home() {
   const [showSuccessToast, setShowSuccessToast] = useState(false);
-  const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   const handleMessageSentSuccess = () => {
     setShowSuccessToast(true);
@@ -61,7 +61,7 @@ export default function Home() {
       {showSuccessToast && (
         <div className="fixed right-4 top-20 z-[60] rounded-lg border border-emerald-400/30 bg-emerald-600/90 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-emerald-900/30 backdrop-blur-sm">
           <div className="flex items-center gap-2">
-            <span className="text-emerald-200">✓</span>
+            <FiCheck className="text-emerald-200" />
             Message sent successfully
           </div>
         </div>
@@ -70,11 +70,10 @@ export default function Home() {
       <main
         className="safe-area-main relative z-10 min-h-screen pt-16"
       >
-        <div className="mx-auto w-full max-w-6xl space-y-6 md:space-y-8">
+        <div className="mx-auto w-full max-w-7xl space-y-5 md:space-y-7">
           <section
             id="about"
-            ref={(el) => (sectionsRef.current[0] = el)}
-            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
+            className="orbital-section hero-section reveal-up"
           >
             <HeaderComponent
               data={data}
@@ -84,40 +83,35 @@ export default function Home() {
 
           <section
             id="overview"
-            ref={(el) => (sectionsRef.current[1] = el)}
-            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
+            className="orbital-section reveal-up"
           >
             <OverviewSection />
           </section>
 
           <section
             id="experience"
-            ref={(el) => (sectionsRef.current[2] = el)}
-            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
+            className="orbital-section reveal-up"
           >
             <WorkHistory work={data.work} />
           </section>
 
           <section
             id="skills"
-            ref={(el) => (sectionsRef.current[3] = el)}
-            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
+            className="orbital-section reveal-up"
           >
             <SkillSection skills={data.skills} />
           </section>
 
           <section
             id="timeline"
-            ref={(el) => (sectionsRef.current[4] = el)}
-            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
+            className="orbital-section reveal-up"
           >
             <Timeline work={data.work} />
           </section>
 
           <section
             id="projects"
-            ref={(el) => (sectionsRef.current[5] = el)}
-            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
+            className="orbital-section reveal-up"
           >
             <ProjectsSection projects={data.projects as any} />
           </section>

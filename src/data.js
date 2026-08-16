@@ -112,7 +112,6 @@ export const data = {
   projects: [
     {
       name: "Graple.ai",
-      icon: "📊",
       tagline: "Boost engagement with data-driven experiments",
       description:
         "A full-stack experimentation and retention platform that helps product teams design, launch, and analyze A/B tests and engagement campaigns. Built with a real-time analytics dashboard for tracking user behavior and conversion metrics.",
@@ -123,14 +122,11 @@ export const data = {
         "Retention funnel visualization",
         "Campaign builder with drag-and-drop",
       ],
-      gradient: "from-violet-600 to-indigo-600",
-      gradientBorder: "from-violet-500/50 to-indigo-500/50",
       status: "Live",
       link: "https://graple.ai",
     },
     {
       name: "SnapAid",
-      icon: "🏥",
       tagline: "Instant medical guidance when seconds count",
       description:
         "An emergency medical guidance web application that provides step-by-step first-aid instructions using AI-powered symptom analysis. Designed for accessibility and speed in critical situations with offline-first capabilities.",
@@ -141,14 +137,11 @@ export const data = {
         "Offline-first Progressive Web App",
         "Location-based hospital finder",
       ],
-      gradient: "from-emerald-600 to-cyan-600",
-      gradientBorder: "from-emerald-500/50 to-cyan-500/50",
       status: "Live",
-      link: null,
+      link: "https://snapaid.live/",
     },
     {
       name: "Twist N Words",
-      icon: "🎮",
       tagline: "Challenge your vocabulary with word puzzles",
       description:
         "An interactive word shuffle game that challenges players to unscramble letters and form words against the clock. Features progressive difficulty, streak tracking, and a clean, responsive interface built for both mobile and desktop.",
@@ -159,10 +152,22 @@ export const data = {
         "Smooth drag-and-drop letters",
         "Mobile-optimized touch controls",
       ],
-      gradient: "from-amber-500 to-orange-600",
-      gradientBorder: "from-amber-500/50 to-orange-500/50",
       status: "Live",
-      link: null,
+      link: "https://twistnwords.vercel.app/",
+    },
+    {
+      name: "Symzo",
+      tagline: "A modern digital product built for focused experiences",
+      description:
+        "A polished web product combining a clear interface, responsive interactions, and a scalable frontend foundation for a fast, focused user experience.",
+      tech: ["React", "Next.js", "TypeScript", "Responsive UI"],
+      features: [
+        "Modern responsive experience",
+        "Clear product-led interface",
+        "Performance-focused frontend",
+      ],
+      status: "Live",
+      link: "https://www.symzo.in/",
     },
   ],
 };

@@ -67,21 +67,19 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 glass-nav ${
-        isScrolled ? 'bg-slate-950/80 backdrop-blur-lg shadow-lg shadow-black/10' : 'bg-transparent'
-      }`}
+      className={`nav-shell ${isScrolled ? 'nav-shell-scrolled' : ''}`}
     >
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+      <div className="nav-inner">
         <a 
           href="#" 
-          className="text-3xl font-bold gradient-text" 
+          className="nav-brand"
           onClick={(e) => handleSmoothScroll(e, '#')}
         >
           MM
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex space-x-8 items-center">
+        <div className="nav-links hidden md:flex">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href.substring(1);
             return (
@@ -89,8 +87,8 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`nav-link inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-300 ${
-                  isActive ? 'active text-white' : 'text-gray-300 hover:text-white'
+                className={`nav-link ${
+                  isActive ? 'active' : ''
                 }`}
               >
                 <link.icon className="h-3.5 w-3.5" />
@@ -104,7 +102,7 @@ export const Navbar = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-300 hover:text-white focus:outline-none"
+            className="icon-button"
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? <AiOutlineClose size={28} /> : <FaBars size={28} />}
@@ -114,8 +112,8 @@ export const Navbar = () => {
 
       {/* Mobile Nav Menu */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full glass-nav transition-all duration-300 ease-in-out overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-96 opacity-100 py-4 shadow-lg bg-black/80 backdrop-blur-xl' : 'max-h-0 opacity-0 py-0 bg-transparent'
+        className={`mobile-nav md:hidden ${
+          isMobileMenuOpen ? 'max-h-96 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
         }`}
       >
         <div className="flex flex-col space-y-4 px-6">
@@ -126,8 +124,8 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`nav-link flex items-center gap-2 text-lg transition-colors duration-300 ${
-                  isActive ? 'active text-white' : 'text-gray-300 hover:text-white'
+                className={`nav-link flex items-center gap-2 text-base ${
+                  isActive ? 'active' : ''
                 }`}
               >
                 <link.icon className="h-4 w-4" />

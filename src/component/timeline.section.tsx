@@ -10,7 +10,7 @@ export const Timeline = ({ work = [] }: Props) => (
       <div><span className="eyebrow">Career trajectory</span><Heading className="mt-3">The journey so far</Heading></div>
       <p className="max-w-xs text-sm leading-6 text-slate-400 md:text-right">A continuous path from frontend craft to product ownership.</p>
     </div>
-    <div className="relative z-10 mt-10 hidden grid-cols-6 gap-3 md:grid">
+    <div className="relative z-10 mt-10 hidden grid-cols-3 gap-x-4 gap-y-8 md:grid xl:grid-cols-6">
       {work.map((item, index) => (
         <article key={`${item.organisation}-${item.from}`} className="timeline-orbit-item">
           <div className="timeline-node"><span>{String(work.length - index).padStart(2, "0")}</span></div>

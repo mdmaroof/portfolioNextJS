@@ -19,7 +19,7 @@ export const Timeline = ({ work = [] }: Props) => (
       <p className="timeline-statement">A continuous path from frontend craft to product ownership.</p>
       <div className="timeline-track">
         {work.map((item, index) => (
-          <m.article key={`${item.organisation}-${item.from}`} className="timeline-stop" initial={{ opacity: 0, scale: .75 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .45, delay: index * .07, ease: [0.16, 1, 0.3, 1] }}>
+          <m.article key={`${item.organisation}-${item.from}`} className="timeline-stop" initial={false} whileHover={{ y: -4 }} transition={{ duration: .22 }}>
             <div className="timeline-node">{String(index + 1).padStart(2, "0")}</div>
             <div className="timeline-stop-copy"><strong>{item.organisation}</strong><span>{item.from.split(" ").slice(-1)}</span></div>
           </m.article>

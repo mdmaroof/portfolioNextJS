@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.mdmaroof.site/sitemap.xml
+Host: https://www.mdmaroof.site

@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html
       lang="en"
+      dir="ltr"
       style={{
         backgroundColor: "#090811",
         backgroundImage:
@@ -12,28 +13,19 @@ export default function Document() {
     >
       <Head>
         <meta name="theme-color" content="#090811" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
-          name="description"
-          content="Mohd Maroof — Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications using React, Next.js, and React Native."
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
         />
-        <meta
-          property="og:title"
-          content="Mohd Maroof | Senior Frontend Developer"
-        />
-        <meta
-          property="og:description"
-          content="Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications using React, Next.js, and React Native."
-        />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Mohd Maroof | Senior Frontend Developer"
-        />
-        <meta
-          name="twitter:description"
-          content="Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications."
-        />
+        <meta name="apple-mobile-web-app-title" content="Mohd Maroof" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <body>
         <Main />

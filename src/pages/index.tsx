@@ -12,10 +12,64 @@ import { SkillSection } from "../component/skills.section";
 import { Timeline } from "../component/timeline.section";
 import { WorkHistory } from "../component/workHistory.section";
 import { data } from "../data";
+import { seo } from "../lib/seo";
 
 const sectionMotion = {
   hidden: { opacity: 0, y: 34, scale: .992 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: .72, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
+};
+
+const personSchema = {
+  "@type": "Person",
+  "@id": `${seo.canonicalUrl}#person`,
+  name: seo.author,
+  givenName: "Mohd",
+  familyName: "Maroof",
+  url: seo.canonicalUrl,
+  image: seo.ogImageUrl,
+  jobTitle: "Senior Frontend Developer",
+  description: seo.description,
+  email: "mailto:maroofmohdmalik@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "IN",
+  },
+  sameAs: [seo.profiles.github, seo.profiles.linkedin],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "React Native",
+    "TypeScript",
+    "Frontend architecture",
+    "Web performance",
+    "Realtime applications",
+  ],
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    personSchema,
+    {
+      "@type": "WebSite",
+      "@id": `${seo.canonicalUrl}#website`,
+      url: seo.canonicalUrl,
+      name: seo.siteName,
+      description: seo.description,
+      inLanguage: "en-IN",
+      publisher: { "@id": `${seo.canonicalUrl}#person` },
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${seo.canonicalUrl}#profile-page`,
+      url: seo.canonicalUrl,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: "en-IN",
+      isPartOf: { "@id": `${seo.canonicalUrl}#website` },
+      mainEntity: { "@id": `${seo.canonicalUrl}#person` },
+    },
+  ],
 };
 
 export default function Home() {
@@ -26,7 +80,60 @@ export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user">
-        <Head><title>Mohd Maroof | Senior Frontend Developer</title><meta name="description" content="Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications using React, Next.js, and React Native." /></Head>
+        <Head>
+          <title>{seo.title}</title>
+          <meta name="description" content={seo.description} />
+          <meta name="application-name" content={seo.author} />
+          <meta name="author" content={seo.author} />
+          <meta name="keywords" content={seo.keywords.join(", ")} />
+          <meta name="generator" content="Next.js" />
+          <meta name="referrer" content="strict-origin-when-cross-origin" />
+          <meta
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+          <meta
+            name="googlebot"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+          <meta
+            name="format-detection"
+            content="telephone=no, address=no, email=no"
+          />
+          <link rel="canonical" href={seo.canonicalUrl} />
+
+          <meta property="og:title" content={seo.title} />
+          <meta property="og:description" content={seo.description} />
+          <meta property="og:type" content="profile" />
+          <meta property="og:url" content={seo.canonicalUrl} />
+          <meta property="og:site_name" content={seo.siteName} />
+          <meta property="og:locale" content={seo.locale} />
+          <meta property="profile:first_name" content="Mohd" />
+          <meta property="profile:last_name" content="Maroof" />
+          <meta property="og:image" content={seo.ogImageUrl} />
+          <meta property="og:image:secure_url" content={seo.ogImageUrl} />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta
+            property="og:image:alt"
+            content="Mohd Maroof — Senior Frontend Developer portfolio"
+          />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={seo.title} />
+          <meta name="twitter:description" content={seo.description} />
+          <meta name="twitter:image" content={seo.ogImageUrl} />
+          <meta
+            name="twitter:image:alt"
+            content="Mohd Maroof — Senior Frontend Developer portfolio"
+          />
+
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+        </Head>
         <m.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
         <Navbar />
         <PlanetCursor />

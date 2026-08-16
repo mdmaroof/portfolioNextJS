@@ -1,0 +1,24 @@
+{
+  "name": "Mohd Maroof — Senior Frontend Developer",
+  "short_name": "Mohd Maroof",
+  "description": "Senior Frontend Developer building scalable web and mobile products with React, Next.js, and React Native.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#090811",
+  "theme_color": "#090811",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

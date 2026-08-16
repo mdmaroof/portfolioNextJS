@@ -476,6 +476,65 @@ textarea:focus-visible {
     animation: fade-up .4s ease;
 }
 
+/* Planet cursor */
+.planet-cursor-enabled,
+.planet-cursor-enabled * {
+    cursor: none !important;
+}
+
+.planet-cursor-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.planet-cursor-core,
+.planet-cursor-orbit,
+.cursor-trail-dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    border-radius: 50%;
+    will-change: transform;
+}
+
+.planet-cursor-core {
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
+    background: radial-gradient(circle at 35% 30%, #fff 0 9%, #7cecff 25%, #a47cff 58%, #ff8178 100%);
+    box-shadow: 0 0 12px rgba(100, 231, 255, .75), 0 0 26px rgba(155, 124, 255, .45);
+}
+
+.planet-cursor-orbit {
+    width: 29px;
+    height: 29px;
+    margin: -14.5px 0 0 -14.5px;
+    border: 1px solid rgba(190, 177, 255, .7);
+    box-shadow: 0 0 18px rgba(155, 124, 255, .25), inset 0 0 9px rgba(100, 231, 255, .09);
+}
+
+.planet-cursor-orbit::after {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ff9a80;
+    box-shadow: 0 0 7px #ff877a;
+}
+
+.cursor-trail-dot {
+    background: linear-gradient(135deg, #64e7ff, #9b7cff 58%, #ff8e7a);
+    filter: blur(.35px);
+    box-shadow: 0 0 9px rgba(155, 124, 255, .42);
+}
+
 /* Modal */
 .modal-backdrop {
     position: fixed;
@@ -1528,15 +1587,15 @@ textarea:focus-visible {
     }
 }
 
+@media(pointer:coarse) {
+    .planet-cursor-layer {
+        display: none;
+    }
+}
+
 @media(prefers-reduced-motion:reduce) {
     html {
         scroll-behavior: auto
-    }
-
-    .reveal-up {
-        opacity: 1;
-        transform: none;
-        transition: none
     }
 
     .pulse-dot::after {

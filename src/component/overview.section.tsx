@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FiArrowUpRight, FiBriefcase, FiLayers, FiRadio, FiTarget } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import { Heading } from "./heading";
+import { m } from "framer-motion";
 
 const stats: { label: string; value: number; suffix: string; detail: string; icon: IconType; className: string }[] = [
   { label: "Experience", value: 6, suffix: "+", detail: "Years shipping production software", icon: FiBriefcase, className: "metric-coral" },
@@ -42,7 +43,7 @@ export const OverviewSection = () => {
       <div className="metric-system">
         <div className="metric-track" />
         <div className="metric-center"><span>Product</span><strong>Impact</strong></div>
-        {stats.map((stat) => { const Icon = stat.icon; return <article key={stat.label} className={`metric-planet ${stat.className}`}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></article>; })}
+        {stats.map((stat, index) => { const Icon = stat.icon; return <m.article key={stat.label} className={`metric-planet ${stat.className}`} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .35 }} transition={{ duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] }}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></m.article>; })}
       </div>
     </div>
   );

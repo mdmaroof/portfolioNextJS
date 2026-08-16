@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { FiBox, FiCode, FiDatabase, FiGrid, FiSliders } from "react-icons/fi";
 import { Heading } from "./heading";
+import { m } from "framer-motion";
 
 interface Props { skills: string[]; }
 const groups = [
@@ -19,7 +20,7 @@ export const SkillSection = ({ skills }: Props) => {
       <div className="skills-orbit mt-10">
         <div className="skills-ring skills-ring-one" /><div className="skills-ring skills-ring-two" />
         <div className="skills-grid">
-          {visible.map((group, index) => { const Icon = group.icon; return <article key={group.category} className={`skill-planet skill-planet-${index + 1}`}><div className="skill-planet-head"><span><Icon /></span><div><p>0{index + 1}</p><h3>{group.category}</h3></div></div><div className="skill-list">{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>; })}
+          {visible.map((group, index) => { const Icon = group.icon; return <m.article key={group.category} className={`skill-planet skill-planet-${index + 1}`} initial={{ opacity: 0, scale: .96, y: 14 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .48, delay: index * .055 }}><div className="skill-planet-head"><span><Icon /></span><div><p>0{index + 1}</p><h3>{group.category}</h3></div></div><div className="skill-list">{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></m.article>; })}
         </div>
       </div>
     </div>

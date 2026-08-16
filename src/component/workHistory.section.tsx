@@ -1,6 +1,7 @@
 import { FiArrowUpRight, FiCalendar, FiCode, FiGrid, FiMapPin, FiRadio, FiShield, FiSmartphone, FiStar, FiTruck } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import { Heading } from "./heading";
+import { m } from "framer-motion";
 
 export interface objectWork { organisation: string; role: string; from: string; to: string; location: string; labels: string[]; }
 interface Props { work?: objectWork[]; }
@@ -17,7 +18,7 @@ const companyIcons: Record<string, IconType> = {
 const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) => {
   const CompanyIcon = companyIcons[item.organisation] || FiCode;
   return (
-  <article className="experience-card group">
+  <m.article className="experience-card group" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .55, delay: (index % 2) * .08, ease: [0.16, 1, 0.3, 1] }}>
     <div className="experience-card-top">
       <div className="company-orbit" aria-hidden="true">
         <span className="company-orbit-ring" />
@@ -46,7 +47,7 @@ const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) =>
         </li>
       ))}
     </ul>
-  </article>
+  </m.article>
   );
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FiArrowUpRight, FiCode, FiLayers, FiMapPin, FiSend, FiSmartphone, FiZap } from "react-icons/fi";
+import { m } from "framer-motion";
 
 interface Props { data: any; onMessageSentSuccess?: () => void; }
 
@@ -58,7 +59,7 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
       )}
 
       <div className="hero-layout">
-        <div className="relative z-10 flex flex-col justify-center">
+        <m.div className="relative z-10 flex flex-col justify-center" initial={{ opacity: 0, x: -28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .7, delay: .12, ease: [0.16, 1, 0.3, 1] }}>
           <div className="availability-pill"><span className="pulse-dot" /> Available for select projects</div>
           <p className="mt-8 text-sm font-semibold uppercase tracking-[0.22em] text-[#b9b2d3]">Senior frontend developer · India</p>
           <h1 className="hero-title mt-5">Building digital<br />products that feel<br /><span>effortless.</span></h1>
@@ -72,9 +73,9 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
             <span className="inline-flex items-center gap-1.5"><FiMapPin className="text-[#64e7ff]" /> India · Remote</span>
             <span className="inline-flex items-center gap-1.5"><FiZap className="text-[#ffb86b]" /> React · Next.js · React Native</span>
           </div>
-        </div>
+        </m.div>
 
-        <div className="hero-orbit-stage" aria-hidden="true">
+        <m.div className="hero-orbit-stage" aria-hidden="true" initial={{ opacity: 0, scale: .88, rotate: -4 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: .95, delay: .18, ease: [0.16, 1, 0.3, 1] }}>
           <div className="hero-glow" />
           <div className="orbit-ring orbit-ring-one" />
           <div className="orbit-ring orbit-ring-two" />
@@ -85,7 +86,7 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
           <span className="orbit-satellite satellite-three"><FiLayers /></span>
           <span className="orbit-satellite satellite-four"><FiZap /></span>
           <div className="orbit-caption"><span>Currently</span><strong key={subtitleIndex}>{subtitles[subtitleIndex] || data?.position}</strong></div>
-        </div>
+        </m.div>
       </div>
     </>
   );

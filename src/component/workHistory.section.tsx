@@ -1,92 +1,28 @@
+import { FiArrowUpRight, FiCalendar, FiMapPin } from "react-icons/fi";
 import { Heading } from "./heading";
-import { MdWork } from "react-icons/md";
 
-export interface objectWork {
-  organisation: string;
-  role: string;
-  from: string;
-  to: string;
-  location: string;
-  labels: string[];
-}
+export interface objectWork { organisation: string; role: string; from: string; to: string; location: string; labels: string[]; }
+interface Props { work?: objectWork[]; }
 
-interface Props {
-  work?: objectWork[];
-}
-
-const IndividualBlock = ({
-  item,
-  index,
-}: {
-  item: objectWork;
-  index: number;
-}) => {
-  return (
-    <div className="flex flex-row gap-4 md:gap-6 relative w-full">
-      {/* Timeline Connector Column */}
-      <div className="hidden md:flex flex-col items-center w-[40px] shrink-0 pt-6">
-        <div
-          className={`w-3.5 h-3.5 rounded-full z-10 ${
-            index === 0 ? "timeline-dot-active" : "timeline-dot"
-          }`}
-        />
+const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) => (
+  <article className="experience-card group">
+    <div className="experience-index">{String(index + 1).padStart(2, "0")}</div>
+    <div className="experience-mark">{item.organisation.charAt(0)}</div>
+    <div className="min-w-0 flex-1">
+      <div className="flex flex-col gap-4 border-b border-white/[0.08] pb-5 md:flex-row md:items-start md:justify-between">
+        <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200/75">{item.organisation}</p><h3 className="mt-2 text-xl font-semibold tracking-tight text-white md:text-2xl">{item.role}</h3></div>
+        <div className="flex flex-wrap gap-2 text-xs text-slate-300 md:justify-end"><span className="experience-meta"><FiCalendar /> {item.from} — {item.to}</span><span className="experience-meta"><FiMapPin /> {item.location}</span></div>
       </div>
-
-      {/* Work Card */}
-      <div className="flex-1 work-card rounded-xl border border-slate-800/80 bg-slate-950/55 px-4 py-4 text-sm text-slate-100 md:px-7 md:py-6 md:text-base">
-        <div className="mb-3 flex flex-col gap-3 border-b border-slate-800/70 pb-3 md:mb-4 md:pb-4 md:flex-row md:items-start md:justify-between">
-          <div className="flex items-center gap-3">
-            {/* Organization Avatar */}
-            <div className="flex items-center justify-center bg-gradient-to-br from-sky-600 to-violet-600 w-9 h-9 md:w-10 md:h-10 rounded-full text-white font-bold text-sm md:text-base shrink-0 shadow-lg">
-              {item.organisation.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <h3 className="text-base font-semibold leading-snug md:text-xl">
-                {item.organisation}
-              </h3>
-              <div className="mt-1 text-sm leading-snug text-slate-300 md:text-base">
-                {item.role}
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2 items-center">
-            <span className="flex items-center gap-1.5 rounded-full border border-slate-700/70 bg-slate-900/70 px-2.5 py-1 text-[11px] leading-tight text-slate-200 md:text-sm">
-              <MdWork className="text-sky-400 text-xs" />
-              {item.from} - {item.to}
-            </span>
-            <span className="inline-flex rounded-full border border-slate-700/70 bg-slate-900/70 px-2.5 py-1 text-[11px] text-slate-300 md:text-sm">
-              {item.location}
-            </span>
-          </div>
-        </div>
-
-        <ul className="mt-1 ml-0 space-y-2 text-slate-300 leading-7 md:mt-2 md:space-y-2.5 md:leading-8">
-          {item.labels.map((x, i) => (
-            <li key={i} className="flex gap-2.5">
-              <span className="mt-2.5 h-1.5 w-1.5 rounded-full bg-sky-400/60 shrink-0" />
-              <span className="leading-7 md:leading-8">{x}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="mt-5 grid gap-3 md:grid-cols-2 md:gap-x-8">
+        {item.labels.map((label) => <li key={label} className="flex gap-3 text-sm leading-6 text-slate-300"><FiArrowUpRight className="mt-1 shrink-0 text-violet-300 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />{label}</li>)}
+      </ul>
     </div>
-  );
-};
+  </article>
+);
 
-export const WorkHistory = ({ work }: Props) => {
-  return (
-    <>
-      <Heading>Work Experience</Heading>
-      <div className="relative mt-6 md:mt-8">
-        {/* Vertical Timeline Line */}
-        <div className="absolute left-[19px] top-6 bottom-6 w-0.5 hidden md:block bg-gradient-to-b from-sky-500/40 via-violet-500/30 to-sky-500/10" />
-
-        <div className="flex flex-col gap-5 md:gap-6">
-          {work?.map((z, i) => (
-            <IndividualBlock key={i} item={z} index={i} />
-          ))}
-        </div>
-      </div>
-    </>
-  );
-};
+export const WorkHistory = ({ work = [] }: Props) => (
+  <div>
+    <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"><div><span className="eyebrow">Selected experience</span><Heading className="mt-3">Work Experience</Heading></div><p className="max-w-sm text-sm leading-6 text-slate-400 md:text-right">Building thoughtful interfaces and reliable product experiences since 2019.</p></div>
+    <div className="mt-8 space-y-4 md:mt-10">{work.map((item, index) => <ExperienceCard key={`${item.organisation}-${item.from}`} item={item} index={index} />)}</div>
+  </div>
+);

@@ -193,8 +193,8 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
 
       <div className="flex flex-col gap-8 md:gap-10">
         <section>
-          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-            <div className="flex-1 max-w-3xl">
+          <div className="hero-orbit flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div className="relative z-10 max-w-3xl flex-1">
               <div className="mb-5 flex items-center gap-2 text-sm font-medium text-slate-300">
                 <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-emerald-400">
                   <div className="pulse-dot bg-emerald-400 h-2 w-2 rounded-full"></div>

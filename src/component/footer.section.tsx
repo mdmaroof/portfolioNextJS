@@ -13,6 +13,6 @@ export const Footer = () => (
       </m.div>
       <m.div className="footer-contact relative z-10" initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .65, delay: .08, ease: [0.16, 1, 0.3, 1] }}><FiMail /><span>Email me at</span><a href="mailto:maroofmohdmalik@gmail.com">maroofmohdmalik@gmail.com</a></m.div>
     </div>
-    <div className="footer-bottom"><div><strong>MM</strong><span>Mohd Maroof · Senior Frontend Developer</span></div><div className="flex gap-2"><a href="https://github.com/mdmaroof" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a><a href="https://linkedin.com/in/mohd-maroof-535619118" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a></div><p>© 2026 · Built with care in India</p></div>
+    <div className="footer-bottom"><div><strong>MM</strong><span>Mohd Maroof · Senior Frontend Developer</span></div><div className="flex gap-2"><a href="https://github.com/mdmaroof" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a><a href="https://linkedin.com/in/mohd-maroof-535619118" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a></div><p>© 2026 · Built by Mohd Maroof</p></div>
   </footer>
 );

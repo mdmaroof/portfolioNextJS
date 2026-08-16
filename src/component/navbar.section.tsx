@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaBars } from 'react-icons/fa';
+import { FiBriefcase, FiCode, FiFolder, FiHome, FiLayers } from 'react-icons/fi';
 
 const NAV_LINKS = [
-  { name: 'About', href: '#about' },
-  { name: 'Overview', href: '#overview' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
+  { name: 'About', href: '#about', icon: FiHome },
+  { name: 'Overview', href: '#overview', icon: FiLayers },
+  { name: 'Experience', href: '#experience', icon: FiBriefcase },
+  { name: 'Skills', href: '#skills', icon: FiCode },
+  { name: 'Projects', href: '#projects', icon: FiFolder },
 ];
 
 export const Navbar = () => {
@@ -66,8 +67,8 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 glass-nav ${
-        isScrolled ? 'bg-black/60 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 glass-nav ${
+        isScrolled ? 'bg-slate-950/80 backdrop-blur-lg shadow-lg shadow-black/10' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
@@ -88,10 +89,11 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`nav-link transition-colors duration-300 ${
+                className={`nav-link inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-300 ${
                   isActive ? 'active text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
+                <link.icon className="h-3.5 w-3.5" />
                 {link.name}
               </a>
             );
@@ -124,10 +126,11 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`nav-link text-lg block transition-colors duration-300 ${
+                className={`nav-link flex items-center gap-2 text-lg transition-colors duration-300 ${
                   isActive ? 'active text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
+                <link.icon className="h-4 w-4" />
                 {link.name}
               </a>
             );

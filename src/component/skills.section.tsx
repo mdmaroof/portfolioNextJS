@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Heading } from "./heading";
+import { FiBox, FiCode, FiDatabase, FiGrid, FiSliders } from "react-icons/fi";
 
 interface Props {
   skills: string[];
@@ -8,27 +9,27 @@ interface Props {
 const skillGroups = [
   {
     category: "Frontend",
-    icon: "⚛️",
+    icon: FiCode,
     skills: ["React", "Next.js", "React Native", "JavaScript", "TypeScript"],
   },
   {
     category: "State",
-    icon: "🔄",
+    icon: FiSliders,
     skills: ["Zustand", "Redux", "MobX"],
   },
   {
     category: "Backend & Data",
-    icon: "⚡",
+    icon: FiDatabase,
     skills: ["Node.js", "MongoDB"],
   },
   {
     category: "Tools",
-    icon: "🛠️",
+    icon: FiGrid,
     skills: ["Mixpanel", "Storybook", "PubNub", "Google Maps API"],
   },
   {
     category: "Core",
-    icon: "🎯",
+    icon: FiBox,
     skills: [
       "Performance Optimization",
       "Real-time Systems",
@@ -67,11 +68,13 @@ export const SkillSection = ({ skills }: Props) => {
         {visibleGroups.map((group) => (
           <div
             key={group.category}
-            className="skill-card break-inside-avoid rounded-xl border border-slate-800/80 bg-slate-950/55 p-5 md:p-6 mb-4"
+            className="skill-card break-inside-avoid rounded-2xl border border-white/[0.07] bg-slate-950/45 p-5 md:p-6 mb-4"
           >
             <div className="flex items-center justify-between mb-4 border-b border-slate-800/70 pb-3 md:pb-4">
               <div className="flex items-center gap-2.5">
-                <span className="text-xl">{group.icon}</span>
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-violet-400/10 text-violet-300">
+                  <group.icon className="h-4 w-4" />
+                </span>
                 <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-200 md:text-sm">
                   {group.category}
                 </h3>
@@ -94,7 +97,7 @@ export const SkillSection = ({ skills }: Props) => {
         ))}
 
         {extras.length > 0 && (
-          <div className="skill-card break-inside-avoid rounded-xl border border-slate-800/80 bg-slate-950/55 p-5 md:p-6 mb-4">
+          <div className="skill-card break-inside-avoid rounded-2xl border border-white/[0.07] bg-slate-950/45 p-5 md:p-6 mb-4">
             <div className="flex items-center justify-between mb-4 border-b border-slate-800/70 pb-3 md:pb-4">
               <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-200 md:text-sm">
                 Additional

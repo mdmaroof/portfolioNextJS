@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Heading } from "./heading";
+import { FiBriefcase, FiLayers, FiTarget } from "react-icons/fi";
+import type { IconType } from "react-icons";
 
 interface Stat {
   label: string;
   endValue: number;
   suffix: string;
-  icon: string;
+  icon: IconType;
   accentClass: string;
   hoverBorderClass: string;
   subheading: string;
@@ -16,33 +18,34 @@ const stats: Stat[] = [
     label: "Experience",
     endValue: 6,
     suffix: "+",
-    icon: "💼",
-    accentClass: "text-sky-400",
-    hoverBorderClass: "hover:border-sky-500/30",
+    icon: FiBriefcase,
+    accentClass: "text-cyan-300",
+    hoverBorderClass: "hover:border-cyan-400/30",
     subheading: "years building production apps",
   },
   {
     label: "Major Products",
     endValue: 10,
     suffix: "+",
-    icon: "🚀",
-    accentClass: "text-violet-400",
-    hoverBorderClass: "hover:border-violet-500/30",
+    icon: FiLayers,
+    accentClass: "text-violet-300",
+    hoverBorderClass: "hover:border-violet-400/30",
     subheading: "delivered across web and mobile",
   },
   {
     label: "Core Domains",
     endValue: 4,
     suffix: "+",
-    icon: "🎯",
-    accentClass: "text-amber-400",
-    hoverBorderClass: "hover:border-amber-500/30",
+    icon: FiTarget,
+    accentClass: "text-fuchsia-300",
+    hoverBorderClass: "hover:border-fuchsia-400/30",
     subheading: "real-time, analytics, dashboards, performance",
   },
 ];
 
 const StatCard = ({ stat, inView }: { stat: Stat; inView: boolean }) => {
   const [count, setCount] = useState(0);
+  const Icon = stat.icon;
 
   useEffect(() => {
     if (!inView) return;
@@ -70,11 +73,13 @@ const StatCard = ({ stat, inView }: { stat: Stat; inView: boolean }) => {
 
   return (
     <div
-      className={`h-full rounded-xl border border-slate-800/80 bg-slate-950/55 p-5 md:p-6 glow-hover transition-colors duration-300 ${stat.hoverBorderClass}`}
+      className={`h-full rounded-2xl border border-white/[0.07] bg-slate-950/45 p-5 md:p-6 glow-hover transition-colors duration-300 ${stat.hoverBorderClass}`}
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <span className="text-2xl">{stat.icon}</span>
+          <span className={`grid h-10 w-10 place-items-center rounded-xl bg-white/[0.06] ${stat.accentClass}`}>
+            <Icon className="h-5 w-5" />
+          </span>
           <div className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200 md:text-sm">
             {stat.label}
           </div>

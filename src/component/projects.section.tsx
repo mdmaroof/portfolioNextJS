@@ -1,6 +1,8 @@
 import React from 'react';
 import { Heading } from './heading';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FiActivity, FiArrowUpRight, FiHeart, FiCheckCircle } from 'react-icons/fi';
+import { FaGamepad } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 
 export interface ProjectItem {
   name: string;
@@ -20,6 +22,12 @@ interface Props {
 }
 
 export const ProjectsSection = ({ projects = [] }: Props) => {
+  const projectIcons: Record<string, IconType> = {
+    'Graple.ai': FiActivity,
+    SnapAid: FiHeart,
+    'Twist N Words': FaGamepad,
+  };
+
   return (
     <section>
       <Heading>Projects</Heading>
@@ -28,16 +36,20 @@ export const ProjectsSection = ({ projects = [] }: Props) => {
       </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+        {projects.map((project) => {
+          const ProjectIcon = projectIcons[project.name] ?? FiActivity;
+          return (
           <article
             key={project.name}
-            className="project-card flex flex-col rounded-xl border border-slate-800/80 bg-slate-950/55 overflow-hidden"
+            className="project-card flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-slate-950/45"
           >
             <div className={`h-2 w-full bg-gradient-to-r rounded-t-xl ${project.gradient}`} />
             
             <div className="flex flex-col flex-grow p-6">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-3xl">{project.icon}</span>
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-white/[0.06] text-cyan-300">
+                  <ProjectIcon className="h-5 w-5" />
+                </span>
                 <h3 className="text-xl font-bold text-slate-100">{project.name}</h3>
               </div>
               
@@ -68,7 +80,7 @@ export const ProjectsSection = ({ projects = [] }: Props) => {
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8 mt-auto">
                 {project.features.map((feature) => (
                   <li key={feature} className="flex items-start text-sm text-slate-300">
-                    <span className="text-emerald-400 mr-2 mt-0.5">✓</span>
+                    <FiCheckCircle className="mr-2 mt-0.5 shrink-0 text-emerald-300" />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -82,7 +94,7 @@ export const ProjectsSection = ({ projects = [] }: Props) => {
                     rel="noopener noreferrer"
                     className={`inline-flex items-center justify-center w-full gap-2 px-4 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r ${project.gradient} shine-effect`}
                   >
-                    View Project <FaExternalLinkAlt />
+                    View Project <FiArrowUpRight />
                   </a>
                 ) : (
                   <div className="text-center w-full px-4 py-2.5 text-sm font-medium text-slate-400 bg-slate-800/50 rounded-lg cursor-not-allowed">
@@ -92,7 +104,7 @@ export const ProjectsSection = ({ projects = [] }: Props) => {
               </div>
             </div>
           </article>
-        ))}
+        )})}
       </div>
     </section>
   );

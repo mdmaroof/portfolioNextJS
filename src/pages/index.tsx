@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Open_Sans } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 import { Navbar } from "../component/navbar.section";
 import { HeaderComponent } from "../component/header.section";
@@ -10,11 +9,6 @@ import { SkillSection } from "../component/skills.section";
 import { Timeline } from "../component/timeline.section";
 import { ProjectsSection } from "../component/projects.section";
 import { Footer } from "../component/footer.section";
-
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default function Home() {
   const [showSuccessToast, setShowSuccessToast] = useState(false);
@@ -74,13 +68,13 @@ export default function Home() {
       )}
 
       <main
-        className={`${openSans.className} safe-area-main relative z-10 min-h-screen pt-16`}
+        className="safe-area-main relative z-10 min-h-screen pt-16"
       >
-        <div className="mx-auto w-full max-w-6xl space-y-10 md:space-y-14">
+        <div className="mx-auto w-full max-w-6xl space-y-6 md:space-y-8">
           <section
             id="about"
             ref={(el) => (sectionsRef.current[0] = el)}
-            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
           >
             <HeaderComponent
               data={data}
@@ -91,7 +85,7 @@ export default function Home() {
           <section
             id="overview"
             ref={(el) => (sectionsRef.current[1] = el)}
-            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
           >
             <OverviewSection />
           </section>
@@ -99,7 +93,7 @@ export default function Home() {
           <section
             id="experience"
             ref={(el) => (sectionsRef.current[2] = el)}
-            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
           >
             <WorkHistory work={data.work} />
           </section>
@@ -107,7 +101,7 @@ export default function Home() {
           <section
             id="skills"
             ref={(el) => (sectionsRef.current[3] = el)}
-            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
           >
             <SkillSection skills={data.skills} />
           </section>
@@ -115,7 +109,7 @@ export default function Home() {
           <section
             id="timeline"
             ref={(el) => (sectionsRef.current[4] = el)}
-            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
           >
             <Timeline work={data.work} />
           </section>
@@ -123,7 +117,7 @@ export default function Home() {
           <section
             id="projects"
             ref={(el) => (sectionsRef.current[5] = el)}
-            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+            className="glass-card reveal-up rounded-3xl p-6 md:p-10"
           >
             <ProjectsSection projects={data.projects as any} />
           </section>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { FaPaperPlane, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FiMapPin, FiBriefcase, FiCode, FiSend } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 import { Heading } from "./heading";
 
@@ -194,7 +195,7 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
         <section>
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex-1 max-w-3xl">
-              <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-300">
+              <div className="mb-5 flex items-center gap-2 text-sm font-medium text-slate-300">
                 <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-emerald-400">
                   <div className="pulse-dot bg-emerald-400 h-2 w-2 rounded-full"></div>
                   Available for work
@@ -238,13 +239,16 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
                 </div>
 
                 <div className="flex flex-wrap gap-2 text-sm text-slate-300">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                    <FiMapPin className="text-cyan-300" />
                     {data?.country ?? "India"}
                   </span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                    <FiBriefcase className="text-violet-300" />
                     6+ years experience
                   </span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                    <FiCode className="text-cyan-300" />
                     React • Next.js • React Native
                   </span>
                 </div>
@@ -255,7 +259,7 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
               onClick={() => setModalOpen(true)}
               className="shine-effect flex w-[170px] shrink-0 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-sky-600 to-indigo-600 py-3 font-medium text-white transition-all duration-200 hover:brightness-110 shadow-lg shadow-sky-900/20"
             >
-              <FaPaperPlane />
+              <FiSend />
               Contact
             </button>
           </div>

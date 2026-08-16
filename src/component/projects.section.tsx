@@ -1,34 +1,99 @@
-import { Heading } from "./heading";
+import React from 'react';
+import { Heading } from './heading';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
-interface ProjectItem {
+export interface ProjectItem {
   name: string;
+  icon: string;
+  tagline: string;
   description: string;
+  tech: string[];
+  features: string[];
+  gradient: string;
+  gradientBorder: string;
+  status: 'Live' | 'In Development' | 'Completed';
+  link: string | null;
 }
 
 interface Props {
   projects?: ProjectItem[];
 }
 
-export const ProjectsSection = ({ projects }: Props) => {
+export const ProjectsSection = ({ projects = [] }: Props) => {
   return (
-    <div>
-      <Heading>Side Projects</Heading>
-      <div className="mt-3 text-sm text-slate-300 md:text-base">
+    <section>
+      <Heading>Projects</Heading>
+      <p className="mt-3 text-sm text-slate-300 md:text-base mb-8">
         Personal builds focused on experimentation and real-world utility.
-      </div>
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {projects?.map((project) => (
+      </p>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
           <article
             key={project.name}
-            className="h-full rounded-xl border border-slate-800/90 bg-slate-950/65 p-5 transition-transform duration-200 hover:-translate-y-0.5"
+            className="project-card flex flex-col rounded-xl border border-slate-800/80 bg-slate-950/55 overflow-hidden"
           >
-            <h3 className="text-lg font-semibold text-slate-100">{project.name}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-300">
-              {project.description}
-            </p>
+            <div className={`h-2 w-full bg-gradient-to-r rounded-t-xl ${project.gradient}`} />
+            
+            <div className="flex flex-col flex-grow p-6">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl">{project.icon}</span>
+                <h3 className="text-xl font-bold text-slate-100">{project.name}</h3>
+              </div>
+              
+              <p className="italic text-slate-300 mb-4">{project.tagline}</p>
+              
+              <div className="mb-4">
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                  project.status === 'Live' ? 'status-live' :
+                  project.status === 'In Development' ? 'status-development' :
+                  'status-completed'
+                }`}>
+                  {project.status}
+                </span>
+              </div>
+              
+              <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                {project.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.tech.map((t) => (
+                  <span key={t} className="glass-chip rounded-md px-2.5 py-1 text-xs text-slate-300">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8 mt-auto">
+                {project.features.map((feature) => (
+                  <li key={feature} className="flex items-start text-sm text-slate-300">
+                    <span className="text-emerald-400 mr-2 mt-0.5">✓</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <div className="mt-auto">
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center justify-center w-full gap-2 px-4 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r ${project.gradient} shine-effect`}
+                  >
+                    View Project <FaExternalLinkAlt />
+                  </a>
+                ) : (
+                  <div className="text-center w-full px-4 py-2.5 text-sm font-medium text-slate-400 bg-slate-800/50 rounded-lg cursor-not-allowed">
+                    Coming Soon
+                  </div>
+                )}
+              </div>
+            </div>
           </article>
         ))}
       </div>
-    </div>
+    </section>
   );
 };

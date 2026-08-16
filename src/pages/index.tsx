@@ -1,5 +1,7 @@
+import Head from "next/head";
 import { Open_Sans } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Navbar } from "../component/navbar.section";
 import { HeaderComponent } from "../component/header.section";
 import { OverviewSection } from "../component/overview.section";
 import { data } from "../data";
@@ -7,6 +9,7 @@ import { WorkHistory } from "../component/workHistory.section";
 import { SkillSection } from "../component/skills.section";
 import { Timeline } from "../component/timeline.section";
 import { ProjectsSection } from "../component/projects.section";
+import { Footer } from "../component/footer.section";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -15,6 +18,7 @@ const openSans = Open_Sans({
 
 export default function Home() {
   const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   const handleMessageSentSuccess = () => {
     setShowSuccessToast(true);
@@ -23,19 +27,59 @@ export default function Home() {
     }, 5000);
   };
 
+  // Scroll-triggered reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
+
+    const revealElements = document.querySelectorAll(
+      ".reveal-up, .reveal-left"
+    );
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
+      <Head>
+        <title>Mohd Maroof | Senior Frontend Developer</title>
+        <meta
+          name="description"
+          content="Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications using React, Next.js, and React Native."
+        />
+      </Head>
+
+      <Navbar />
+
+      {/* Success Toast */}
       {showSuccessToast && (
-        <div className="fixed right-4 top-4 z-[60] rounded-md border border-emerald-400/40 bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-emerald-900/30">
-          Message sent successfully
+        <div className="fixed right-4 top-20 z-[60] rounded-lg border border-emerald-400/30 bg-emerald-600/90 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-emerald-900/30 backdrop-blur-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-emerald-200">✓</span>
+            Message sent successfully
+          </div>
         </div>
       )}
+
       <main
-        className={`${openSans.className} safe-area-main relative z-10 min-h-screen`}
+        className={`${openSans.className} safe-area-main relative z-10 min-h-screen pt-16`}
       >
         <div className="mx-auto w-full max-w-6xl space-y-10 md:space-y-14">
           <section
             id="about"
+            ref={(el) => (sectionsRef.current[0] = el)}
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <HeaderComponent
@@ -46,6 +90,7 @@ export default function Home() {
 
           <section
             id="overview"
+            ref={(el) => (sectionsRef.current[1] = el)}
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <OverviewSection />
@@ -53,6 +98,7 @@ export default function Home() {
 
           <section
             id="experience"
+            ref={(el) => (sectionsRef.current[2] = el)}
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <WorkHistory work={data.work} />
@@ -60,6 +106,7 @@ export default function Home() {
 
           <section
             id="skills"
+            ref={(el) => (sectionsRef.current[3] = el)}
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <SkillSection skills={data.skills} />
@@ -67,16 +114,23 @@ export default function Home() {
 
           <section
             id="timeline"
+            ref={(el) => (sectionsRef.current[4] = el)}
             className="glass-card reveal-up rounded-2xl p-6 md:p-10"
           >
             <Timeline work={data.work} />
           </section>
 
-          <section className="glass-card reveal-up rounded-2xl p-6 md:p-10">
-            <ProjectsSection projects={data.projects} />
+          <section
+            id="projects"
+            ref={(el) => (sectionsRef.current[5] = el)}
+            className="glass-card reveal-up rounded-2xl p-6 md:p-10"
+          >
+            <ProjectsSection projects={data.projects as any} />
           </section>
         </div>
       </main>
+
+      <Footer />
     </>
   );
 }

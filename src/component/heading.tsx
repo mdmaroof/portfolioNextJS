@@ -1,10 +1,15 @@
+import { ReactNode } from "react";
+
 interface Props {
-  children: any;
+  children: ReactNode;
+  className?: string;
 }
-export const Heading = ({ children }: Props) => {
+export const Heading = ({ children, className = "" }: Props) => {
   return (
-    <div className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
+    <h2
+      className={`text-3xl font-semibold tracking-tight text-white md:text-5xl ${className}`}
+    >
       {children}
-    </div>
+    </h2>
   );
 };

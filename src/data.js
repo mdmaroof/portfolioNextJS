@@ -5,6 +5,17 @@ export const data = {
   country: "India",
   summary:
     "Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications using React, Next.js, and React Native. Proven track record in delivering production-ready MVPs, improving performance, and implementing real-time product experiences with clean architecture and user-focused design.",
+  social: {
+    github: "https://github.com/mdmaroof",
+    linkedin: "https://linkedin.com/in/mohd-maroof-535619118",
+    email: "maroofmohdmalik@gmail.com",
+  },
+  subtitles: [
+    "Senior Frontend Developer",
+    "React & Next.js Specialist",
+    "Mobile App Builder",
+    "UI Architecture Expert",
+  ],
   work: [
     {
       organisation: "Ethos",
@@ -101,15 +112,57 @@ export const data = {
   projects: [
     {
       name: "Graple.ai",
-      description: "Engagement and retention experimentation platform.",
+      icon: "📊",
+      tagline: "Boost engagement with data-driven experiments",
+      description:
+        "A full-stack experimentation and retention platform that helps product teams design, launch, and analyze A/B tests and engagement campaigns. Built with a real-time analytics dashboard for tracking user behavior and conversion metrics.",
+      tech: ["React", "Next.js", "Node.js", "MongoDB", "TypeScript"],
+      features: [
+        "Real-time A/B testing dashboard",
+        "User cohort segmentation engine",
+        "Retention funnel visualization",
+        "Campaign builder with drag-and-drop",
+      ],
+      gradient: "from-violet-600 to-indigo-600",
+      gradientBorder: "from-violet-500/50 to-indigo-500/50",
+      status: "Live",
+      link: "https://graple.ai",
     },
     {
       name: "SnapAid",
-      description: "Emergency medical guidance web application.",
+      icon: "🏥",
+      tagline: "Instant medical guidance when seconds count",
+      description:
+        "An emergency medical guidance web application that provides step-by-step first-aid instructions using AI-powered symptom analysis. Designed for accessibility and speed in critical situations with offline-first capabilities.",
+      tech: ["React", "TypeScript", "Node.js", "AI/ML APIs"],
+      features: [
+        "AI-powered symptom triage",
+        "Step-by-step emergency protocols",
+        "Offline-first Progressive Web App",
+        "Location-based hospital finder",
+      ],
+      gradient: "from-emerald-600 to-cyan-600",
+      gradientBorder: "from-emerald-500/50 to-cyan-500/50",
+      status: "Live",
+      link: null,
     },
     {
       name: "Twist N Words",
-      description: "Interactive word shuffle game.",
+      icon: "🎮",
+      tagline: "Challenge your vocabulary with word puzzles",
+      description:
+        "An interactive word shuffle game that challenges players to unscramble letters and form words against the clock. Features progressive difficulty, streak tracking, and a clean, responsive interface built for both mobile and desktop.",
+      tech: ["React", "JavaScript", "CSS Animations", "Local Storage"],
+      features: [
+        "Progressive difficulty levels",
+        "Streak & high score tracking",
+        "Smooth drag-and-drop letters",
+        "Mobile-optimized touch controls",
+      ],
+      gradient: "from-amber-500 to-orange-600",
+      gradientBorder: "from-amber-500/50 to-orange-500/50",
+      status: "Live",
+      link: null,
     },
   ],
 };

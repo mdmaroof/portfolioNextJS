@@ -7,6 +7,21 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    // Project card gradients (dynamically composed from data.js)
+    "from-violet-600",
+    "to-indigo-600",
+    "from-violet-500/50",
+    "to-indigo-500/50",
+    "from-emerald-600",
+    "to-cyan-600",
+    "from-emerald-500/50",
+    "to-cyan-500/50",
+    "from-amber-500",
+    "to-orange-600",
+    "from-amber-500/50",
+    "to-orange-500/50",
+  ],
   theme: {
     extend: {
       backgroundImage: {

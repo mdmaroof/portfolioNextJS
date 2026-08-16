@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { FaPaperPlane, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { Heading } from "./heading";
 
@@ -7,12 +7,53 @@ interface Props {
   data: any;
   onMessageSentSuccess?: () => void;
 }
+
 export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+
+  // Typewriter effect state
+  const subtitles = useMemo(() => data?.subtitles || [], [data?.subtitles]);
+  const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (!subtitles.length) return;
+
+    const typeSpeed = 100;
+    const deleteSpeed = 50;
+    const pauseDelay = 2000;
+
+    const currentString = subtitles[currentSubtitleIndex];
+    let timeoutId: NodeJS.Timeout;
+
+    if (isDeleting) {
+      if (currentText.length > 0) {
+        timeoutId = setTimeout(() => {
+          setCurrentText(currentString.substring(0, currentText.length - 1));
+        }, deleteSpeed);
+      } else {
+        setIsDeleting(false);
+        setCurrentSubtitleIndex((prev) => (prev + 1) % subtitles.length);
+      }
+    } else {
+      if (currentText.length < currentString.length) {
+        timeoutId = setTimeout(() => {
+          setCurrentText(currentString.substring(0, currentText.length + 1));
+        }, typeSpeed);
+      } else {
+        timeoutId = setTimeout(() => {
+          setIsDeleting(true);
+        }, pauseDelay);
+      }
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [currentText, isDeleting, subtitles, currentSubtitleIndex]);
 
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -75,6 +116,7 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
       setIsSending(false);
     }
   };
+
   return (
     <>
       {/* modal */}
@@ -87,10 +129,10 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
             onClick={(e) => {
               e.stopPropagation();
             }}
-            className="w-full max-w-xl rounded-xl border border-white/10 bg-slate-900 p-5 text-slate-100 shadow-2xl shadow-black/30"
+            className="w-full max-w-xl glass-card rounded-xl p-6 text-slate-100 shadow-2xl shadow-black/30"
           >
-            <div className="flex flex-row items-center justify-between border-b border-white/10 pb-3">
-              <div className="text-lg font-semibold md:text-xl">Send Message</div>
+            <div className="flex flex-row items-center justify-between border-b border-white/10 pb-4">
+              <div className="text-xl font-semibold md:text-2xl">Send Message</div>
               <div
                 className="cursor-pointer text-xl text-slate-300 transition-colors hover:text-white md:text-2xl"
                 onClick={close}
@@ -99,77 +141,119 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
               </div>
             </div>
 
-            <div className="mt-4 flex flex-col w-full">
-              <div className="flex flex-col my-2">
-                <label className="mb-1 text-sm text-slate-300">Name</label>
+            <div className="mt-5 flex flex-col w-full gap-4">
+              <div className="flex flex-col">
+                <label className="mb-1.5 text-sm font-medium text-slate-300">Name</label>
                 <input
                   type="name"
                   value={name}
                   disabled={isSending}
                   onChange={(e) => setName(e.target.value)}
-                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-lg border border-white/10 bg-slate-900/50 px-4 py-2.5 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
                 />
               </div>
-              <div className="flex flex-col my-2">
-                <label className="mb-1 text-sm text-slate-300">Email</label>
+              <div className="flex flex-col">
+                <label className="mb-1.5 text-sm font-medium text-slate-300">Email</label>
                 <input
                   type="email"
                   value={email}
                   disabled={isSending}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-lg border border-white/10 bg-slate-900/50 px-4 py-2.5 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
                 />
               </div>
-              <div className="flex flex-col my-2">
-                <label className="mb-1 text-sm text-slate-300">Message</label>
+              <div className="flex flex-col">
+                <label className="mb-1.5 text-sm font-medium text-slate-300">Message</label>
                 <textarea
                   value={message}
                   disabled={isSending}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="rounded-md border border-white/15 bg-slate-800 px-3 py-2 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
-                  rows={3}
+                  className="rounded-lg border border-white/10 bg-slate-900/50 px-4 py-2.5 text-slate-100 outline-none transition-colors focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+                  rows={4}
                 />
               </div>
 
-              <div
+              <button
                 onClick={sendMessage}
-                className={`mt-3 flex w-[120px] items-center justify-center rounded-md py-2 text-white transition-colors duration-100 ${
+                disabled={isSending}
+                className={`mt-2 flex w-full md:w-[140px] items-center justify-center rounded-lg py-3 font-medium text-white transition-all duration-200 ${
                   isSending
-                    ? "cursor-not-allowed bg-red-400"
-                    : "cursor-pointer bg-red-600 hover:bg-red-700"
+                    ? "cursor-not-allowed bg-slate-600 opacity-70"
+                    : "cursor-pointer bg-gradient-to-r from-sky-600 to-indigo-600 shine-effect hover:brightness-110"
                 }`}
               >
                 {isSending ? "Sending..." : "Send"}
-              </div>
+              </button>
             </div>
           </div>
         </div>
       )}
       {/* modal close */}
-      <div>
+
+      <div className="flex flex-col gap-8 md:gap-10">
         <section>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              <Heading>{data?.name ?? null}</Heading>
-              <p className="mt-2 text-lg text-slate-200 md:text-xl">
-                {data?.position ?? null}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-300">
-                <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1">
-                  {data?.country ?? "India"}
-                </span>
-                <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1">
-                  6+ years experience
-                </span>
-                <span className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1">
-                  React • Next.js • React Native
-                </span>
+          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div className="flex-1 max-w-3xl">
+              <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-300">
+                <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-emerald-400">
+                  <div className="pulse-dot bg-emerald-400 h-2 w-2 rounded-full"></div>
+                  Available for work
+                </div>
+              </div>
+              
+              <h1 className="gradient-text-hero text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">
+                {data?.name ?? null}
+              </h1>
+              
+              <div className="mt-4 flex min-h-[2rem] items-center text-xl font-medium text-slate-200 md:text-2xl">
+                <span className="mr-2">{data?.position ?? null}</span>
+                {subtitles.length > 0 && (
+                  <span className="text-sky-400">
+                    {currentText}
+                    <span className="typewriter-cursor">|</span>
+                  </span>
+                )}
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <div className="flex gap-2">
+                  <a
+                    href={data?.social?.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="glass-chip flex items-center justify-center rounded-full p-2.5 text-slate-300 transition-all hover:text-white glow-hover"
+                    aria-label="GitHub"
+                  >
+                    <FaGithub size={20} />
+                  </a>
+                  <a
+                    href={data?.social?.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="glass-chip flex items-center justify-center rounded-full p-2.5 text-slate-300 transition-all hover:text-white glow-hover"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedinIn size={20} />
+                  </a>
+                </div>
+
+                <div className="flex flex-wrap gap-2 text-sm text-slate-300">
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                    {data?.country ?? "India"}
+                  </span>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                    6+ years experience
+                  </span>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                    React • Next.js • React Native
+                  </span>
+                </div>
               </div>
             </div>
 
             <button
               onClick={() => setModalOpen(true)}
-              className="flex w-[170px] items-center justify-center gap-2 rounded-lg border border-slate-700/70 bg-slate-900/70 py-3 font-medium text-slate-100 transition-colors duration-150 hover:bg-slate-800/80"
+              className="shine-effect flex w-[170px] shrink-0 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-sky-600 to-indigo-600 py-3 font-medium text-white transition-all duration-200 hover:brightness-110 shadow-lg shadow-sky-900/20"
             >
               <FaPaperPlane />
               Contact
@@ -177,11 +261,9 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
           </div>
         </section>
 
-        <section className="mt-8 md:mt-10">
-          <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
-            Summary
-          </h3>
-          <div className="mt-3 rounded-xl border border-slate-800/70 bg-slate-950/40 p-4 text-justify text-base font-light leading-8 text-slate-200 md:p-5 md:text-lg">
+        <section>
+          <Heading>Summary</Heading>
+          <div className="mt-4 glass-card rounded-2xl p-5 md:p-6 text-base font-light leading-relaxed text-slate-300 md:text-lg">
             {data?.summary ?? null}
           </div>
         </section>

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { LazyMotion, MotionConfig, domAnimation, m } from "framer-motion";
+import { LazyMotion, MotionConfig, domAnimation, m, useScroll } from "framer-motion";
 import { useState } from "react";
 import { FiCheck } from "react-icons/fi";
 import { Footer } from "../component/footer.section";
@@ -20,12 +20,14 @@ const sectionMotion = {
 
 export default function Home() {
   const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const { scrollYProgress } = useScroll();
   const handleMessageSentSuccess = () => { setShowSuccessToast(true); window.setTimeout(() => setShowSuccessToast(false), 5000); };
 
   return (
     <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user">
         <Head><title>Mohd Maroof | Senior Frontend Developer</title><meta name="description" content="Senior Frontend Developer with 6+ years of experience building scalable web and mobile applications using React, Next.js, and React Native." /></Head>
+        <m.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
         <Navbar />
         <PlanetCursor />
         {showSuccessToast && <m.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} className="fixed right-4 top-20 z-[60] rounded-lg border border-emerald-400/30 bg-emerald-600/90 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-emerald-900/30 backdrop-blur-sm"><div className="flex items-center gap-2"><FiCheck className="text-emerald-200" />Message sent successfully</div></m.div>}

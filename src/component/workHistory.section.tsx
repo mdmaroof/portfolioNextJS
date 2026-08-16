@@ -18,10 +18,10 @@ const companyIcons: Record<string, IconType> = {
 const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) => {
   const CompanyIcon = companyIcons[item.organisation] || FiCode;
   return (
-  <m.article className="experience-card group" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .55, delay: (index % 2) * .08, ease: [0.16, 1, 0.3, 1] }}>
+  <m.article className="experience-card group" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -5 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .55, delay: (index % 2) * .08, ease: [0.16, 1, 0.3, 1] }}>
     <div className="experience-card-top">
       <div className="company-orbit" aria-hidden="true">
-        <span className="company-orbit-ring" />
+        <m.span className="company-orbit-ring" animate={{ rotate: 360 }} transition={{ duration: 10 + index, repeat: Infinity, ease: "linear" }} />
         <strong><CompanyIcon /></strong>
       </div>
       <div className="min-w-0 flex-1">
@@ -53,10 +53,10 @@ const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) =>
 
 export const WorkHistory = ({ work = [] }: Props) => (
   <div>
-    <div className="section-heading-row">
+    <m.div className="section-heading-row" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .58, ease: [0.16, 1, 0.3, 1] }}>
       <div><span className="eyebrow">Selected experience</span><Heading className="mt-3">Work Experience</Heading></div>
       <p>Building thoughtful interfaces and reliable product experiences since 2019.</p>
-    </div>
+    </m.div>
     <div className="experience-grid mt-8 md:mt-10">
       {work.map((item, index) => <ExperienceCard key={`${item.organisation}-${item.from}`} item={item} index={index} />)}
     </div>

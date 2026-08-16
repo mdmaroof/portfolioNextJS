@@ -1,10 +1,39 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FiArrowUpRight, FiCode, FiLayers, FiMapPin, FiSend, FiSmartphone, FiZap } from "react-icons/fi";
-import { m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 
 interface Props { data: any; onMessageSentSuccess?: () => void; }
+
+const easeOut = [0.16, 1, 0.3, 1] as [number, number, number, number];
+const copyItem = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: .58, ease: easeOut } },
+};
+
+const PlanetOrbit = ({ path, tone, phase, duration, reverse = false, children }: { path: 1 | 2 | 3; tone: string; phase: number; duration: number; reverse?: boolean; children: ReactNode }) => {
+  const end = phase + (reverse ? -360 : 360);
+  return (
+    <m.span
+      className={`planet-orbit-path planet-orbit-path-${path}`}
+      initial={{ rotate: phase }}
+      animate={{ rotate: end }}
+      transition={{ duration, repeat: Infinity, ease: "linear" }}
+    >
+      <span className="planet-anchor">
+        <m.span
+          className={`orbit-satellite ${tone}`}
+          initial={{ rotate: -phase }}
+          animate={{ rotate: -end }}
+          transition={{ duration, repeat: Infinity, ease: "linear" }}
+        >
+          {children}
+        </m.span>
+      </span>
+    </m.span>
+  );
+};
 
 export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,9 +70,10 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
 
   return (
     <>
-      {modalOpen && (
-        <div className="modal-backdrop" onClick={() => setModalOpen(false)}>
-          <div className="contact-modal" onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="contact-title">
+      <AnimatePresence>
+        {modalOpen && (
+        <m.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .2 }} onClick={() => setModalOpen(false)}>
+          <m.div className="contact-modal" initial={{ opacity: 0, y: 18, scale: .97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12, scale: .98 }} transition={{ duration: .32, ease: easeOut }} onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="contact-title">
             <div className="flex items-center justify-between border-b border-white/10 pb-5">
               <div><p className="eyebrow">Let&apos;s build something</p><h2 id="contact-title" className="mt-2 text-2xl font-semibold text-white">Start a conversation</h2></div>
               <button className="icon-button" onClick={() => setModalOpen(false)} aria-label="Close contact form"><AiOutlineClose /></button>
@@ -54,37 +84,38 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
               <label className="form-field"><span>Message</span><textarea value={message} disabled={isSending} onChange={(event) => setMessage(event.target.value)} placeholder="Tell me about the product..." rows={5} /></label>
               <button className="primary-button mt-2" onClick={sendMessage} disabled={isSending}><FiSend />{isSending ? "Sending…" : "Send message"}</button>
             </div>
-          </div>
-        </div>
-      )}
+          </m.div>
+        </m.div>
+        )}
+      </AnimatePresence>
 
       <div className="hero-layout">
-        <m.div className="relative z-10 flex flex-col justify-center" initial={{ opacity: 0, x: -28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .7, delay: .12, ease: [0.16, 1, 0.3, 1] }}>
-          <div className="availability-pill"><span className="pulse-dot" /> Available for select projects</div>
-          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.22em] text-[#b9b2d3]">Senior frontend developer · India</p>
-          <h1 className="hero-title mt-5">Building digital<br />products that feel<br /><span>effortless.</span></h1>
-          <p className="mt-6 max-w-xl text-base leading-7 text-[#b9b2d3] md:text-lg">{data?.summary}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button onClick={() => setModalOpen(true)} className="primary-button">Let&apos;s work together <FiArrowUpRight /></button>
-            <a href={data?.social?.github} target="_blank" rel="noreferrer" className="secondary-button"><FaGithub /> GitHub</a>
-            <a href={data?.social?.linkedin} target="_blank" rel="noreferrer" className="secondary-button"><FaLinkedinIn /> LinkedIn</a>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#8f89aa]">
+        <m.div className="relative z-10 flex flex-col justify-center" initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: .09, delayChildren: .1 } } }}>
+          <m.div variants={copyItem} className="availability-pill"><span className="pulse-dot" /> Available for select projects</m.div>
+          <m.p variants={copyItem} className="mt-8 text-sm font-semibold uppercase tracking-[0.22em] text-[#b9b2d3]">Senior frontend developer · India</m.p>
+          <m.h1 variants={copyItem} className="hero-title mt-5">Building digital<br />products that feel<br /><span>effortless.</span></m.h1>
+          <m.p variants={copyItem} className="mt-6 max-w-xl text-base leading-7 text-[#b9b2d3] md:text-lg">{data?.summary}</m.p>
+          <m.div variants={copyItem} className="mt-8 flex flex-wrap gap-3">
+            <m.button whileHover={{ y: -3, scale: 1.015 }} whileTap={{ scale: .97 }} onClick={() => setModalOpen(true)} className="primary-button">Let&apos;s work together <FiArrowUpRight /></m.button>
+            <m.a whileHover={{ y: -3 }} whileTap={{ scale: .97 }} href={data?.social?.github} target="_blank" rel="noreferrer" className="secondary-button"><FaGithub /> GitHub</m.a>
+            <m.a whileHover={{ y: -3 }} whileTap={{ scale: .97 }} href={data?.social?.linkedin} target="_blank" rel="noreferrer" className="secondary-button"><FaLinkedinIn /> LinkedIn</m.a>
+          </m.div>
+          <m.div variants={copyItem} className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#8f89aa]">
             <span className="inline-flex items-center gap-1.5"><FiMapPin className="text-[#64e7ff]" /> India · Remote</span>
             <span className="inline-flex items-center gap-1.5"><FiZap className="text-[#ffb86b]" /> React · Next.js · React Native</span>
-          </div>
+          </m.div>
         </m.div>
 
         <m.div className="hero-orbit-stage" aria-hidden="true" initial={{ opacity: 0, scale: .88, rotate: -4 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: .95, delay: .18, ease: [0.16, 1, 0.3, 1] }}>
           <div className="hero-glow" />
-          <div className="orbit-ring orbit-ring-one" />
-          <div className="orbit-ring orbit-ring-two" />
-          <div className="orbit-ring orbit-ring-three" />
-          <div className="orbit-core"><strong>6+</strong><span>years of<br />product craft</span></div>
-          <span className="orbit-satellite satellite-one"><FiCode /></span>
-          <span className="orbit-satellite satellite-two"><FiSmartphone /></span>
-          <span className="orbit-satellite satellite-three"><FiLayers /></span>
-          <span className="orbit-satellite satellite-four"><FiZap /></span>
+          <m.div className="orbit-ring orbit-ring-one" animate={{ opacity: [.5, .9, .5] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} />
+          <m.div className="orbit-ring orbit-ring-two" animate={{ opacity: [.45, .78, .45] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
+          <m.div className="orbit-ring orbit-ring-three" animate={{ opacity: [.36, .68, .36] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
+          <div className="orbit-core-anchor"><m.div className="orbit-core" animate={{ y: [0, -6, 0], scale: [1, 1.025, 1] }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}><strong>6+</strong><span>years of<br />product craft</span></m.div></div>
+          <PlanetOrbit path={3} tone="satellite-one" phase={-58} duration={28}><FiCode /></PlanetOrbit>
+          <PlanetOrbit path={2} tone="satellite-two" phase={74} duration={19} reverse><FiSmartphone /></PlanetOrbit>
+          <PlanetOrbit path={3} tone="satellite-three" phase={142} duration={28}><FiLayers /></PlanetOrbit>
+          <PlanetOrbit path={1} tone="satellite-four" phase={214} duration={14} reverse><FiZap /></PlanetOrbit>
           <div className="orbit-caption"><span>Currently</span><strong key={subtitleIndex}>{subtitles[subtitleIndex] || data?.position}</strong></div>
         </m.div>
       </div>

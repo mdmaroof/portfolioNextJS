@@ -44,6 +44,18 @@ body::before {
     background-size: 190px 190px, 270px 270px, 230px 230px, 310px 310px;
 }
 
+.scroll-progress {
+    position: fixed;
+    z-index: 70;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--blue), var(--violet) 56%, var(--coral));
+    box-shadow: 0 0 12px rgba(100, 231, 255, .45);
+}
+
 button,
 a {
     -webkit-tap-highlight-color: transparent;
@@ -375,10 +387,16 @@ textarea:focus-visible {
     aspect-ratio: 1;
 }
 
-.orbit-core {
+.orbit-core-anchor {
     position: absolute;
+    z-index: 2;
     left: 50%;
     top: 48%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-core {
+    position: relative;
     display: flex;
     width: 9rem;
     height: 9rem;
@@ -389,7 +407,6 @@ textarea:focus-visible {
     border-radius: 50%;
     background: radial-gradient(circle at 38% 28%, #543f87, #1a1932 58%, #0c0c18);
     box-shadow: 0 0 60px rgba(150, 100, 255, .35), inset 0 0 30px rgba(255, 255, 255, .05);
-    transform: translate(-50%, -50%);
     text-align: center;
 }
 
@@ -407,8 +424,7 @@ textarea:focus-visible {
 }
 
 .orbit-satellite {
-    position: absolute;
-    z-index: 2;
+    position: relative;
     display: grid;
     width: 3.25rem;
     height: 3.25rem;
@@ -421,36 +437,59 @@ textarea:focus-visible {
     font-size: 1.15rem;
 }
 
+.planet-orbit-path {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 48%;
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.planet-orbit-path-1 {
+    width: 46%;
+    margin: -23% 0 0 -23%;
+}
+
+.planet-orbit-path-2 {
+    width: 70%;
+    margin: -35% 0 0 -35%;
+}
+
+.planet-orbit-path-3 {
+    width: 94%;
+    margin: -47% 0 0 -47%;
+}
+
+.planet-anchor {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+}
+
 .satellite-one {
-    left: 16%;
-    top: 27%;
-    color: var(--coral);
-    transform: rotate(-9deg)
+    color: var(--coral)
 }
 
 .satellite-two {
-    right: 9%;
-    top: 41%;
-    color: var(--blue);
-    transform: rotate(8deg)
+    color: var(--blue)
 }
 
 .satellite-three {
-    left: 25%;
-    bottom: 14%;
-    color: var(--amber);
-    transform: rotate(7deg)
+    color: var(--amber)
 }
 
 .satellite-four {
-    right: 25%;
-    bottom: 9%;
-    color: #c7b6ff;
-    transform: rotate(-8deg)
+    color: #c7b6ff
 }
 
 .orbit-caption {
     position: absolute;
+    z-index: 3;
     right: 3%;
     top: 13%;
     display: flex;
@@ -748,7 +787,6 @@ textarea:focus-visible {
 .experience-card:hover {
     border-color: rgba(155, 124, 255, .4);
     background: linear-gradient(145deg, rgba(155, 124, 255, .075), rgba(255, 255, 255, .018));
-    transform: translateY(-3px);
 }
 
 .experience-card-top {
@@ -774,6 +812,19 @@ textarea:focus-visible {
     border: 1px solid rgba(196, 181, 253, .32);
     border-radius: 50%;
     box-shadow: 0 0 0 .35rem rgba(155, 124, 255, .045);
+}
+
+.company-orbit-ring::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -.17rem;
+    width: .34rem;
+    height: .34rem;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 10px rgba(100, 231, 255, .72);
+    transform: translateX(-50%);
 }
 
 .company-orbit strong {
@@ -1169,7 +1220,6 @@ textarea:focus-visible {
 
 .project-orbit-card:hover {
     border-color: rgba(155, 124, 255, .35);
-    transform: translateY(-3px);
     box-shadow: 0 24px 60px rgba(0, 0, 0, .2)
 }
 
@@ -1210,10 +1260,15 @@ textarea:focus-visible {
     aspect-ratio: 1
 }
 
-.project-core {
+.project-core-anchor {
     position: absolute;
     left: 50%;
     top: 44%;
+    transform: translate(-50%, -50%);
+}
+
+.project-core {
+    position: relative;
     display: grid;
     width: 4.5rem;
     height: 4.5rem;
@@ -1222,7 +1277,6 @@ textarea:focus-visible {
     border-radius: 1.3rem;
     background: #11101d;
     box-shadow: 0 0 32px rgba(155, 124, 255, .35);
-    transform: translate(-50%, -50%) rotate(-7deg);
     color: white;
     font-size: 1.5rem
 }
@@ -1693,14 +1747,6 @@ textarea:focus-visible {
 
     .orbit-ring-three {
         width: 108%
-    }
-
-    .satellite-one {
-        left: 4%
-    }
-
-    .satellite-two {
-        right: 2%
     }
 
     .project-content {

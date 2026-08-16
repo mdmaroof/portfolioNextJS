@@ -34,16 +34,16 @@ export const OverviewSection = () => {
 
   return (
     <div ref={ref} className="overview-layout">
-      <div className="overview-copy">
+      <m.div className="overview-copy" initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .35 }} transition={{ duration: .62, ease: [0.16, 1, 0.3, 1] }}>
         <span className="eyebrow">Impact in orbit</span>
         <Heading className="mt-3">Ideas to interfaces,<br />at product scale.</Heading>
         <p className="mt-5 max-w-md text-sm leading-7 text-[#a6a0bd] md:text-base">I move between product thinking, interface architecture, and frontend execution—keeping users at the centre of every decision.</p>
         <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#f3efff]"><FiRadio className="text-[#64e7ff]" /> Built for clarity, speed and scale <FiArrowUpRight className="text-[#ff8e7a]" /></div>
-      </div>
+      </m.div>
       <div className="metric-system">
-        <div className="metric-track" />
+        <m.div className="metric-track" animate={{ opacity: [.48, .9, .48] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
         <div className="metric-center"><span>Product</span><strong>Impact</strong></div>
-        {stats.map((stat, index) => { const Icon = stat.icon; return <m.article key={stat.label} className={`metric-planet ${stat.className}`} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .35 }} transition={{ duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] }}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></m.article>; })}
+        {stats.map((stat, index) => { const Icon = stat.icon; return <m.article key={stat.label} className={`metric-planet ${stat.className}`} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -5, 0] }} whileHover={{ y: -8, scale: 1.025 }} viewport={{ once: true, amount: .35 }} transition={{ opacity: { duration: .5, delay: index * .1 }, scale: { duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] }, y: { duration: 4.5 + index, repeat: Infinity, ease: "easeInOut", delay: index * .45 } }}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></m.article>; })}
       </div>
     </div>
   );

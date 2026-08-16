@@ -15,25 +15,27 @@ const copyItem = {
 const PlanetOrbit = ({ path, tone, phase, duration, reverse = false, children }: { path: 1 | 2 | 3; tone: string; phase: number; duration: number; reverse?: boolean; children: ReactNode }) => {
   const end = phase + (reverse ? -360 : 360);
   return (
-    <m.span
-      className={`planet-orbit-path planet-orbit-path-${path}`}
-      initial={{ rotate: phase }}
-      whileInView={{ rotate: end }}
-      viewport={{ amount: .12 }}
-      transition={{ duration, repeat: Infinity, ease: "linear" }}
-    >
-      <span className="planet-anchor">
-        <m.span
-          className={`orbit-satellite ${tone}`}
-          initial={{ rotate: -phase }}
-          whileInView={{ rotate: -end }}
-          viewport={{ amount: .12 }}
-          transition={{ duration, repeat: Infinity, ease: "linear" }}
-        >
-          {children}
-        </m.span>
-      </span>
-    </m.span>
+    <span className={`planet-orbit-anchor planet-orbit-anchor-${path}`}>
+      <m.span
+        className="planet-orbit-path"
+        initial={{ rotate: phase }}
+        whileInView={{ rotate: end }}
+        viewport={{ amount: .12 }}
+        transition={{ duration, repeat: Infinity, ease: "linear" }}
+      >
+        <span className="planet-anchor">
+          <m.span
+            className={`orbit-satellite ${tone}`}
+            initial={{ rotate: -phase }}
+            whileInView={{ rotate: -end }}
+            viewport={{ amount: .12 }}
+            transition={{ duration, repeat: Infinity, ease: "linear" }}
+          >
+            {children}
+          </m.span>
+        </span>
+      </m.span>
+    </span>
   );
 };
 

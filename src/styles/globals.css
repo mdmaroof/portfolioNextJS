@@ -437,7 +437,7 @@ textarea:focus-visible {
     font-size: 1.15rem;
 }
 
-.planet-orbit-path {
+.planet-orbit-anchor {
     position: absolute;
     z-index: 2;
     left: 50%;
@@ -446,22 +446,27 @@ textarea:focus-visible {
     aspect-ratio: 1;
     border-radius: 50%;
     pointer-events: none;
-    will-change: transform;
+    transform: translate(-50%, -50%);
 }
 
-.planet-orbit-path-1 {
+.planet-orbit-anchor-1 {
     width: 46%;
-    margin: -23% 0 0 -23%;
 }
 
-.planet-orbit-path-2 {
+.planet-orbit-anchor-2 {
     width: 70%;
-    margin: -35% 0 0 -35%;
 }
 
-.planet-orbit-path-3 {
+.planet-orbit-anchor-3 {
     width: 94%;
-    margin: -47% 0 0 -47%;
+}
+
+.planet-orbit-path {
+    position: absolute;
+    inset: 0;
+    display: block;
+    border-radius: 50%;
+    will-change: transform;
 }
 
 .planet-anchor {
@@ -1546,6 +1551,15 @@ textarea:focus-visible {
     .hero-orbit-stage {
         min-height: 430px
     }
+
+    .orbit-ring-one,
+    .planet-orbit-anchor-1 { width: min(46%, 190px); }
+
+    .orbit-ring-two,
+    .planet-orbit-anchor-2 { width: min(70%, 300px); }
+
+    .orbit-ring-three,
+    .planet-orbit-anchor-3 { width: min(94%, 400px); }
 
     .overview-layout {
         grid-template-columns: 1fr

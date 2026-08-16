@@ -18,9 +18,30 @@ export const SkillSection = ({ skills }: Props) => {
     <div>
       <div className="section-heading-row"><div><span className="eyebrow">Technology constellation</span><Heading className="mt-3">Tools I build with</Heading></div><p>Focused expertise, arranged around the work—not a wall of logos.</p></div>
       <div className="skills-orbit mt-10">
-        <div className="skills-ring skills-ring-one" /><div className="skills-ring skills-ring-two" />
+        <div className="skills-ring skills-ring-one" />
+        <div className="skills-ring skills-ring-two" />
+        <div className="skills-ring skills-ring-three" />
+        <div className="skills-core" aria-hidden="true"><span>Product</span><strong>Engineering</strong></div>
+        <span className="skills-satellite skills-satellite-one" aria-hidden="true" />
+        <span className="skills-satellite skills-satellite-two" aria-hidden="true" />
+        <span className="skills-satellite skills-satellite-three" aria-hidden="true" />
         <div className="skills-grid">
-          {visible.map((group, index) => { const Icon = group.icon; return <m.article key={group.category} className={`skill-planet skill-planet-${index + 1}`} initial={{ opacity: 0, scale: .96, y: 14 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .48, delay: index * .055 }}><div className="skill-planet-head"><span><Icon /></span><div><p>0{index + 1}</p><h3>{group.category}</h3></div></div><div className="skill-list">{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></m.article>; })}
+          {visible.map((group, index) => {
+            const Icon = group.icon;
+            return (
+              <m.article
+                key={group.category}
+                className={`skill-planet skill-planet-${index + 1}`}
+                initial={{ opacity: 0, scale: .96, y: 14 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, amount: .3 }}
+                transition={{ duration: .48, delay: index * .055 }}
+              >
+                <div className="skill-planet-head"><span><Icon /></span><div><p>0{index + 1}</p><h3>{group.category}</h3></div></div>
+                <div className="skill-list">{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div>
+              </m.article>
+            );
+          })}
         </div>
       </div>
     </div>

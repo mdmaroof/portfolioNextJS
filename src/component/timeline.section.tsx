@@ -12,7 +12,7 @@ export const Timeline = ({ work = [] }: Props) => (
       <p>Every role added a new layer—from realtime experiences to product ownership.</p>
     </div>
 
-    <div className="timeline-stage mt-7 hidden md:block">
+    <div className="timeline-stage mt-7 hidden lg:block">
       <div className="timeline-arc timeline-arc-one" />
       <div className="timeline-arc timeline-arc-two" />
       <div className="timeline-arc timeline-arc-three" />
@@ -27,7 +27,7 @@ export const Timeline = ({ work = [] }: Props) => (
       </div>
     </div>
 
-    <div className="mt-5 space-y-3 md:hidden">
+    <div className="mt-5 space-y-3 lg:hidden">
       {work.map((item, index) => (
         <m.article key={`${item.organisation}-${item.from}`} className="timeline-mobile-card" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .4, delay: index * .04 }}>
           <span>{String(index + 1).padStart(2, "0")}</span>

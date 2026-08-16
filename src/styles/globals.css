@@ -491,6 +491,7 @@ textarea:focus-visible {
 }
 
 .planet-cursor-core,
+.planet-cursor-glow,
 .planet-cursor-orbit,
 .cursor-trail-dot {
     position: absolute;
@@ -502,37 +503,38 @@ textarea:focus-visible {
 }
 
 .planet-cursor-core {
-    width: 11px;
-    height: 11px;
-    margin: -5.5px 0 0 -5.5px;
-    background: radial-gradient(circle at 35% 30%, #fff 0 9%, #7cecff 25%, #a47cff 58%, #ff8178 100%);
-    box-shadow: 0 0 12px rgba(100, 231, 255, .75), 0 0 26px rgba(155, 124, 255, .45);
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    background: radial-gradient(circle at 34% 28%, #fff 0 8%, #9cf5ff 18%, #64e7ff 38%, #9276ff 72%, #402d95 100%);
+    box-shadow: 0 0 9px rgba(100, 231, 255, .9), 0 0 22px rgba(135, 111, 255, .52);
+}
+
+.planet-cursor-glow {
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    background: radial-gradient(circle, rgba(100, 231, 255, .18), rgba(135, 111, 255, .08) 46%, transparent 72%);
+    filter: blur(2px);
 }
 
 .planet-cursor-orbit {
-    width: 29px;
-    height: 29px;
-    margin: -14.5px 0 0 -14.5px;
-    border: 1px solid rgba(190, 177, 255, .7);
-    box-shadow: 0 0 18px rgba(155, 124, 255, .25), inset 0 0 9px rgba(100, 231, 255, .09);
+    width: 22px;
+    height: 12px;
+    margin: -6px 0 0 -11px;
+    border: 1px solid rgba(190, 177, 255, .62);
+    box-shadow: 0 0 12px rgba(155, 124, 255, .2);
+    transform-origin: center;
 }
 
 .planet-cursor-orbit::after {
-    content: "";
-    position: absolute;
-    right: -2px;
-    top: 4px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #ff9a80;
-    box-shadow: 0 0 7px #ff877a;
+    display: none;
 }
 
 .cursor-trail-dot {
-    background: linear-gradient(135deg, #64e7ff, #9b7cff 58%, #ff8e7a);
-    filter: blur(.35px);
-    box-shadow: 0 0 9px rgba(155, 124, 255, .42);
+    background: radial-gradient(circle, rgba(164, 243, 255, .92), rgba(100, 231, 255, .44) 38%, rgba(139, 112, 255, .2) 68%, transparent 75%);
+    filter: blur(.65px);
+    box-shadow: 0 0 8px rgba(100, 231, 255, .28);
 }
 
 /* Modal */
@@ -875,28 +877,82 @@ textarea:focus-visible {
 /* Skills */
 .skills-orbit {
     position: relative;
-    overflow: hidden;
-    padding: .75rem 0;
+    isolation: isolate;
+    overflow: visible;
+    padding: 1.4rem;
+    border: 1px solid rgba(255, 255, 255, .065);
+    border-radius: 1.5rem;
+    background: radial-gradient(circle at 50% 48%, rgba(104, 80, 205, .12), transparent 24%), rgba(7, 7, 14, .2);
 }
 
 .skills-ring {
     position: absolute;
-    left: 50%;
-    top: 50%;
     border: 1px solid rgba(200, 186, 255, .11);
     border-radius: 50%;
-    transform: translate(-50%, -50%) rotate(-8deg)
+    pointer-events: none;
 }
 
 .skills-ring-one {
-    width: 32%;
-    aspect-ratio: 1
+    inset: 8% 4%;
+    transform: rotate(-5deg);
 }
 
 .skills-ring-two {
-    width: 76%;
-    height: 150%
+    inset: 19% 17%;
+    border-color: rgba(100, 231, 255, .1);
+    transform: rotate(4deg)
 }
+
+.skills-ring-three {
+    inset: 30% 34%;
+    border-color: rgba(155, 124, 255, .16);
+}
+
+.skills-core {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    width: 8.6rem;
+    min-height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+    border: 1px solid rgba(180, 166, 255, .22);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(21, 19, 38, .98), rgba(27, 20, 50, .96));
+    box-shadow: 0 0 0 .35rem rgba(155, 124, 255, .025), 0 0 32px rgba(114, 82, 224, .18);
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.skills-core span {
+    color: #817b94;
+    font-size: .52rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.skills-core strong {
+    color: #cfc6eb;
+    font-size: .65rem;
+}
+
+.skills-satellite {
+    position: absolute;
+    z-index: 2;
+    width: .42rem;
+    height: .42rem;
+    border: 1px solid rgba(177, 246, 255, .8);
+    border-radius: 50%;
+    background: #6ceaff;
+    box-shadow: 0 0 13px rgba(100, 231, 255, .68);
+}
+
+.skills-satellite-one { left: 8%; top: 48%; }
+.skills-satellite-two { right: 15%; top: 20%; }
+.skills-satellite-three { right: 7%; bottom: 19%; }
 
 .skills-grid {
     position: relative;
@@ -909,12 +965,13 @@ textarea:focus-visible {
 }
 
 .skill-planet {
+    position: relative;
     grid-column: span 2;
     min-height: 8.5rem;
     padding: 1rem;
     border: 1px solid var(--line);
     border-radius: 1rem;
-    background: rgba(16, 14, 27, .9);
+    background: linear-gradient(145deg, rgba(21, 18, 34, .94), rgba(12, 11, 22, .9));
     box-shadow: 0 16px 42px rgba(0, 0, 0, .2);
     backdrop-filter: blur(12px);
     transition: .25s ease
@@ -1478,6 +1535,10 @@ textarea:focus-visible {
         grid-template-columns: repeat(2, minmax(0, 1fr))
     }
 
+    .skills-orbit {
+        padding: 1rem
+    }
+
     .skill-planet,
     .skill-planet-4,
     .skill-planet-5 {
@@ -1490,6 +1551,10 @@ textarea:focus-visible {
 
     .project-orbit-card {
         grid-template-columns: 33% 67%
+    }
+
+    .project-orbit-grid {
+        grid-template-columns: 1fr
     }
 }
 
@@ -1596,6 +1661,17 @@ textarea:focus-visible {
         grid-template-columns: 1fr
     }
 
+    .skills-orbit {
+        padding: .75rem;
+        overflow: hidden;
+    }
+
+    .skills-ring-one { inset: 2% -58%; }
+    .skills-ring-two { inset: 20% -30%; }
+    .skills-ring-three,
+    .skills-core,
+    .skills-satellite { display: none; }
+
     .skill-planet-5 {
         grid-column: auto
     }
@@ -1633,9 +1709,6 @@ textarea:focus-visible {
         width: 100%
     }
 
-    .career-orbit::before {
-        opacity: .45
-    }
 }
 
 @media(max-width:420px) {

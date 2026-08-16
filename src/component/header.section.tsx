@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FiArrowUpRight, FiCode, FiLayers, FiMapPin, FiSend, FiSmartphone, FiZap } from "react-icons/fi";
+import { GiCottonFlower } from "react-icons/gi";
 import { AnimatePresence, m } from "framer-motion";
 
 interface Props { data: any; onMessageSentSuccess?: () => void; }
@@ -120,7 +121,17 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
           <PlanetOrbit path={2} tone="satellite-two" phase={74} duration={19} reverse><FiSmartphone /></PlanetOrbit>
           <PlanetOrbit path={3} tone="satellite-three" phase={142} duration={28}><FiLayers /></PlanetOrbit>
           <PlanetOrbit path={1} tone="satellite-four" phase={214} duration={14} reverse><FiZap /></PlanetOrbit>
-          <div className="orbit-caption"><span>Currently</span><strong key={subtitleIndex}>{subtitles[subtitleIndex] || data?.position}</strong></div>
+          <m.div className="orbit-caption-shell" initial={{ opacity: 0, y: -10, scale: .78 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: "spring", stiffness: 240, damping: 14, mass: .8, delay: .72 }}>
+            <m.div className="orbit-caption" whileInView={{ y: [0, -4, 0], rotate: [-.45, .45, -.45] }} viewport={{ amount: .2 }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+              <div className="orbit-caption-line">
+                <span className="orbit-caption-status"><i />Currently</span>
+                <AnimatePresence mode="wait" initial={false}>
+                  <m.strong key={subtitleIndex} initial={{ opacity: 0, y: 7, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -7, filter: "blur(4px)" }} transition={{ type: "spring", stiffness: 300, damping: 22 }}>{subtitles[subtitleIndex] || data?.position}</m.strong>
+                </AnimatePresence>
+              </div>
+              <m.span className="orbit-caption-cotton" whileInView={{ y: [0, 3, 0], rotate: [-6, 5, -6] }} viewport={{ amount: .2 }} transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}><GiCottonFlower /></m.span>
+            </m.div>
+          </m.div>
         </m.div>
       </div>
     </>

@@ -17,7 +17,6 @@ export const SkillSection = ({ skills }: Props) => {
     <div>
       <div className="section-heading-row"><div><span className="eyebrow">Technology constellation</span><Heading className="mt-3">Tools I build with</Heading></div><p>Focused expertise, arranged around the work—not a wall of logos.</p></div>
       <div className="skills-orbit mt-10">
-        <div className="skills-core"><FiCode /><strong>Frontend<br />systems</strong><span>{skills.length} capabilities</span></div>
         <div className="skills-ring skills-ring-one" /><div className="skills-ring skills-ring-two" />
         <div className="skills-grid">
           {visible.map((group, index) => { const Icon = group.icon; return <article key={group.category} className={`skill-planet skill-planet-${index + 1}`}><div className="skill-planet-head"><span><Icon /></span><div><p>0{index + 1}</p><h3>{group.category}</h3></div></div><div className="skill-list">{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>; })}

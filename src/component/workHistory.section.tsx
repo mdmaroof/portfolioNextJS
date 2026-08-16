@@ -22,7 +22,6 @@ const ExperienceCard = ({ item, index, isLast }: { item: objectWork; index: numb
       <div className="company-orbit" aria-hidden="true">
         <span className="company-orbit-ring" />
         <strong><CompanyIcon /></strong>
-        <i />
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">

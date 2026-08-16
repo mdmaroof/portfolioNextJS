@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FiArrowUpRight, FiCode, FiLayers, FiMapPin, FiSend, FiSmartphone, FiZap } from "react-icons/fi";
-import { GiCottonFlower } from "react-icons/gi";
 import { AnimatePresence, m } from "framer-motion";
 
 interface Props { data: any; onMessageSentSuccess?: () => void; }
@@ -129,7 +128,6 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
                   <m.strong key={subtitleIndex} initial={{ opacity: 0, y: 7, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -7, filter: "blur(4px)" }} transition={{ type: "spring", stiffness: 300, damping: 22 }}>{subtitles[subtitleIndex] || data?.position}</m.strong>
                 </AnimatePresence>
               </div>
-              <m.span className="orbit-caption-cotton" whileInView={{ y: [0, 3, 0], rotate: [-6, 5, -6] }} viewport={{ amount: .2 }} transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}><GiCottonFlower /></m.span>
             </m.div>
           </m.div>
         </m.div>

@@ -10,6 +10,12 @@ const stats: { label: string; value: number; suffix: string; detail: string; ico
   { label: "Core domains", value: 4, suffix: "+", detail: "Realtime, analytics, maps and performance", icon: FiTarget, className: "metric-violet" },
 ];
 
+const planetPaths = [
+  { x: [0, 18, 0, -18, 0], y: [-5, 0, 5, 0, -5], duration: 8.5 },
+  { x: [8, 0, -16, 0, 8], y: [0, 8, 0, -8, 0], duration: 10 },
+  { x: [-8, 0, 17, 0, -8], y: [4, -5, 0, 7, 4], duration: 9.2 },
+];
+
 const Count = ({ value, active }: { value: number; active: boolean }) => {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -42,8 +48,38 @@ export const OverviewSection = () => {
       </m.div>
       <div className="metric-system">
         <m.div className="metric-track" whileInView={{ opacity: [.48, .9, .48] }} viewport={{ amount: .2 }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
-        <div className="metric-center"><span>Product</span><strong>Impact</strong></div>
-        {stats.map((stat, index) => { const Icon = stat.icon; return <m.article key={stat.label} className={`metric-planet ${stat.className}`} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1, y: [0, -5, 0] }} whileHover={{ y: -8, scale: 1.025 }} viewport={{ amount: .35 }} transition={{ opacity: { duration: .5, delay: index * .1 }, scale: { duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] }, y: { duration: 4.5 + index, repeat: Infinity, ease: "easeInOut", delay: index * .45 } }}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></m.article>; })}
+        <m.div className="metric-track metric-track-secondary" whileInView={{ opacity: [.22, .52, .22] }} viewport={{ amount: .2 }} transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: .8 }} />
+        <div className="metric-center-anchor">
+          <m.div className="metric-center" whileInView={{ scale: [1, 1.045, 1], y: [0, -4, 0] }} viewport={{ amount: .25 }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}>
+            <span className="metric-center-orbit" />
+            <span>Product</span><strong>Impact</strong>
+          </m.div>
+        </div>
+        {stats.map((stat, index) => {
+          const Icon = stat.icon;
+          const path = planetPaths[index];
+          return (
+            <m.article
+              key={stat.label}
+              className={`metric-planet ${stat.className}`}
+              initial={{ opacity: 0, scale: .9 }}
+              whileInView={{ opacity: 1, scale: 1, x: path.x, y: path.y }}
+              whileHover={{ scale: 1.035 }}
+              viewport={{ amount: .3 }}
+              transition={{
+                opacity: { duration: .5, delay: index * .1 },
+                scale: { duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] },
+                x: { duration: path.duration, repeat: Infinity, ease: "easeInOut", delay: index * .35 },
+                y: { duration: path.duration, repeat: Infinity, ease: "easeInOut", delay: index * .35 },
+              }}
+            >
+              <div className="metric-icon"><Icon /></div>
+              <strong><Count value={stat.value} active={active} />{stat.suffix}</strong>
+              <span>{stat.label}</span>
+              <p>{stat.detail}</p>
+            </m.article>
+          );
+        })}
       </div>
     </div>
   );

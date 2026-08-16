@@ -5,7 +5,7 @@ import { m } from "framer-motion";
 export const Footer = () => (
   <footer className="footer-wrap">
     <div className="footer-orbit">
-      <m.div className="footer-ring footer-ring-one" animate={{ opacity: [.4, .82, .4] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} /><m.div className="footer-ring footer-ring-two" animate={{ opacity: [.26, .55, .26] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: .8 }} />
+      <m.div className="footer-ring footer-ring-one" whileInView={{ opacity: [.4, .82, .4] }} viewport={{ amount: .2 }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} /><m.div className="footer-ring footer-ring-two" whileInView={{ opacity: [.26, .55, .26] }} viewport={{ amount: .2 }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: .8 }} />
       <m.div className="relative z-10" initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .65, ease: [0.16, 1, 0.3, 1] }}>
         <span className="eyebrow">Open to the right opportunity</span>
         <h2>Have an ambitious product<br />that needs momentum?</h2>

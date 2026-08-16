@@ -18,14 +18,16 @@ const PlanetOrbit = ({ path, tone, phase, duration, reverse = false, children }:
     <m.span
       className={`planet-orbit-path planet-orbit-path-${path}`}
       initial={{ rotate: phase }}
-      animate={{ rotate: end }}
+      whileInView={{ rotate: end }}
+      viewport={{ amount: .12 }}
       transition={{ duration, repeat: Infinity, ease: "linear" }}
     >
       <span className="planet-anchor">
         <m.span
           className={`orbit-satellite ${tone}`}
           initial={{ rotate: -phase }}
-          animate={{ rotate: -end }}
+          whileInView={{ rotate: -end }}
+          viewport={{ amount: .12 }}
           transition={{ duration, repeat: Infinity, ease: "linear" }}
         >
           {children}
@@ -108,10 +110,10 @@ export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
 
         <m.div className="hero-orbit-stage" aria-hidden="true" initial={{ opacity: 0, scale: .88, rotate: -4 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: .95, delay: .18, ease: [0.16, 1, 0.3, 1] }}>
           <div className="hero-glow" />
-          <m.div className="orbit-ring orbit-ring-one" animate={{ opacity: [.5, .9, .5] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} />
-          <m.div className="orbit-ring orbit-ring-two" animate={{ opacity: [.45, .78, .45] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
-          <m.div className="orbit-ring orbit-ring-three" animate={{ opacity: [.36, .68, .36] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
-          <div className="orbit-core-anchor"><m.div className="orbit-core" animate={{ y: [0, -6, 0], scale: [1, 1.025, 1] }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}><strong>6+</strong><span>years of<br />product craft</span></m.div></div>
+          <m.div className="orbit-ring orbit-ring-one" whileInView={{ opacity: [.5, .9, .5] }} viewport={{ amount: .15 }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} />
+          <m.div className="orbit-ring orbit-ring-two" whileInView={{ opacity: [.45, .78, .45] }} viewport={{ amount: .15 }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
+          <m.div className="orbit-ring orbit-ring-three" whileInView={{ opacity: [.36, .68, .36] }} viewport={{ amount: .15 }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
+          <div className="orbit-core-anchor"><m.div className="orbit-core" whileInView={{ y: [0, -6, 0], scale: [1, 1.025, 1] }} viewport={{ amount: .15 }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}><strong>6+</strong><span>years of<br />product craft</span></m.div></div>
           <PlanetOrbit path={3} tone="satellite-one" phase={-58} duration={28}><FiCode /></PlanetOrbit>
           <PlanetOrbit path={2} tone="satellite-two" phase={74} duration={19} reverse><FiSmartphone /></PlanetOrbit>
           <PlanetOrbit path={3} tone="satellite-three" phase={142} duration={28}><FiLayers /></PlanetOrbit>

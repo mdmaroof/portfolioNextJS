@@ -13,9 +13,9 @@ export const Timeline = ({ work = [] }: Props) => (
     </m.div>
 
     <div className="timeline-stage mt-7 hidden lg:block">
-      <m.div className="timeline-arc timeline-arc-one" animate={{ opacity: [.42, .82, .42] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }} />
-      <m.div className="timeline-arc timeline-arc-two" animate={{ opacity: [.35, .7, .35] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
-      <m.div className="timeline-arc timeline-arc-three" animate={{ opacity: [.28, .58, .28] }} transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 1.3 }} />
+      <m.div className="timeline-arc timeline-arc-one" whileInView={{ opacity: [.42, .82, .42] }} viewport={{ amount: .2 }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }} />
+      <m.div className="timeline-arc timeline-arc-two" whileInView={{ opacity: [.35, .7, .35] }} viewport={{ amount: .2 }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
+      <m.div className="timeline-arc timeline-arc-three" whileInView={{ opacity: [.28, .58, .28] }} viewport={{ amount: .2 }} transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 1.3 }} />
       <m.p className="timeline-statement" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .65, delay: .14 }}>A continuous path from frontend craft to product ownership.</m.p>
       <div className="timeline-track">
         {work.map((item, index) => (

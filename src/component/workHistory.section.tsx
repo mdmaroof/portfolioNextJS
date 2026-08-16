@@ -21,7 +21,7 @@ const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) =>
   <m.article className="experience-card group" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -5 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .55, delay: (index % 2) * .08, ease: [0.16, 1, 0.3, 1] }}>
     <div className="experience-card-top">
       <div className="company-orbit" aria-hidden="true">
-        <m.span className="company-orbit-ring" animate={{ rotate: 360 }} transition={{ duration: 10 + index, repeat: Infinity, ease: "linear" }} />
+        <m.span className="company-orbit-ring" whileInView={{ rotate: 360 }} viewport={{ amount: .25 }} transition={{ duration: 10 + index, repeat: Infinity, ease: "linear" }} />
         <strong><CompanyIcon /></strong>
       </div>
       <div className="min-w-0 flex-1">

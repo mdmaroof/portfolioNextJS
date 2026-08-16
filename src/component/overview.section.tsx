@@ -41,9 +41,9 @@ export const OverviewSection = () => {
         <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#f3efff]"><FiRadio className="text-[#64e7ff]" /> Built for clarity, speed and scale <FiArrowUpRight className="text-[#ff8e7a]" /></div>
       </m.div>
       <div className="metric-system">
-        <m.div className="metric-track" animate={{ opacity: [.48, .9, .48] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
+        <m.div className="metric-track" whileInView={{ opacity: [.48, .9, .48] }} viewport={{ amount: .2 }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
         <div className="metric-center"><span>Product</span><strong>Impact</strong></div>
-        {stats.map((stat, index) => { const Icon = stat.icon; return <m.article key={stat.label} className={`metric-planet ${stat.className}`} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -5, 0] }} whileHover={{ y: -8, scale: 1.025 }} viewport={{ once: true, amount: .35 }} transition={{ opacity: { duration: .5, delay: index * .1 }, scale: { duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] }, y: { duration: 4.5 + index, repeat: Infinity, ease: "easeInOut", delay: index * .45 } }}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></m.article>; })}
+        {stats.map((stat, index) => { const Icon = stat.icon; return <m.article key={stat.label} className={`metric-planet ${stat.className}`} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1, y: [0, -5, 0] }} whileHover={{ y: -8, scale: 1.025 }} viewport={{ amount: .35 }} transition={{ opacity: { duration: .5, delay: index * .1 }, scale: { duration: .5, delay: index * .1, ease: [0.16, 1, 0.3, 1] }, y: { duration: 4.5 + index, repeat: Infinity, ease: "easeInOut", delay: index * .45 } }}><div className="metric-icon"><Icon /></div><strong><Count value={stat.value} active={active} />{stat.suffix}</strong><span>{stat.label}</span><p>{stat.detail}</p></m.article>; })}
       </div>
     </div>
   );

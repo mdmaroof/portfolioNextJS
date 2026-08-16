@@ -18,12 +18,12 @@ export const SkillSection = ({ skills }: Props) => {
     <div>
       <m.div className="section-heading-row" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .58, ease: [0.16, 1, 0.3, 1] }}><div><span className="eyebrow">Technology constellation</span><Heading className="mt-3">Tools I build with</Heading></div><p>Focused expertise, arranged around the work—not a wall of logos.</p></m.div>
       <div className="skills-orbit mt-10">
-        <m.div className="skills-ring skills-ring-one" animate={{ opacity: [.35, .72, .35] }} transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }} />
-        <m.div className="skills-ring skills-ring-two" animate={{ opacity: [.3, .62, .3] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: .8 }} />
-        <m.div className="skills-ring skills-ring-three" animate={{ opacity: [.4, .8, .4] }} transition={{ duration: 4.7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
-        <m.span className="skills-satellite skills-satellite-one" aria-hidden="true" animate={{ scale: [1, 1.55, 1], opacity: [.55, 1, .55] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }} />
-        <m.span className="skills-satellite skills-satellite-two" aria-hidden="true" animate={{ scale: [1, 1.45, 1], opacity: [.5, 1, .5] }} transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
-        <m.span className="skills-satellite skills-satellite-three" aria-hidden="true" animate={{ scale: [1, 1.5, 1], opacity: [.5, 1, .5] }} transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 1.1 }} />
+        <m.div className="skills-ring skills-ring-one" whileInView={{ opacity: [.35, .72, .35] }} viewport={{ amount: .15 }} transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }} />
+        <m.div className="skills-ring skills-ring-two" whileInView={{ opacity: [.3, .62, .3] }} viewport={{ amount: .15 }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: .8 }} />
+        <m.div className="skills-ring skills-ring-three" whileInView={{ opacity: [.4, .8, .4] }} viewport={{ amount: .15 }} transition={{ duration: 4.7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
+        <m.span className="skills-satellite skills-satellite-one" aria-hidden="true" whileInView={{ scale: [1, 1.55, 1], opacity: [.55, 1, .55] }} viewport={{ amount: .15 }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }} />
+        <m.span className="skills-satellite skills-satellite-two" aria-hidden="true" whileInView={{ scale: [1, 1.45, 1], opacity: [.5, 1, .5] }} viewport={{ amount: .15 }} transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
+        <m.span className="skills-satellite skills-satellite-three" aria-hidden="true" whileInView={{ scale: [1, 1.5, 1], opacity: [.5, 1, .5] }} viewport={{ amount: .15 }} transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 1.1 }} />
         <div className="skills-grid">
           {visible.map((group, index) => {
             const Icon = group.icon;

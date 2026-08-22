@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2, FiActivity } from "react-icons/fi";
+import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2, FiActivity, FiZap } from "react-icons/fi";
 import { SiReact } from "react-icons/si";
 
 interface Message {

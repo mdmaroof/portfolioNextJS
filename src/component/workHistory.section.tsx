@@ -1,64 +1,73 @@
-import { FiArrowUpRight, FiCalendar, FiCode, FiGrid, FiMapPin, FiRadio, FiShield, FiSmartphone, FiStar, FiTruck } from "react-icons/fi";
-import type { IconType } from "react-icons";
-import { Heading } from "./heading";
-import { m } from "framer-motion";
+import React from "react";
+import { FiBriefcase, FiMapPin, FiCalendar, FiCheckCircle } from "react-icons/fi";
 
-export interface objectWork { organisation: string; role: string; from: string; to: string; location: string; labels: string[]; }
-interface Props { work?: objectWork[]; }
+interface WorkItem {
+  organisation: string;
+  role: string;
+  from: string;
+  to: string;
+  location: string;
+  labels: string[];
+}
 
-const companyIcons: Record<string, IconType> = {
-  Ethos: FiSmartphone,
-  VAHN: FiTruck,
-  Mercor: FiGrid,
-  "Buzztales Technologies Pvt. Ltd.": FiStar,
-  "56 Secure": FiShield,
-  "Noon Academy": FiRadio,
-};
+interface WorkHistoryProps {
+  work: WorkItem[];
+}
 
-const ExperienceCard = ({ item, index }: { item: objectWork; index: number }) => {
-  const CompanyIcon = companyIcons[item.organisation] || FiCode;
+export const WorkHistory: React.FC<WorkHistoryProps> = ({ work }) => {
   return (
-  <m.article className="experience-card group" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -5 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .55, delay: (index % 2) * .08, ease: [0.16, 1, 0.3, 1] }}>
-    <div className="experience-card-top">
-      <div className="company-orbit" aria-hidden="true">
-        <m.span className="company-orbit-ring" whileInView={{ rotate: 360 }} viewport={{ amount: .25 }} transition={{ duration: 10 + index, repeat: Infinity, ease: "linear" }} />
-        <strong><CompanyIcon /></strong>
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className="experience-number">{String(index + 1).padStart(2, "0")}</span>
-          {index === 0 && <span className="current-role"><i /> Current role</span>}
+    <section id="work-history" className="py-14">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="text-center mb-10">
+          <div className="inline-block mb-3">
+            <span className="tag">
+              <FiBriefcase className="text-[#262ef2] mr-1" />
+              Career Journey
+            </span>
+          </div>
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#1f1f32]">
+            Detailed Roles &amp; <span className="serif-accent blue-accent font-normal">Contributions</span>
+          </h2>
         </div>
-        <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#64e7ff]">{item.organisation}</p>
-        <h3 className="mt-1.5 text-xl font-semibold tracking-tight text-white md:text-2xl">{item.role}</h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {work.map((item, idx) => (
+            <div
+              key={idx}
+              className="craft-card p-6 bg-white flex flex-col justify-between hover:border-[#262ef2]/60"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-xs font-bold text-[#262ef2] bg-[#262ef2]/10 px-2.5 py-0.5 rounded-full">
+                    {item.organisation}
+                  </span>
+                  <span className="text-xs font-mono text-[#61667b] flex items-center gap-1">
+                    <FiCalendar className="w-3 h-3" /> {item.from} — {item.to}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-[#1f1f32] mt-1">{item.role}</h3>
+                <p className="text-xs text-[#6e73fa] flex items-center gap-1 mt-0.5 mb-3 font-mono">
+                  <FiMapPin className="w-3 h-3" /> {item.location}
+                </p>
+
+                <ul className="space-y-1.5 text-xs text-[#4d5564] leading-relaxed">
+                  {item.labels.map((lbl, lIdx) => (
+                    <li key={lIdx} className="flex items-start gap-1.5">
+                      <FiCheckCircle className="w-3.5 h-3.5 text-[#262ef2] shrink-0 mt-0.5" />
+                      <span>{lbl}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-[#f0f0f6] flex items-center justify-between text-[11px] text-[#8c859d] font-mono">
+                <span>0{idx + 1} / 0{work.length}</span>
+                <span className="text-emerald-600 font-semibold">Production Verified</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-
-    <div className="experience-meta-row">
-      <span><FiCalendar /> {item.from} — {item.to}</span>
-      <span><FiMapPin /> {item.location}</span>
-    </div>
-
-    <ul className="experience-points">
-      {item.labels.map((label) => (
-        <li key={label}>
-          <FiArrowUpRight />
-          <span>{label}</span>
-        </li>
-      ))}
-    </ul>
-  </m.article>
+    </section>
   );
 };
-
-export const WorkHistory = ({ work = [] }: Props) => (
-  <div>
-    <m.div className="section-heading-row" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .58, ease: [0.16, 1, 0.3, 1] }}>
-      <div><span className="eyebrow">Selected experience</span><Heading className="mt-3">Work Experience</Heading></div>
-      <p>Building thoughtful interfaces and reliable product experiences since 2019.</p>
-    </m.div>
-    <div className="experience-grid mt-8 md:mt-10">
-      {work.map((item, index) => <ExperienceCard key={`${item.organisation}-${item.from}`} item={item} index={index} />)}
-    </div>
-  </div>
-);

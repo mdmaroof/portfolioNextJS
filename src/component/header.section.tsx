@@ -1,137 +1,213 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { FiArrowUpRight, FiCode, FiLayers, FiMapPin, FiSend, FiSmartphone, FiZap } from "react-icons/fi";
-import { AnimatePresence, m } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { FiArrowRight, FiCheck, FiSend, FiCode, FiSmartphone, FiCpu, FiCompass, FiExternalLink } from "react-icons/fi";
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from "react-icons/si";
 
-interface Props { data: any; onMessageSentSuccess?: () => void; }
+interface HeaderComponentProps {
+  data: any;
+  onMessageSentSuccess?: () => void;
+}
 
-const easeOut = [0.16, 1, 0.3, 1] as [number, number, number, number];
-const copyItem = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: .58, ease: easeOut } },
-};
+export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessageSentSuccess }) => {
+  const [typedText, setTypedText] = useState("");
+  const tickerRef = useRef<HTMLDivElement>(null);
 
-const PlanetOrbit = ({ path, tone, phase, duration, reverse = false, children }: { path: 1 | 2 | 3; tone: string; phase: number; duration: number; reverse?: boolean; children: ReactNode }) => {
-  const end = phase + (reverse ? -360 : 360);
-  return (
-    <span className={`planet-orbit-anchor planet-orbit-anchor-${path}`}>
-      <m.span
-        className="planet-orbit-path"
-        initial={{ rotate: phase }}
-        whileInView={{ rotate: end }}
-        viewport={{ amount: .12 }}
-        transition={{ duration, repeat: Infinity, ease: "linear" }}
-      >
-        <span className="planet-anchor">
-          <m.span
-            className={`orbit-satellite ${tone}`}
-            initial={{ rotate: -phase }}
-            whileInView={{ rotate: -end }}
-            viewport={{ amount: .12 }}
-            transition={{ duration, repeat: Infinity, ease: "linear" }}
-          >
-            {children}
-          </m.span>
-        </span>
-      </m.span>
-    </span>
-  );
-};
-
-export const HeaderComponent = ({ data, onMessageSentSuccess }: Props) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [isSending, setIsSending] = useState(false);
-  const subtitles = useMemo(() => data?.subtitles || [], [data?.subtitles]);
-  const [subtitleIndex, setSubtitleIndex] = useState(0);
+  const headlines = [
+    "Building High-Scale Web Apps",
+    "Crafting Fluid Mobile Experiences",
+    "Architecting Real-time Dashboards",
+    "Delivering Production-Ready MVPs",
+  ];
 
   useEffect(() => {
-    if (!subtitles.length) return;
-    const timer = window.setInterval(() => setSubtitleIndex((value) => (value + 1) % subtitles.length), 2600);
-    return () => window.clearInterval(timer);
-  }, [subtitles]);
+    let wordIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    let timer: any = null;
 
-  const sendMessage = async () => {
-    if (isSending) return;
-    if (!name.trim() || !/\S+@\S+\.\S+/.test(email) || !message.trim()) {
-      alert("Please complete your name, a valid email, and your message.");
-      return;
-    }
-    try {
-      setIsSending(true);
-      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, message }) });
-      const result = (await response.json()) as { ok: boolean; message: string };
-      if (!response.ok || !result.ok) throw new Error(result.message || "Failed to send message");
-      onMessageSentSuccess?.();
-      setName(""); setEmail(""); setMessage(""); setModalOpen(false);
-    } catch (error) {
-      alert(error instanceof Error ? error.message : "Failed to send message");
-    } finally { setIsSending(false); }
-  };
+    const tick = () => {
+      const fullWord = headlines[wordIdx];
+      if (!isDeleting) {
+        charIdx++;
+        setTypedText(fullWord.slice(0, charIdx));
+        if (charIdx === fullWord.length) {
+          isDeleting = true;
+          timer = setTimeout(tick, 2000);
+          return;
+        }
+        timer = setTimeout(tick, 55);
+      } else {
+        charIdx--;
+        setTypedText(fullWord.slice(0, charIdx));
+        if (charIdx === 0) {
+          isDeleting = false;
+          wordIdx = (wordIdx + 1) % headlines.length;
+          timer = setTimeout(tick, 450);
+          return;
+        }
+        timer = setTimeout(tick, 30);
+      }
+    };
+
+    timer = setTimeout(tick, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Flagship project preview items for the hero ticker
+  const heroTickerItems = [
+    {
+      title: "Ethos Ascend",
+      type: "React Native Mobile App",
+      metric: "Sub-100ms QR Scanner",
+      status: "In Production",
+      color: "#262ef2",
+    },
+    {
+      title: "VAHN Fleet MVP",
+      type: "Fleet Logistics & Maps",
+      metric: "0 to 1 Release",
+      status: "Production MVP",
+      color: "#6e73fa",
+    },
+    {
+      title: "Graple.ai",
+      type: "SaaS Experimentation",
+      metric: "Real-time A/B Testing",
+      status: "Live Web App",
+      color: "#0c9618",
+    },
+    {
+      title: "SnapAid",
+      type: "Emergency Guidance",
+      metric: "Offline-First PWA",
+      status: "Live Web App",
+      color: "#ca7c0e",
+    },
+    {
+      title: "56 Secure Command",
+      type: "Guard & Police Dashboard",
+      metric: "Live Map Tracking",
+      status: "High Scale",
+      color: "#aa26f2",
+    },
+    {
+      title: "Twist N Words",
+      type: "Interactive Word Game",
+      metric: "Mobile-Touch Optimized",
+      status: "Live Game",
+      color: "#f25c26",
+    },
+  ];
+
+  const duplicatedTicker = [...heroTickerItems, ...heroTickerItems, ...heroTickerItems];
 
   return (
-    <>
-      <AnimatePresence>
-        {modalOpen && (
-        <m.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .2 }} onClick={() => setModalOpen(false)}>
-          <m.div className="contact-modal" initial={{ opacity: 0, y: 18, scale: .97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12, scale: .98 }} transition={{ duration: .32, ease: easeOut }} onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="contact-title">
-            <div className="flex items-center justify-between border-b border-white/10 pb-5">
-              <div><p className="eyebrow">Let&apos;s build something</p><h2 id="contact-title" className="mt-2 text-2xl font-semibold text-white">Start a conversation</h2></div>
-              <button className="icon-button" onClick={() => setModalOpen(false)} aria-label="Close contact form"><AiOutlineClose /></button>
-            </div>
-            <div className="mt-6 grid gap-4">
-              <label className="form-field"><span>Name</span><input value={name} disabled={isSending} onChange={(event) => setName(event.target.value)} placeholder="Your name" /></label>
-              <label className="form-field"><span>Email</span><input type="email" value={email} disabled={isSending} onChange={(event) => setEmail(event.target.value)} placeholder="you@company.com" /></label>
-              <label className="form-field"><span>Message</span><textarea value={message} disabled={isSending} onChange={(event) => setMessage(event.target.value)} placeholder="Tell me about the product..." rows={5} /></label>
-              <button className="primary-button mt-2" onClick={sendMessage} disabled={isSending}><FiSend />{isSending ? "Sending…" : "Send message"}</button>
-            </div>
-          </m.div>
-        </m.div>
-        )}
-      </AnimatePresence>
+    <div className="pt-24 md:pt-32 pb-14 overflow-hidden relative">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Eyebrow & Hero Header */}
+        <div className="text-center max-w-4xl mx-auto">
+          {/* Eyebrow Badge */}
+          <div className="inline-block mb-4">
+            <span className="tag">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping mr-1" />
+              Senior Frontend Developer · 6+ Yrs Exp
+            </span>
+          </div>
 
-      <div className="hero-layout">
-        <m.div className="relative z-10 flex flex-col justify-center" initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: .09, delayChildren: .1 } } }}>
-          <m.div variants={copyItem} className="availability-pill"><span className="pulse-dot" /> Available for select projects</m.div>
-          <m.p variants={copyItem} className="mt-8 text-sm font-semibold uppercase tracking-[0.22em] text-[#b9b2d3]">Senior frontend developer · India</m.p>
-          <m.h1 variants={copyItem} className="hero-title mt-5">Building digital<br />products that feel<br /><span>effortless.</span></m.h1>
-          <m.p variants={copyItem} className="mt-6 max-w-xl text-base leading-7 text-[#b9b2d3] md:text-lg">{data?.summary}</m.p>
-          <m.div variants={copyItem} className="mt-8 flex flex-wrap gap-3">
-            <m.button whileHover={{ y: -3, scale: 1.015 }} whileTap={{ scale: .97 }} onClick={() => setModalOpen(true)} className="primary-button">Let&apos;s work together <FiArrowUpRight /></m.button>
-            <m.a whileHover={{ y: -3 }} whileTap={{ scale: .97 }} href={data?.social?.github} target="_blank" rel="noreferrer" className="secondary-button"><FaGithub /> GitHub</m.a>
-            <m.a whileHover={{ y: -3 }} whileTap={{ scale: .97 }} href={data?.social?.linkedin} target="_blank" rel="noreferrer" className="secondary-button"><FaLinkedinIn /> LinkedIn</m.a>
-          </m.div>
-          <m.div variants={copyItem} className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#8f89aa]">
-            <span className="inline-flex items-center gap-1.5"><FiMapPin className="text-[#64e7ff]" /> India · Remote</span>
-            <span className="inline-flex items-center gap-1.5"><FiZap className="text-[#ffb86b]" /> React · Next.js · React Native</span>
-          </m.div>
-        </m.div>
+          {/* Main Hero Headline */}
+          <div className="relative my-2">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#1f1f32] leading-[1.08]">
+              Make Your Product <br />
+              <span className="serif-accent blue-accent font-normal inline-block mt-1">
+                {typedText}
+                <span className="inline-block w-1.5 h-8 sm:h-12 bg-[#262ef2] ml-1.5 align-middle animate-pulse" />
+              </span>
+            </h1>
+          </div>
 
-        <m.div className="hero-orbit-stage" aria-hidden="true" initial={{ opacity: 0, scale: .88, rotate: -4 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: .95, delay: .18, ease: [0.16, 1, 0.3, 1] }}>
-          <div className="hero-glow" />
-          <m.div className="orbit-ring orbit-ring-one" whileInView={{ opacity: [.5, .9, .5] }} viewport={{ amount: .15 }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} />
-          <m.div className="orbit-ring orbit-ring-two" whileInView={{ opacity: [.45, .78, .45] }} viewport={{ amount: .15 }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: .7 }} />
-          <m.div className="orbit-ring orbit-ring-three" whileInView={{ opacity: [.36, .68, .36] }} viewport={{ amount: .15 }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
-          <div className="orbit-core-anchor"><m.div className="orbit-core" whileInView={{ y: [0, -6, 0], scale: [1, 1.025, 1] }} viewport={{ amount: .15 }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}><strong>6+</strong><span>years of<br />product craft</span></m.div></div>
-          <PlanetOrbit path={3} tone="satellite-one" phase={-58} duration={28}><FiCode /></PlanetOrbit>
-          <PlanetOrbit path={2} tone="satellite-two" phase={74} duration={19} reverse><FiSmartphone /></PlanetOrbit>
-          <PlanetOrbit path={3} tone="satellite-three" phase={142} duration={28}><FiLayers /></PlanetOrbit>
-          <PlanetOrbit path={1} tone="satellite-four" phase={214} duration={14} reverse><FiZap /></PlanetOrbit>
-          <m.div className="orbit-caption-shell" initial={{ opacity: 0, y: -10, scale: .78 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: "spring", stiffness: 240, damping: 14, mass: .8, delay: .72 }}>
-            <m.div className="orbit-caption" whileInView={{ y: [0, -4, 0], rotate: [-.45, .45, -.45] }} viewport={{ amount: .2 }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-              <div className="orbit-caption-line">
-                <span className="orbit-caption-status"><i />Currently</span>
-                <AnimatePresence mode="wait" initial={false}>
-                  <m.strong key={subtitleIndex} initial={{ opacity: 0, y: 7, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -7, filter: "blur(4px)" }} transition={{ type: "spring", stiffness: 300, damping: 22 }}>{subtitles[subtitleIndex] || data?.position}</m.strong>
-                </AnimatePresence>
+          {/* Hero Subtitle */}
+          <p className="mt-5 text-base sm:text-lg md:text-xl text-[#4d5564] max-w-2xl mx-auto font-normal leading-relaxed">
+            Senior Frontend Engineer specializing in <strong className="text-[#201f32]">React, Next.js, and React Native</strong>. 
+            Proven track record of turning complex architectures into blazing-fast, delightful user experiences.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
+            <a href="#experience" className="btn-dark">
+              <span>View Experience</span>
+              <span className="btn-arrow">
+                <FiArrowRight className="btn-arrow-icon" />
+                <FiArrowRight className="btn-arrow-icon-second" />
+              </span>
+            </a>
+
+            <a href="#agent" className="btn-outline">
+              <span>Ask AI Agent</span>
+              <FiCpu className="w-4 h-4 text-[#262ef2]" />
+            </a>
+
+            <a
+              href="mailto:maroofmohdmalik@gmail.com"
+              className="px-5 py-3 rounded-lg text-sm font-medium text-[#4d5564] hover:text-[#201f32] hover:bg-white/60 border border-transparent hover:border-[#e3e2e5] transition-all"
+            >
+              maroofmohdmalik@gmail.com
+            </a>
+          </div>
+
+          {/* Tech Badges Row */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#e3e2e5] text-[#201f32] shadow-2xs">
+              <SiReact className="text-[#00d8ff]" /> React & React Native
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#e3e2e5] text-[#201f32] shadow-2xs">
+              <SiNextdotjs className="text-[#000]" /> Next.js (SSR / SSG)
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#e3e2e5] text-[#201f32] shadow-2xs">
+              <SiTypescript className="text-[#3178c6]" /> TypeScript Mastery
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#e3e2e5] text-[#201f32] shadow-2xs">
+              <SiTailwindcss className="text-[#38bdf8]" /> Tailwind & UI Craft
+            </span>
+          </div>
+        </div>
+
+        {/* Hero Continuous Project Ticker */}
+        <div className="mt-14 pt-6 border-t border-[#e3e2e5]/60 relative">
+          <div className="flex items-center justify-between mb-3 px-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-[#6e73fa] font-semibold">
+              ✦ Featured Shipments & MVPs
+            </span>
+            <span className="text-xs font-mono text-[#8c859d]">Swipe or drag</span>
+          </div>
+
+          <div
+            ref={tickerRef}
+            className="flex gap-4 overflow-x-auto no-scrollbar py-2 cursor-grab active:cursor-grabbing select-none"
+          >
+            {duplicatedTicker.map((proj, idx) => (
+              <div
+                key={idx}
+                className="w-[260px] md:w-[290px] shrink-0 p-4 bg-white border border-[#e3e2e5] rounded-2xl shadow-xs hover:border-[#262ef2] hover:-translate-y-1 transition-all"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ backgroundColor: proj.color }}
+                  />
+                  <span className="text-[10px] font-mono font-semibold text-[#61667b] bg-[#f3f3f9] px-2 py-0.5 rounded">
+                    {proj.status}
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-[#1f1f32]">{proj.title}</h4>
+                <p className="text-xs text-[#4d5564] mt-0.5">{proj.type}</p>
+                <div className="mt-3 pt-2 border-t border-[#f0f0f6] flex items-center justify-between text-[11px]">
+                  <span className="font-mono text-[#262ef2] font-semibold">{proj.metric}</span>
+                  <FiExternalLink className="text-[#8c859d] w-3 h-3" />
+                </div>
               </div>
-            </m.div>
-          </m.div>
-        </m.div>
+            ))}
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 };

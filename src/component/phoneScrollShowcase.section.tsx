@@ -137,6 +137,8 @@ const PHONE_PROJECTS: PhoneProject[] = [
 export const PhoneScrollShowcaseSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const prevIndexRef = useRef(0);
 
   // Hook scroll progress
   const { scrollYProgress } = useScroll({
@@ -148,12 +150,23 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
     return scrollYProgress.on("change", (latest) => {
       const count = PHONE_PROJECTS.length;
       const index = Math.min(count - 1, Math.floor(latest * count));
-      setActiveIndex(index);
+      if (index !== prevIndexRef.current) {
+        setDirection(index > prevIndexRef.current ? 1 : -1);
+        prevIndexRef.current = index;
+        setActiveIndex(index);
+      }
     });
   }, [scrollYProgress]);
 
   const currentProject = PHONE_PROJECTS[activeIndex] || PHONE_PROJECTS[0];
   const CurrentIcon = currentProject.icon;
+
+  const handleTabClick = (idx: number) => {
+    if (idx === activeIndex) return;
+    setDirection(idx > activeIndex ? 1 : -1);
+    prevIndexRef.current = idx;
+    setActiveIndex(idx);
+  };
 
   return (
     <section
@@ -178,8 +191,8 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* Centered Project Selector Pill Tabs */}
-          <div className="mb-4 sm:mb-5 inline-flex p-1 bg-white/80 backdrop-blur-md rounded-full border border-white/90 shadow-sm max-w-full overflow-x-auto gap-1">
+          {/* Fluid Sliding Glass Capsule Tab Bar */}
+          <div className="mb-4 sm:mb-5 relative inline-flex p-1.5 bg-white/80 backdrop-blur-2xl rounded-full border border-white/95 shadow-[0_12px_36px_-12px_rgba(32,31,50,0.14)] max-w-full overflow-x-auto gap-1 select-none">
             {PHONE_PROJECTS.map((proj, idx) => {
               const isActive = activeIndex === idx;
               const Icon = proj.icon;
@@ -187,28 +200,61 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
               return (
                 <button
                   key={idx}
-                  onClick={() => setActiveIndex(idx)}
-                  className={`px-3 py-1 rounded-full text-[11px] font-mono font-medium transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap ${
-                    isActive
-                      ? "bg-[#201f32] text-white shadow-xs font-bold"
-                      : "text-[#4d5564] hover:text-[#201f32] hover:bg-white/60"
-                  }`}
+                  onClick={() => handleTabClick(idx)}
+                  className="relative px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 flex items-center gap-1.5 z-10 whitespace-nowrap hover:scale-[1.03] active:scale-[0.97]"
                 >
-                  <Icon className="w-3 h-3" style={{ color: isActive ? proj.color : undefined }} />
-                  <span>{proj.name}</span>
+                  {/* Sliding Glass Capsule with Specular Top Highlight & Brand Halo */}
+                  {isActive && (
+                    <m.div
+                      layoutId="activeProjectPill"
+                      className="absolute inset-0 bg-[#161722] rounded-full border border-white/25 shadow-[0_4px_16px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.45)] -z-10"
+                      transition={{ type: "spring", stiffness: 460, damping: 28, mass: 0.7 }}
+                    >
+                      {/* Subtle Ambient Brand Glow inside active capsule */}
+                      <div
+                        className="absolute inset-0 rounded-full opacity-25 blur-[6px] pointer-events-none"
+                        style={{ backgroundColor: proj.color }}
+                      />
+                    </m.div>
+                  )}
+
+                  {/* Animated Icon with Pop Motion on Active */}
+                  <m.div
+                    animate={{
+                      scale: isActive ? [0.85, 1.15, 1] : 1,
+                      rotate: isActive ? [0, -6, 0] : 0,
+                    }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="flex items-center justify-center"
+                  >
+                    <Icon
+                      className={`w-3.5 h-3.5 transition-colors ${
+                        isActive ? "text-white" : "text-[#6e73fa]"
+                      }`}
+                      style={{ color: isActive ? proj.color : undefined }}
+                    />
+                  </m.div>
+
+                  <span
+                    className={`transition-colors ${
+                      isActive ? "text-white font-bold" : "text-[#4d5564] hover:text-[#201f32]"
+                    }`}
+                  >
+                    {proj.name}
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* Authentic iPhone 15 Pro Titanium Chassis (Slim 19.5:9 Aspect Ratio) */}
+          {/* Authentic iPhone 15 Pro Titanium Chassis */}
           <div className="flex justify-center items-center">
             <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_25px_80px_-15px_rgba(20,20,35,0.4),0_0_0_1px_rgba(255,255,255,0.18),inset_0_1px_2px_rgba(255,255,255,0.3)] relative flex flex-col justify-between select-none">
               
               {/* Inner Retina OLED Screen */}
               <div className="w-full h-full bg-[#f8f8fc] rounded-[42px] overflow-hidden relative flex flex-col justify-between border border-[#e5e5ee] p-3.5 sm:p-4">
                 
-                {/* iOS 17 Status Bar with Perfectly Centered Dynamic Island */}
+                {/* iOS 17 Status Bar with Centered Dynamic Island */}
                 <div className="flex items-center justify-between text-[9px] font-mono text-[#4d5564] pt-0.5 px-1.5 z-30 select-none">
                   <span className="font-bold text-[#1f1f32]">9:41</span>
 
@@ -224,20 +270,46 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Screen Dynamic Animated Content */}
-                <div className="my-auto pt-2 pb-1 overflow-y-auto no-scrollbar">
-                  <AnimatePresence mode="wait">
+                {/* Screen Dynamic Fluid Glass Transition Content */}
+                <div className="my-auto pt-2 pb-1 overflow-y-auto no-scrollbar relative min-h-[360px] flex flex-col justify-center">
+                  <AnimatePresence custom={direction} mode="wait">
                     <m.div
                       key={currentProject.id}
-                      initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                      transition={{ duration: 0.22, ease: "easeOut" }}
-                      className="space-y-2"
+                      custom={direction}
+                      variants={{
+                        enter: (dir: number) => ({
+                          x: dir > 0 ? 36 : -36,
+                          opacity: 0,
+                          scale: 0.94,
+                          filter: "blur(6px)",
+                        }),
+                        center: {
+                          x: 0,
+                          opacity: 1,
+                          scale: 1,
+                          filter: "blur(0px)",
+                        },
+                        exit: (dir: number) => ({
+                          x: dir > 0 ? -36 : 36,
+                          opacity: 0,
+                          scale: 0.94,
+                          filter: "blur(6px)",
+                        }),
+                      }}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{
+                        type: "spring",
+                        stiffness: 320,
+                        damping: 28,
+                        opacity: { duration: 0.22 },
+                      }}
+                      className="space-y-2.5 w-full"
                     >
                       {/* Top Status Badge & Tag */}
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-[8px] font-mono font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200">
+                        <span className="inline-flex items-center gap-1 text-[8px] font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                           {currentProject.liveBadge}
                         </span>
@@ -267,8 +339,8 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                         </p>
                       </div>
 
-                      {/* Highlight Metric Box */}
-                      <div className="p-2 rounded-xl bg-white border border-[#e3e2e8] shadow-2xs flex items-center justify-between">
+                      {/* Frosted Highlight Metric Box */}
+                      <div className="p-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white shadow-2xs flex items-center justify-between">
                         <div>
                           <span className="text-[11px] font-mono font-bold text-[#1f1f32] block leading-tight">
                             {currentProject.metric}
@@ -285,7 +357,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                         {currentProject.description}
                       </p>
 
-                      {/* Key Deliverables Structured List */}
+                      {/* Key Deliverables Frosted Rows */}
                       <div className="space-y-1">
                         <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#8c859d] block">
                           Key Deliverables:
@@ -293,7 +365,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                         {currentProject.features.slice(0, 3).map((feat, fIdx) => (
                           <div
                             key={fIdx}
-                            className="flex items-start gap-1 p-1 rounded-md bg-white border border-[#ececf6] text-[9px] sm:text-[10px] text-[#374151] leading-tight"
+                            className="flex items-start gap-1.5 p-1.5 rounded-xl bg-white/80 backdrop-blur-sm border border-white/90 text-[9px] sm:text-[10px] text-[#374151] leading-tight shadow-2xs"
                           >
                             <FiCheck className="w-2.5 h-2.5 text-[#262ef2] shrink-0 mt-0.5" strokeWidth={2.5} />
                             <span className="font-medium">{feat}</span>
@@ -301,12 +373,12 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                         ))}
                       </div>
 
-                      {/* Tech Stack Chips */}
+                      {/* Frosted Tech Stack Chips */}
                       <div className="flex flex-wrap gap-1 pt-0.5">
                         {currentProject.tech.map((t, tIdx) => (
                           <span
                             key={tIdx}
-                            className="text-[8px] font-mono font-medium text-[#201f32] bg-[#f3f3f9] px-1.5 py-0.5 rounded border border-[#e3e2e5]"
+                            className="text-[8px] font-mono font-medium text-[#201f32] bg-white/80 backdrop-blur-sm px-1.5 py-0.5 rounded-md border border-white/90 shadow-2xs"
                           >
                             {t}
                           </span>

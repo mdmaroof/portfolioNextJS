@@ -1,27 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
-  <title id="title">Mohd Maroof MM monogram</title>
-  <defs>
-    <linearGradient id="background" x1="100" y1="80" x2="900" y2="940" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#17142a"/>
-      <stop offset="1" stop-color="#080914"/>
-    </linearGradient>
-    <linearGradient id="monogram" x1="180" y1="310" x2="844" y2="730" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#64e7ff"/>
-      <stop offset="0.52" stop-color="#9b7cff"/>
-      <stop offset="1" stop-color="#ff8e7a"/>
-    </linearGradient>
-    <filter id="glow" x="-20%" y="-30%" width="140%" height="160%">
-      <feGaussianBlur stdDeviation="15" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
-  <rect width="1024" height="1024" rx="236" fill="url(#background)"/>
-  <rect x="28" y="28" width="968" height="968" rx="214" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="12"/>
-  <g fill="none" stroke="url(#monogram)" stroke-linecap="round" stroke-linejoin="round" stroke-width="72" filter="url(#glow)">
-    <path d="M176 704V320L312 544L448 320V704"/>
-    <path d="M576 704V320L712 544L848 320V704"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Modern Bold Developer Code Symbol </ > on Pure Transparent Background -->
+  <g stroke="#262ef2" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left Bracket < -->
+    <path d="M168 152L56 256L168 360" />
+    <!-- Center Forward Slash / -->
+    <path d="M296 128L216 384" />
+    <!-- Right Bracket > -->
+    <path d="M344 152L456 256L344 360" />
   </g>
 </svg>

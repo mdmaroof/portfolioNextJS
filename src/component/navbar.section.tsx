@@ -1,140 +1,193 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
-import { FaBars } from 'react-icons/fa';
-import { FiBriefcase, FiCode, FiFolder, FiHome, FiLayers } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import { m, AnimatePresence } from "framer-motion";
+import { FiArrowRight, FiMenu, FiX, FiSend } from "react-icons/fi";
 
 const NAV_LINKS = [
-  { name: 'About', href: '#about', icon: FiHome },
-  { name: 'Overview', href: '#overview', icon: FiLayers },
-  { name: 'Experience', href: '#experience', icon: FiBriefcase },
-  { name: 'Skills', href: '#skills', icon: FiCode },
-  { name: 'Projects', href: '#projects', icon: FiFolder },
+  { id: "overview", label: "Overview", href: "#overview" },
+  { id: "experience", label: "Experience", href: "#experience" },
+  { id: "agent", label: "AI Agent", href: "#agent" },
+  { id: "projects", label: "Projects", href: "#projects" },
 ];
 
-export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+export const Navbar: React.FC = () => {
+  const [isCondensed, setIsCondensed] = useState(false);
+  const [isHiddenInProjects, setIsHiddenInProjects] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("overview");
 
+  // Scroll condensing, section spy, and auto-hide in projects showcase
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+      // 1. Condense width on scroll
+      if (window.scrollY > 50) {
+        setIsCondensed(true);
+      } else {
+        setIsCondensed(false);
+      }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0,
-    };
-
-    const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+      // 2. Smoothly hide navbar when entering the Projects iPhone scroll showcase
+      const projectsEl = document.getElementById("projects");
+      if (projectsEl) {
+        const rect = projectsEl.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom >= 100) {
+          setIsHiddenInProjects(true);
+        } else {
+          setIsHiddenInProjects(false);
         }
-      });
+      }
+
+      // 3. Detect active section based on scroll position
+      const scrollPosition = window.scrollY + 220;
+      for (const link of NAV_LINKS) {
+        const el = document.getElementById(link.id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(link.id);
+            break;
+          }
+        }
+      }
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    NAV_LINKS.forEach(({ href }) => {
-      const section = document.querySelector(href);
-      if (section) observer.observe(section);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleSmoothScroll = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsMobileMenuOpen(false);
-    
-    if (href === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav
-      className={`nav-shell ${isScrolled ? 'nav-shell-scrolled' : ''}`}
-    >
-      <div className="nav-inner">
-        <a 
-          href="#" 
-          className="nav-brand"
-          onClick={(e) => handleSmoothScroll(e, '#')}
+    <>
+      <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
+        <m.nav
+          initial={{ y: -30, opacity: 0 }}
+          animate={{
+            y: isHiddenInProjects ? -100 : 0,
+            opacity: isHiddenInProjects ? 0 : 1,
+          }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className={`flex items-center justify-between gap-4 px-4 py-2.5 rounded-full bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_50px_-15px_rgba(38,46,242,0.12),0_0_0_1px_rgba(255,255,255,0.9)] transition-all duration-300 ${
+            isHiddenInProjects ? "pointer-events-none" : "pointer-events-auto"
+          } ${
+            isCondensed
+              ? "w-full max-w-[760px] py-2 px-3.5 shadow-[0_25px_60px_-15px_rgba(38,46,242,0.18)]"
+              : "w-full max-w-[880px]"
+          }`}
         >
-          MM
-        </a>
+          {/* Brand Logo & Live Status */}
+          <a href="#" className="flex items-center gap-2.5 group shrink-0">
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#262ef2] to-[#6e73fa] flex items-center justify-center text-white font-extrabold text-xs shadow-md shadow-[#262ef2]/30 group-hover:scale-105 transition-transform">
+                MM
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs sm:text-sm font-bold text-[#1f1f32] tracking-tight leading-tight group-hover:text-[#262ef2] transition-colors">
+                Mohd Maroof
+              </span>
+              <span className="text-[10px] font-mono text-[#8c859d] leading-none hidden sm:block font-medium">
+                Senior Frontend Dev
+              </span>
+            </div>
+          </a>
 
-        {/* Desktop Nav */}
-        <div className="nav-links hidden md:flex">
-          {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.substring(1);
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`nav-link ${
-                  isActive ? 'active' : ''
-                }`}
-              >
-                <link.icon className="h-3.5 w-3.5" />
-                {link.name}
-              </a>
-            );
-          })}
-        </div>
+          {/* Desktop Navigation Links with Animated Sliding Pill */}
+          <div className="hidden md:flex items-center gap-1 bg-[#f4f4fa]/90 p-1 rounded-full border border-[#e3e2e8] relative">
+            {NAV_LINKS.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setActiveSection(link.id)}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-colors z-10 ${
+                    isActive ? "text-white font-bold" : "text-[#4d5564] hover:text-[#1f1f32]"
+                  }`}
+                >
+                  {isActive && (
+                    <m.div
+                      layoutId="activeNavPill"
+                      className="absolute inset-0 rounded-full bg-[#262ef2] shadow-sm -z-10"
+                      transition={{ type: "spring", stiffness: 450, damping: 30 }}
+                    />
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
+          </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="icon-button"
-            aria-label="Toggle Menu"
+          {/* Action CTA Button & Mobile Toggle */}
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href="#contact"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-[#201f32] hover:bg-[#141322] text-white rounded-full text-xs font-bold transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98] group"
+            >
+              <span>Get in Touch</span>
+              <FiArrowRight className="w-3 h-3 text-white group-hover:translate-x-0.5 transition-transform" />
+            </a>
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden w-8 h-8 rounded-full bg-[#f4f4fa] text-[#1f1f32] flex items-center justify-center hover:bg-[#e8e8f2] transition-colors border border-[#e3e2e8]"
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <FiX className="w-4 h-4" /> : <FiMenu className="w-4 h-4" />}
+            </button>
+          </div>
+        </m.nav>
+      </header>
+
+      {/* Mobile Animated Glass Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <m.div
+            initial={{ opacity: 0, y: -15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -15, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-4 top-20 z-50 p-5 bg-white/95 backdrop-blur-2xl border border-white/95 rounded-3xl shadow-2xl md:hidden text-[#1f1f32] flex flex-col gap-2"
           >
-            {isMobileMenuOpen ? <AiOutlineClose size={28} /> : <FaBars size={28} />}
-          </button>
-        </div>
-      </div>
+            <div className="flex items-center justify-between pb-3 border-b border-[#ececf4] mb-1">
+              <span className="text-xs font-mono font-bold text-[#262ef2] uppercase tracking-wider">
+                NAVIGATION
+              </span>
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Available for hire
+              </span>
+            </div>
 
-      {/* Mobile Nav Menu */}
-      <div
-        className={`mobile-nav md:hidden ${
-          isMobileMenuOpen ? 'max-h-96 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
-        }`}
-      >
-        <div className="flex flex-col space-y-4 px-6">
-          {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.substring(1);
-            return (
+            {NAV_LINKS.map((link) => (
               <a
-                key={link.name}
+                key={link.id}
                 href={link.href}
-                onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`nav-link flex items-center gap-2 text-base ${
-                  isActive ? 'active' : ''
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`px-4 py-2.5 rounded-2xl text-sm font-medium transition-colors ${
+                  activeSection === link.id
+                    ? "bg-[#262ef2] text-white font-bold"
+                    : "text-[#4d5564] hover:text-[#1f1f32] hover:bg-[#f4f4fa]"
                 }`}
               >
-                <link.icon className="h-4 w-4" />
-                {link.name}
+                {link.label}
               </a>
-            );
-          })}
-        </div>
-      </div>
-    </nav>
+            ))}
+
+            <div className="pt-3 border-t border-[#ececf4] mt-1">
+              <a
+                href="#contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full py-3 bg-[#201f32] hover:bg-[#141322] text-white rounded-2xl text-xs font-bold flex items-center justify-center gap-2 shadow-md"
+              >
+                <FiSend className="w-3.5 h-3.5 text-[#8b90ff]" />
+                <span>Contact Mohd Maroof</span>
+              </a>
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };

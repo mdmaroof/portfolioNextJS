@@ -1,107 +1,83 @@
 import React from "react";
-import { FiGithub, FiLinkedin, FiMail, FiArrowUp, FiCheckCircle } from "react-icons/fi";
-import { SiReact, SiNextdotjs, SiTypescript } from "react-icons/si";
+import { FiGithub, FiLinkedin, FiMail, FiArrowUpRight } from "react-icons/fi";
 
 export const Footer: React.FC = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <footer id="contact" className="mt-20 border-t border-[#e3e2e5] bg-[#201f32] text-white pt-16 pb-12 relative overflow-hidden">
-      {/* Background ambient radial glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#262ef2]/10 blur-[120px] pointer-events-none" />
+    <footer id="contact" className="py-16 md:py-20 relative bg-transparent">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Sleek Dark CTA Card with Concentric Radial Rings */}
+        <div className="relative rounded-[32px] sm:rounded-[36px] bg-[#11101d] border border-white/10 p-8 sm:p-12 md:p-16 overflow-hidden shadow-[0_30px_90px_-20px_rgba(17,16,29,0.5)]">
+          {/* Subtle Ambient Background Glow */}
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[450px] h-[250px] bg-[#6e73fa]/15 blur-[100px] pointer-events-none" />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
-        {/* Upper Footer: Call to Action Banner */}
-        <div className="pb-12 border-b border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-[#6e73fa] font-semibold block mb-2">
-              ✦ Available for Senior Roles & Contracts
+          {/* Right Side Concentric Architectural Wireframe Circles */}
+          <div className="absolute -right-20 -top-20 w-[480px] h-[480px] rounded-full border border-white/5 pointer-events-none hidden md:block">
+            <div className="absolute inset-10 rounded-full border border-white/5" />
+            <div className="absolute inset-20 rounded-full border border-white/5" />
+            <div className="absolute inset-32 rounded-full border border-white/5" />
+          </div>
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+            {/* Left Content: Tagline, Headline & Start a Conversation CTA */}
+            <div className="max-w-2xl space-y-6">
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#9d9cb5] font-semibold block">
+                OPEN TO THE RIGHT OPPORTUNITY
+              </span>
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight text-white leading-[1.15]">
+                Have an ambitious product <br />
+                that needs momentum?
+              </h2>
+
+              <div className="pt-2">
+                <a
+                  href="mailto:maroofmohdmalik@gmail.com"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#f87171] via-[#fb7185] to-[#c084fc] text-white font-bold text-sm sm:text-base shadow-[0_10px_30px_rgba(244,114,182,0.35)] hover:shadow-[0_14px_40px_rgba(244,114,182,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                  <span>Start a conversation</span>
+                  <FiArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                </a>
+              </div>
+            </div>
+
+            {/* Right Content: Email Callout */}
+            <div className="flex flex-col items-start lg:items-center lg:text-center space-y-2 lg:pr-6">
+              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#f87171] mb-1 shadow-inner">
+                <FiMail className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#8c859d] font-semibold">
+                EMAIL ME AT
+              </span>
+              <a
+                href="mailto:maroofmohdmalik@gmail.com"
+                className="text-sm sm:text-base font-semibold text-white hover:text-[#fb7185] transition-colors"
+              >
+                maroofmohdmalik@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Minimal Studio Bar */}
+        <div className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c859d]">
+          {/* Left Avatar & Author */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-[#f87171] to-[#c084fc] flex items-center justify-center text-white font-extrabold text-[10px] shadow-sm">
+              MM
+            </div>
+            <span className="font-medium text-[#201f32]">
+              Mohd Maroof <span className="text-[#8c859d]">· Senior Frontend Developer</span>
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
-              Give your <span className="serif-accent text-[#6e73fa]">product</span> <br />
-              the speed & polish it deserves
-            </h2>
-            <p className="mt-2 text-sm text-[#b9bcd0] max-w-lg">
-              Looking for a Senior Frontend Engineer who delivers fast, builds clean systems, and thinks like a founder?
-            </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
-            <a
-              href="mailto:maroofmohdmalik@gmail.com"
-              className="px-6 py-3.5 bg-[#262ef2] hover:bg-[#1f25c7] text-white font-semibold text-sm rounded-xl text-center shadow-lg shadow-[#262ef2]/25 transition-all"
-            >
-              Email Mohd Maroof
-            </a>
-            <a
-              href="https://linkedin.com/in/mohd-maroof-535619118"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3.5 bg-white/10 hover:bg-white/15 text-white font-semibold text-sm rounded-xl text-center border border-white/10 transition-all"
-            >
-              Connect on LinkedIn
-            </a>
-          </div>
-        </div>
-
-        {/* Middle Footer: Links & Info Grid */}
-        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs text-[#b9bcd0]">
-          <div>
-            <h5 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Navigation</h5>
-            <ul className="space-y-2">
-              <li><a href="#overview" className="hover:text-white transition-colors">Overview</a></li>
-              <li><a href="#experience" className="hover:text-white transition-colors">Experience Carousel</a></li>
-              <li><a href="#agent" className="hover:text-white transition-colors">Custom AI Agent</a></li>
-              <li><a href="#architecture" className="hover:text-white transition-colors">Architecture Stage</a></li>
-              <li><a href="#projects" className="hover:text-white transition-colors">Projects</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Core Expertise</h5>
-            <ul className="space-y-2">
-              <li>React & Next.js (SSR / SSG)</li>
-              <li>React Native Mobile (iOS / Android)</li>
-              <li>TypeScript & Clean Architecture</li>
-              <li>Zustand, Redux & State Engines</li>
-              <li>Real-time PubNub & WebSockets</li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Featured Roles</h5>
-            <ul className="space-y-2">
-              <li>Ethos (Ascend Mobile App)</li>
-              <li>VAHN (Fleet App MVP)</li>
-              <li>Mercor (Frontend Architect)</li>
-              <li>Buzztales Technologies (Founder)</li>
-              <li>56 Secure (Command Dashboards)</li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Direct Contact</h5>
-            <ul className="space-y-2">
-              <li className="text-white font-medium">maroofmohdmalik@gmail.com</li>
-              <li>Location: India (Remote Worldwide)</li>
-              <li className="text-emerald-400 font-medium flex items-center gap-1.5 pt-1">
-                <FiCheckCircle className="w-3.5 h-3.5" /> Open to immediate hire
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Lower Footer: Social Icons & Copyright */}
-        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c8fa8]">
-          <div className="flex items-center gap-4">
+          {/* Center Social Icons */}
+          <div className="flex items-center gap-2">
             <a
               href="https://github.com/mdmaroof"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 text-white flex items-center justify-center transition-colors"
-              aria-label="GitHub Profile"
+              className="w-8 h-8 rounded-xl bg-white border border-[#e3e2e8] text-[#4d5564] hover:text-[#1f1f32] hover:border-[#201f32] flex items-center justify-center transition-all shadow-2xs"
+              aria-label="GitHub"
             >
               <FiGithub className="w-4 h-4" />
             </a>
@@ -109,31 +85,24 @@ export const Footer: React.FC = () => {
               href="https://linkedin.com/in/mohd-maroof-535619118"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 text-white flex items-center justify-center transition-colors"
-              aria-label="LinkedIn Profile"
+              className="w-8 h-8 rounded-xl bg-white border border-[#e3e2e8] text-[#4d5564] hover:text-[#1f1f32] hover:border-[#201f32] flex items-center justify-center transition-all shadow-2xs"
+              aria-label="LinkedIn"
             >
               <FiLinkedin className="w-4 h-4" />
             </a>
             <a
               href="mailto:maroofmohdmalik@gmail.com"
-              className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 text-white flex items-center justify-center transition-colors"
-              aria-label="Send Email"
+              className="w-8 h-8 rounded-xl bg-white border border-[#e3e2e8] text-[#4d5564] hover:text-[#1f1f32] hover:border-[#201f32] flex items-center justify-center transition-all shadow-2xs"
+              aria-label="Email"
             >
               <FiMail className="w-4 h-4" />
             </a>
           </div>
 
+          {/* Right Copyright */}
           <div>
-            <span>© {new Date().getFullYear()} MOHD MAROOF. ALL RIGHTS RESERVED.</span>
+            <span>© {new Date().getFullYear()} · Built by Mohd Maroof</span>
           </div>
-
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-1 text-xs text-[#b9bcd0] hover:text-white transition-colors"
-          >
-            <span>Back to top</span>
-            <FiArrowUp className="w-3 h-3" />
-          </button>
         </div>
       </div>
     </footer>

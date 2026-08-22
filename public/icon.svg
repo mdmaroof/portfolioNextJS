@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <!-- Modern Bold Developer Code Symbol </ > on Pure Transparent Background -->
-  <g stroke="#262ef2" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Crisp White Rounded Square (Outer canvas is transparent) -->
+  <rect x="24" y="24" width="464" height="464" rx="120" fill="#ffffff" stroke="#e3e2e8" stroke-width="4" />
+
+  <!-- Modern Bold Developer Code Symbol </ > in Signature Cobalt -->
+  <g stroke="#262ef2" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
     <!-- Left Bracket < -->
-    <path d="M168 152L56 256L168 360" />
+    <path d="M184 164L112 256L184 348" />
     <!-- Center Forward Slash / -->
-    <path d="M296 128L216 384" />
+    <path d="M284 148L228 364" />
     <!-- Right Bracket > -->
-    <path d="M344 152L456 256L344 360" />
+    <path d="M328 164L400 256L328 348" />
   </g>
 </svg>

@@ -1,17 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <!-- Light Theme Canvas Backdrop (Prevents Black Inversion) -->
-  <rect width="512" height="512" fill="#f3f3f9" />
-
-  <!-- Clean White Rounded Square -->
-  <rect x="24" y="24" width="464" height="464" rx="120" fill="#ffffff" stroke="#e3e2e8" stroke-width="3" />
-
-  <!-- Modern Bold Developer Code Symbol </ > in Signature Cobalt -->
-  <g fill="none" stroke="#262ef2" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Modern Bold Developer Code Symbol </ > on Pure Transparent Background -->
+  <g stroke="#262ef2" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
     <!-- Left Bracket < -->
-    <path d="M184 164L112 256L184 348" />
+    <path d="M168 152L56 256L168 360" />
     <!-- Center Forward Slash / -->
-    <path d="M284 148L228 364" />
+    <path d="M296 128L216 384" />
     <!-- Right Bracket > -->
-    <path d="M328 164L400 256L328 348" />
+    <path d="M344 152L456 256L344 360" />
   </g>
 </svg>

@@ -9,7 +9,6 @@ interface Message {
   sender: "agent" | "user";
   text: string;
   badge?: string;
-  tokens?: number;
   chips?: string[];
   link?: {
     label: string;
@@ -37,7 +36,6 @@ const INITIAL_MESSAGES: Message[] = [
     id: "init-1",
     sender: "agent",
     badge: "MAROOF'S PORTFOLIO AGENT",
-    tokens: 58,
     text: `I'm here to answer from Mohd Maroof's actual portfolio—not generic boilerplate.
 • Ask about his work at Ethos, VAHN, 56 Secure, Noon Academy, or Buzztales.
 • Explore Trackaday, Graple.ai, SnapAid, and other products.
@@ -102,7 +100,7 @@ export const AgentSection: React.FC = () => {
     }
   }, [messages, streamingText]);
 
-  // Realistic character-by-character token streaming
+  // Character-by-character response streaming
   const executeQuery = (queryText: string) => {
     if (!queryText.trim() || isStreaming) return;
 
@@ -129,7 +127,7 @@ export const AgentSection: React.FC = () => {
     setActiveBadge(responseData.badge);
     setStreamingText("");
 
-    // Simulate realistic character-by-character token stream
+    // Simulate a concise streamed response
     const fullText = responseData.text;
     let currIdx = 0;
 
@@ -144,7 +142,6 @@ export const AgentSection: React.FC = () => {
           id: `agent-${Date.now()}`,
           sender: "agent",
           badge: responseData.badge,
-          tokens: Math.floor(fullText.length / 4) + 12,
           text: fullText,
           chips: responseData.chips,
           link: responseData.link,
@@ -295,18 +292,12 @@ export const AgentSection: React.FC = () => {
                       </div>
                     ) : (
                       <div className="max-w-[98%] w-full p-4 sm:p-5 rounded-2xl rounded-tl-xs bg-white border border-[#e5e5f0] text-[#1f1f32] space-y-3 shadow-2xs">
-                        {/* Message Top Bar: Badge + Token count */}
+                        {/* Message category */}
                         {msg.badge && (
                           <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#f0f0f8]">
                             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2.5 py-0.5 rounded-full border border-[#262ef2]/20">
                               {msg.badge}
                             </span>
-                            {msg.tokens && (
-                              <span className="text-[10px] font-mono text-[#8c859d] flex items-center gap-1">
-                                <span>⚡ {msg.tokens} tokens</span>
-                                <span>· 18ms</span>
-                              </span>
-                            )}
                           </div>
                         )}
 

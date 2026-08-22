@@ -8,10 +8,19 @@
  * @property {string[]} chips
  * @property {string[]} keywords
  * @property {{ label: string, url: string }=} link
+ * @property {number=} priority
  */
 
 /** @type {Record<string, ChatbotAnswer>} */
 export const chatbotAnswers = {
+  noMatch: {
+    badge: "PORTFOLIO-ONLY ASSISTANT",
+    text: `I only have information about Mohd Maroof's professional work and portfolio.
+• Ask about his experience, projects, React / Next.js / React Native skills, maps, real-time systems, or availability.
+• Try: “What projects has Maroof built?” or “Tell me about his React Native work.”`,
+    chips: ["Experience", "Projects", "Skills", "Availability"],
+    keywords: [],
+  },
   about: {
     badge: "MAROOF AT A GLANCE",
     text: `Mohd Maroof is a Senior Frontend Developer based in India with 6+ years of production experience across web and mobile.
@@ -60,6 +69,208 @@ export const chatbotAnswers = {
     chips: ["Mapbox GL", "Turf.js", "Geospatial", "React"],
     link: { label: "Launch Trackaday", url: "https://www.trackaday.buzz/" },
     keywords: ["trackaday", "mapbox", "turf", "geo", "route", "geospatial"],
+  },
+  react: {
+    badge: "REACT ENGINEERING",
+    text: `React is at the core of Maroof's web work.
+• Builds reusable component systems and responsive product interfaces.
+• Uses React for dashboards, maps, consumer products, and complex product workflows.
+• Focuses on maintainable UI architecture, not just page-level implementation.`,
+    chips: ["React", "Components", "UI Architecture"],
+    keywords: ["react development", "react developer", "react expertise"],
+    priority: 2,
+  },
+  nextjs: {
+    badge: "NEXT.JS PRODUCT BUILDS",
+    text: `Maroof uses Next.js for production web experiences where performance and a clean application structure matter.
+• Comfortable with SSR, SSG, and App Router patterns.
+• Uses TypeScript alongside Next.js for scalable, maintainable product code.
+• Applied across portfolio and full-stack product work.`,
+    chips: ["Next.js", "SSR", "SSG", "App Router"],
+    keywords: ["nextjs", "next js", "app router", "ssr", "ssg"],
+    priority: 2,
+  },
+  reactNative: {
+    badge: "REACT NATIVE MOBILE",
+    text: `Maroof builds React Native applications for practical, production mobile workflows.
+• Currently building the Ascend sales-operations app at Ethos.
+• Experience includes QR-driven product and client workflows plus field-friendly UX.
+• Well suited to mobile MVPs and existing app improvement work.`,
+    chips: ["React Native", "Mobile Apps", "Field UX"],
+    keywords: ["react native", "native app", "android", "ios", "mobile development"],
+    priority: 3,
+  },
+  typescript: {
+    badge: "TYPESCRIPT & MAINTAINABILITY",
+    text: `TypeScript is a key part of Maroof's approach to reliable frontend systems.
+• Used at VAHN to improve application maintainability and performance.
+• Helps make component contracts, state, and product logic clearer as a project grows.
+• Used across React, Next.js, and product-dashboard work.`,
+    chips: ["TypeScript", "Maintainability", "Frontend Systems"],
+    keywords: ["typescript", "type safety", "typed code"],
+    priority: 3,
+  },
+  stateManagement: {
+    badge: "STATE MANAGEMENT",
+    text: `Maroof works with modern state-management patterns for product applications.
+• Uses Zustand and Redux alongside React and TypeScript.
+• At VAHN, Zustand helped improve maintainability and performance in the Fleet App MVP.
+• Chooses state architecture based on product complexity instead of forcing one library everywhere.`,
+    chips: ["Zustand", "Redux", "React State"],
+    keywords: ["state management", "zustand", "redux", "global state"],
+    priority: 3,
+  },
+  maps: {
+    badge: "MAPS & LOCATION PRODUCTS",
+    text: `Location-aware products are a strong part of Maroof's work.
+• Uses Mapbox GL and Turf.js for route geometry and spatial analysis in Trackaday.
+• Integrated Google Maps for live tracking workflows at 56 Secure.
+• Comfortable with maps, routes, geofencing, and visualising live location data.`,
+    chips: ["Mapbox GL", "Google Maps", "Turf.js", "Geofencing"],
+    keywords: ["google maps", "maps", "mapping", "location", "geofence"],
+    priority: 2,
+  },
+  realtime: {
+    badge: "REAL-TIME SYSTEMS",
+    text: `Maroof has experience building interfaces that need timely, dependable updates.
+• Built RTC and RTM workflows with PubNub at Noon Academy.
+• Worked on live tracking dashboards and monitoring flows at 56 Secure.
+• Uses practical reconnect and reliability thinking for live product experiences.`,
+    chips: ["PubNub", "RTC", "RTM", "Live Tracking"],
+    keywords: ["real time", "realtime", "websocket", "pubnub", "live update"],
+    priority: 3,
+  },
+  dashboards: {
+    badge: "DASHBOARD DEVELOPMENT",
+    text: `Maroof builds operational dashboards for teams that need clear, actionable information.
+• Built Admin, Guard, and Police dashboards at 56 Secure.
+• Worked on fleet-product workflows and analytics integration at VAHN.
+• Focuses on usable information hierarchy, responsive UI, and real product tasks.`,
+    chips: ["Dashboards", "Operations", "Analytics", "React"],
+    keywords: ["dashboard", "admin panel", "admin dashboard", "analytics dashboard"],
+    priority: 3,
+  },
+  performance: {
+    badge: "PERFORMANCE-FOCUSED FRONTEND",
+    text: `Performance is built into Maroof's frontend approach.
+• Uses maintainable TypeScript and state patterns to keep product applications efficient.
+• Designs responsive interfaces with scalable component architecture.
+• Brings performance awareness to maps, dashboards, mobile workflows, and consumer products.`,
+    chips: ["Performance", "Scalable UI", "TypeScript"],
+    keywords: ["performance", "fast", "optimization", "optimise", "optimize"],
+    priority: 2,
+  },
+  mvp: {
+    badge: "0-TO-1 MVP DELIVERY",
+    text: `Maroof is experienced in taking a product from early concept to a usable release.
+• Delivered the first production release of VAHN's Fleet App MVP.
+• Founded Buzztales and led technology delivery end to end.
+• Available for web and mobile MVP architecture and implementation.`,
+    chips: ["MVP", "Product Delivery", "Web", "Mobile"],
+    keywords: ["mvp", "zero to one", "0 to 1", "startup", "prototype"],
+    priority: 3,
+  },
+  founder: {
+    badge: "FOUNDER EXPERIENCE",
+    text: `Maroof founded Buzztales Technologies Pvt. Ltd. from November 2023 to November 2024.
+• Led delivery of digital solutions as a technology founder.
+• Architected scalable systems and managed the end-to-end product lifecycle.
+• This experience adds product ownership and delivery context to his engineering work.`,
+    chips: ["Buzztales", "Founder", "Product Ownership"],
+    keywords: ["founder", "buzztales technologies", "startup founder", "entrepreneur"],
+    priority: 3,
+  },
+  qrScanner: {
+    badge: "QR SCANNING WORKFLOW",
+    text: `At Ethos, Maroof developed a custom QR code scanner for the Ascend mobile app.
+• It streamlines product and client workflows for sales operations.
+• The work is paired with end-to-end UX flows designed for field usability.
+• This is a practical example of combining mobile capabilities with business workflow design.`,
+    chips: ["QR Scanner", "React Native", "Sales Operations"],
+    keywords: ["qr code", "qr scanner", "barcode", "scan product"],
+    priority: 4,
+  },
+  mixpanel: {
+    badge: "PRODUCT ANALYTICS",
+    text: `At VAHN, Maroof integrated Mixpanel to make user behaviour visible to the product team.
+• Instrumented analytics to support product decisions.
+• Connects frontend events with the workflows teams need to understand.
+• Useful for products that need stronger feedback loops after launch.`,
+    chips: ["Mixpanel", "Analytics", "Product Decisions"],
+    keywords: ["mixpanel", "product analytics", "user analytics", "tracking events"],
+    priority: 4,
+  },
+  storybook: {
+    badge: "DESIGN SYSTEMS & STORYBOOK",
+    text: `Maroof used Storybook at Noon Academy to support component-driven development.
+• Makes UI components easier to build, review, and keep consistent.
+• Supports a scalable design-system mindset for product teams.
+• Pairs naturally with his reusable component architecture experience.`,
+    chips: ["Storybook", "Design Systems", "Reusable Components"],
+    keywords: ["storybook", "design system", "component library", "ui consistency"],
+    priority: 4,
+  },
+  availability: {
+    badge: "WORKING WITH MAROOF",
+    text: `Maroof is open to remote senior frontend engagements.
+• Suitable for React, Next.js, and React Native product work.
+• Can support new MVPs, existing product improvement, UI architecture, and performance work.
+• Send the product context and timeline to maroofmohdmalik@gmail.com.`,
+    chips: ["Remote", "Senior Frontend", "MVP", "Consulting"],
+    link: { label: "Email Maroof", url: "mailto:maroofmohdmalik@gmail.com" },
+    keywords: ["availability", "remote work", "remote developer", "engagement", "consulting"],
+    priority: 3,
+  },
+  location: {
+    badge: "LOCATION & REMOTE WORK",
+    text: `Mohd Maroof is based in India and works remotely.
+• His portfolio includes remote product work across web and mobile.
+• He is open to remote senior frontend contracts and consulting engagements.`,
+    chips: ["India", "Remote", "Frontend"],
+    keywords: ["location", "where is", "based", "india", "timezone"],
+    priority: 3,
+  },
+  twistNWords: {
+    badge: "TWIST N WORDS",
+    text: `Twist N Words is a responsive word-shuffle game built for desktop and mobile.
+• Includes progressive difficulty, streak tracking, and high scores.
+• Uses smooth drag-and-drop interactions and mobile-optimised touch controls.
+• Built with React, JavaScript, CSS animations, and local storage.`,
+    chips: ["React", "Game UI", "CSS Animations", "Mobile"],
+    link: { label: "Play Twist N Words", url: "https://twistnwords.vercel.app/" },
+    keywords: ["twist n words", "word game", "word puzzle", "drag and drop"],
+    priority: 4,
+  },
+  symzo: {
+    badge: "SYMZO",
+    text: `Symzo is a modern digital product focused on a clear, responsive user experience.
+• Built on a scalable frontend foundation with React, Next.js, and TypeScript.
+• Emphasises a focused interface and performance-conscious implementation.
+• Demonstrates polished product UI beyond dashboard and operational software.`,
+    chips: ["Next.js", "TypeScript", "Responsive UI"],
+    link: { label: "Open Symzo", url: "https://www.symzo.in/" },
+    keywords: ["symzo", "responsive ui", "modern product"],
+    priority: 4,
+  },
+  components: {
+    badge: "REUSABLE UI ARCHITECTURE",
+    text: `Maroof builds reusable component foundations rather than one-off screens.
+• Uses component-driven development to keep product interfaces consistent as they grow.
+• Has Storybook experience and a design-system mindset.
+• This approach supports faster iteration across dashboards, mobile workflows, and customer-facing products.`,
+    chips: ["Components", "Design Systems", "Storybook", "React"],
+    keywords: ["reusable components", "ui architecture", "component architecture", "components"],
+    priority: 3,
+  },
+  fullstack: {
+    badge: "PRODUCT-FACING FULL-STACK WORK",
+    text: `Maroof's primary focus is frontend, with experience working in full-stack product environments.
+• Graple.ai uses React, Next.js, Node.js, MongoDB, and TypeScript.
+• He is strongest at translating product requirements into polished web and mobile experiences.
+• Especially effective where frontend architecture and product delivery need close ownership.`,
+    chips: ["Next.js", "Node.js", "MongoDB", "Product Delivery"],
+    keywords: ["nodejs", "node js", "mongodb", "full stack", "backend"],
+    priority: 3,
   },
   graple: {
     badge: "GRAPLE.AI (EXPERIMENTATION PLATFORM)",
@@ -185,7 +396,7 @@ export const getChatbotAnswer = (query) => {
   });
 
   const queryWords = new Set(normalizedQuery.split(" ").filter((word) => word.length > 2 && !STOP_WORDS.has(word)));
-  let bestMatch = chatbotAnswers.about;
+  let bestMatch = chatbotAnswers.noMatch;
   let bestScore = 0;
 
   Object.values(chatbotAnswers).forEach((answer) => {
@@ -198,9 +409,10 @@ export const getChatbotAnswer = (query) => {
       return total;
     }, 0);
 
-    if (score > bestScore) {
+    const weightedScore = score + (answer.priority || 0);
+    if (score > 0 && weightedScore > bestScore) {
       bestMatch = answer;
-      bestScore = score;
+      bestScore = weightedScore;
     }
   });
 

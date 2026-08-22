@@ -8,7 +8,6 @@ interface Message {
   sender: "agent" | "user";
   text: string;
   badge?: string;
-  tokens?: number;
   chips?: string[];
   link?: {
     label: string;
@@ -21,7 +20,6 @@ const INITIAL_MESSAGES: Message[] = [
     id: "float-init-1",
     sender: "agent",
     badge: "MAROOF'S PORTFOLIO AGENT",
-    tokens: 42,
     text: `Hi! I answer from Maroof's portfolio. Ask about his work, products, stack, availability, or how to get in touch.`,
     chips: ["Experience", "Projects", "Skills", "Contact"],
   },
@@ -81,7 +79,6 @@ export const FloatingChatbot: React.FC = () => {
           id: `agent-${Date.now()}`,
           sender: "agent",
           badge: responseData.badge,
-          tokens: Math.floor(fullText.length / 4) + 12,
           text: fullText,
           chips: responseData.chips,
           link: responseData.link,
@@ -169,11 +166,6 @@ export const FloatingChatbot: React.FC = () => {
                           <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#262ef2]">
                             {msg.badge}
                           </span>
-                          {msg.tokens && (
-                            <span className="text-[9px] font-mono text-[#8c859d]">
-                              ⚡ {msg.tokens} tokens
-                            </span>
-                          )}
                         </div>
                       )}
 

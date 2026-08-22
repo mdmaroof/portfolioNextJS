@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiArrowRight, FiCheck, FiSend, FiCode, FiSmartphone, FiCpu, FiCompass, FiExternalLink, FiActivity, FiLayers, FiShield, FiTrendingUp } from "react-icons/fi";
+import { FiArrowRight, FiExternalLink, FiActivity, FiLayers, FiShield, FiTrendingUp, FiCpu, FiSmartphone } from "react-icons/fi";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from "react-icons/si";
 
 interface HeaderComponentProps {
@@ -13,85 +13,104 @@ interface ProjectPreviewCard {
   tag: string;
   metric: string;
   color: string;
-  visualType: "mobile" | "map" | "chart" | "health" | "game" | "saas";
+  visualType: "trackaday" | "ethos" | "vahn" | "graple" | "snapaid" | "56secure" | "twist" | "symzo";
   link: string;
   summary: string;
+  tech: string[];
 }
 
 const SHIPMENTS: ProjectPreviewCard[] = [
   {
+    title: "Trackaday",
+    category: "Geospatial Activity & Routes",
+    tag: "Side Project",
+    metric: "Mapbox GL + Turf.js",
+    color: "#0ea5e9",
+    visualType: "trackaday",
+    link: "https://www.trackaday.buzz/",
+    summary: "Interactive geospatial activity tracker with Mapbox GL vector tiles, Turf.js spatial buffers, and live GPS telemetry.",
+    tech: ["Mapbox GL", "Turf.js", "Geospatial", "React"],
+  },
+  {
     title: "Ethos Ascend",
     category: "React Native Mobile App",
-    tag: "Production",
-    metric: "Sub-100ms QR Scanner",
+    tag: "Active Contract",
+    metric: "Sub-100ms Scan Speed",
     color: "#262ef2",
-    visualType: "mobile",
+    visualType: "ethos",
     link: "https://github.com/mdmaroof",
-    summary: "High-speed field sales operations & offline sync",
+    summary: "Sales operations mobile app with custom offline-first camera QR scanning engine.",
+    tech: ["React Native", "Camera Vision", "Offline Sync"],
   },
   {
     title: "VAHN Fleet MVP",
-    category: "Fleet Logistics & Maps",
+    category: "Fleet Logistics & Live Maps",
     tag: "0 to 1 MVP",
     metric: "48+ Live Units Synced",
     color: "#6e73fa",
-    visualType: "map",
+    visualType: "vahn",
     link: "https://github.com/mdmaroof",
-    summary: "Real-time vehicle telemetry & state management",
+    summary: "Real-time vehicle telemetry pipeline with atomic state management and telemetry maps.",
+    tech: ["TypeScript", "Zustand", "Mixpanel"],
   },
   {
     title: "Graple.ai",
-    category: "SaaS Experimentation",
+    category: "SaaS Experimentation Engine",
     tag: "Live SaaS",
     metric: "+28.4% Conversion Lift",
     color: "#0c9618",
-    visualType: "chart",
+    visualType: "graple",
     link: "https://graple-theta.vercel.app/",
-    summary: "Automated A/B funnels & cohort analytics",
+    summary: "Automated A/B funnels, cohort segmentation engine, and real-time retention analytics.",
+    tech: ["Next.js", "TypeScript", "Node.js"],
   },
   {
     title: "SnapAid",
-    category: "Emergency Guidance",
+    category: "AI Emergency Healthcare",
     tag: "Offline PWA",
-    metric: "Instant Triage Engine",
+    metric: "Zero Latency Triage",
     color: "#ca7c0e",
-    visualType: "health",
+    visualType: "snapaid",
     link: "https://snapaid.live/",
-    summary: "Step-by-step emergency medical protocols",
+    summary: "Progressive Web App providing instant step-by-step emergency first-aid protocols.",
+    tech: ["React", "Offline PWA", "AI Triage"],
   },
   {
     title: "56 Secure Command",
-    category: "Guard & Police Telemetry",
+    category: "Guard & Police Radar Telemetry",
     tag: "High Scale",
     metric: "Live Radar Dispatch",
     color: "#aa26f2",
-    visualType: "map",
+    visualType: "56secure",
     link: "https://github.com/mdmaroof",
-    summary: "Multi-tenant command & live Google Maps tracking",
+    summary: "Multi-tenant command dashboards with live Google Maps telemetry and alert dispatching.",
+    tech: ["Google Maps API", "WebSockets", "Smart Eye"],
   },
   {
     title: "Twist N Words",
-    category: "Interactive Word Puzzle",
+    category: "Interactive Word Puzzle Game",
     tag: "Live Game",
-    metric: "60 FPS Touch Controls",
+    metric: "60 FPS Touch Drag",
     color: "#f25c26",
-    visualType: "game",
+    visualType: "twist",
     link: "https://twistnwords.vercel.app/",
-    summary: "Physics drag-and-drop word shuffle game",
+    summary: "Physics-based word rearrangement puzzle with smooth gesture interactions.",
+    tech: ["React", "Physics Gestures", "State Engine"],
   },
   {
     title: "Symzo",
     category: "Focused Product Experience",
     tag: "Live Product",
-    metric: "Fast Responsive UI",
+    metric: "Sub-Second UX",
     color: "#0c5696",
-    visualType: "saas",
+    visualType: "symzo",
     link: "https://www.symzo.in/",
-    summary: "Clean product-led interface & modern frontend",
+    summary: "Modern frontend architecture delivering high-fidelity responsive product experiences.",
+    tech: ["Next.js", "Tailwind CSS", "Design Systems"],
   },
 ];
 
-export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessageSentSuccess }) => {
+export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
   const [typedText, setTypedText] = useState("");
   const trackRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -141,12 +160,12 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessag
     return () => clearTimeout(timer);
   }, []);
 
-  // Continuous auto-glide ticker animation (Deslopify style)
+  // Continuous auto-glide ticker animation
   useEffect(() => {
     let animId: number;
     let currentX = posX;
     let lastTime = performance.now();
-    const speed = 55; // px per second
+    const speed = 50; // px per second
 
     const frame = (now: number) => {
       const dt = Math.min(64, now - lastTime) / 1000;
@@ -200,76 +219,174 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessag
     setIsDragging(false);
   };
 
-  // Duplicated list for seamless infinite loop
   const displayItems = [...SHIPMENTS, ...SHIPMENTS];
 
-  // Helper render preview visual for each card
+  // Render Rich Visual HUD UI for each card
   const renderCardVisual = (card: ProjectPreviewCard) => {
     switch (card.visualType) {
-      case "mobile":
+      case "trackaday":
         return (
-          <div className="h-24 bg-gradient-to-br from-[#1b1c2b] to-[#12131e] rounded-xl p-2.5 flex items-center justify-between text-white relative overflow-hidden">
+          <div className="h-28 bg-[#09151c] rounded-xl p-3 border border-[#163040] group-hover:border-[#0ea5e9]/60 group-hover:shadow-[0_0_20px_-5px_rgba(14,165,233,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
             <div className="space-y-1 z-10">
-              <span className="text-[9px] font-mono text-[#6e73fa] uppercase tracking-wider block">QR Engine Active</span>
-              <p className="text-xs font-bold">120 FPS Scan HUD</p>
-              <div className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" /> Camera Synced
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[9px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                  Mapbox GL + Turf.js
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">Geospatial Activity Tracker</p>
+              <p className="text-[10px] text-[#78a9c4] font-mono">Turf Spatial Buffer &amp; Routes</p>
+            </div>
+            {/* Mapbox Route Vector HUD */}
+            <div className="w-14 h-14 rounded-lg bg-sky-950/60 border border-sky-500/30 p-2 flex flex-col justify-between relative overflow-hidden shrink-0">
+              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#0ea5e9_1px,transparent_1px)] [background-size:5px_5px]" />
+              <div className="w-full h-0.5 bg-gradient-to-r from-emerald-400 to-sky-400 rounded-full mt-2 rotate-[-15deg] shadow-[0_0_6px_#38bdf8]" />
+              <div className="flex justify-between items-center text-[8px] font-mono text-sky-300 z-10">
+                <span>GPS</span>
+                <span className="text-emerald-400">● LIVE</span>
               </div>
             </div>
-            <div className="w-12 h-12 rounded-lg border border-dashed border-[#262ef2] flex items-center justify-center bg-[#262ef2]/10">
-              <FiSmartphone className="w-6 h-6 text-[#6e73fa]" />
+          </div>
+        );
+
+      case "ethos":
+        return (
+          <div className="h-28 bg-[#11121d] rounded-xl p-3 border border-[#25273d] group-hover:border-[#262ef2]/60 group-hover:shadow-[0_0_20px_-5px_rgba(38,46,242,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
+            <div className="space-y-1 z-10">
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                <span className="text-[9px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                  QR Vision Active
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">Sub-100ms Optical HUD</p>
+              <p className="text-[10px] text-[#8e93ba] font-mono">Synced: Offline Cache Ready</p>
+            </div>
+            <div className="w-14 h-14 rounded-lg bg-[#262ef2]/10 border border-[#262ef2]/40 flex items-center justify-center relative">
+              <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-[#6e73fa]" />
+              <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-[#6e73fa]" />
+              <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-[#6e73fa]" />
+              <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-[#6e73fa]" />
+              <FiSmartphone className="w-5 h-5 text-[#6e73fa]" />
             </div>
           </div>
         );
-      case "map":
+
+      case "vahn":
         return (
-          <div className="h-24 bg-gradient-to-br from-[#101426] to-[#0b0e1b] rounded-xl p-2.5 flex items-center justify-between text-white relative overflow-hidden">
+          <div className="h-28 bg-[#0e111d] rounded-xl p-3 border border-[#20263f] group-hover:border-[#6e73fa]/60 group-hover:shadow-[0_0_20px_-5px_rgba(110,115,250,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
             <div className="space-y-1 z-10">
-              <span className="text-[9px] font-mono text-cyan-400 uppercase tracking-wider block">Live Map Telemetry</span>
-              <p className="text-xs font-bold">48 Units Connected</p>
-              <span className="text-[10px] text-[#8c859d] font-mono">Ping: 84ms · WebSockets</span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                  Live Telemetry Stream
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">48+ Fleet Units Connected</p>
+              <p className="text-[10px] text-[#7d87b3] font-mono">Ping: 72ms · WebSockets</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-cyan-950/60 border border-cyan-500/30 flex items-center justify-center">
-              <FiActivity className="w-6 h-6 text-cyan-400" />
+            <div className="w-14 h-14 rounded-lg bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center relative">
+              <div className="absolute w-8 h-8 rounded-full border border-cyan-500/20 animate-ping" />
+              <FiActivity className="w-5 h-5 text-cyan-400" />
             </div>
           </div>
         );
-      case "chart":
+
+      case "graple":
         return (
-          <div className="h-24 bg-gradient-to-br from-[#0c1f15] to-[#07130d] rounded-xl p-2.5 flex items-center justify-between text-white relative overflow-hidden">
+          <div className="h-28 bg-[#0a1610] rounded-xl p-3 border border-[#1b3827] group-hover:border-[#0c9618]/60 group-hover:shadow-[0_0_20px_-5px_rgba(12,150,24,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
             <div className="space-y-1 z-10">
-              <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-wider block">A/B Testing Funnel</span>
-              <p className="text-xs font-bold">Variant B +28.4% Lift</p>
-              <span className="text-[10px] text-emerald-300/80 font-mono">Sample: 45.2K Users</span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-[9px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                  A/B Experimentation
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">Variant B: +28.4% Lift</p>
+              <p className="text-[10px] text-[#72a884] font-mono">Cohort Sample: 45,200</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-emerald-950/60 border border-emerald-500/30 flex items-center justify-center">
-              <FiTrendingUp className="w-6 h-6 text-emerald-400" />
+            <div className="w-14 h-14 rounded-lg bg-emerald-950/50 border border-emerald-500/30 p-2 flex items-end justify-between">
+              <div className="w-2.5 h-4 bg-emerald-700/60 rounded-xs" />
+              <div className="w-2.5 h-7 bg-emerald-600/80 rounded-xs" />
+              <div className="w-2.5 h-10 bg-emerald-400 rounded-xs shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
             </div>
           </div>
         );
-      case "health":
+
+      case "snapaid":
         return (
-          <div className="h-24 bg-gradient-to-br from-[#24170d] to-[#140c06] rounded-xl p-2.5 flex items-center justify-between text-white relative overflow-hidden">
+          <div className="h-28 bg-[#1f130a] rounded-xl p-3 border border-[#3d2715] group-hover:border-[#ca7c0e]/60 group-hover:shadow-[0_0_20px_-5px_rgba(202,124,14,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
             <div className="space-y-1 z-10">
-              <span className="text-[9px] font-mono text-amber-400 uppercase tracking-wider block">Emergency Medical PWA</span>
-              <p className="text-xs font-bold">Offline Protocol V2</p>
-              <span className="text-[10px] text-amber-300/80 font-mono">Zero Latency Triage</span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span className="text-[9px] font-mono text-amber-400 font-bold uppercase tracking-wider">
+                  Emergency Medical PWA
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">Offline Protocol V2</p>
+              <p className="text-[10px] text-[#c79d79] font-mono">Zero Latency Local Storage</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-amber-950/60 border border-amber-500/30 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-lg bg-amber-950/60 border border-amber-500/30 flex items-center justify-center">
               <FiShield className="w-6 h-6 text-amber-400" />
             </div>
           </div>
         );
+
+      case "56secure":
+        return (
+          <div className="h-28 bg-[#180e22] rounded-xl p-3 border border-[#3b1d52] group-hover:border-[#aa26f2]/60 group-hover:shadow-[0_0_20px_-5px_rgba(170,38,242,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
+            <div className="space-y-1 z-10">
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping" />
+                <span className="text-[9px] font-mono text-purple-400 font-bold uppercase tracking-wider">
+                  Guard &amp; Police Dispatch
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">Smart Eye Alert Radar</p>
+              <p className="text-[10px] text-[#bc8edc] font-mono">Google Maps Telemetry</p>
+            </div>
+            <div className="w-14 h-14 rounded-lg bg-purple-950/50 border border-purple-500/30 flex items-center justify-center">
+              <FiCpu className="w-6 h-6 text-purple-400" />
+            </div>
+          </div>
+        );
+
+      case "twist":
+        return (
+          <div className="h-28 bg-[#20100a] rounded-xl p-3 border border-[#422013] group-hover:border-[#f25c26]/60 group-hover:shadow-[0_0_20px_-5px_rgba(242,92,38,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
+            <div className="space-y-1 z-10">
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />
+                <span className="text-[9px] font-mono text-orange-400 font-bold uppercase tracking-wider">
+                  Physics Puzzle Engine
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">60 FPS Gesture Drag</p>
+              <p className="text-[10px] text-[#dca08e] font-mono">Interactive Word Shuffle</p>
+            </div>
+            <div className="flex gap-1">
+              <span className="w-5 h-6 rounded bg-orange-500 text-white font-bold text-[10px] flex items-center justify-center shadow-xs">R</span>
+              <span className="w-5 h-6 rounded bg-orange-600 text-white font-bold text-[10px] flex items-center justify-center shadow-xs">E</span>
+              <span className="w-5 h-6 rounded bg-orange-700 text-white font-bold text-[10px] flex items-center justify-center shadow-xs">A</span>
+            </div>
+          </div>
+        );
+
       default:
         return (
-          <div className="h-24 bg-gradient-to-br from-[#1a1928] to-[#12111c] rounded-xl p-2.5 flex items-center justify-between text-white relative overflow-hidden">
+          <div className="h-28 bg-[#0b141f] rounded-xl p-3 border border-[#172d45] group-hover:border-[#0c5696]/60 group-hover:shadow-[0_0_20px_-5px_rgba(12,86,150,0.3)] transition-all duration-300 flex items-center justify-between text-white relative overflow-hidden">
             <div className="space-y-1 z-10">
-              <span className="text-[9px] font-mono text-[#aa26f2] uppercase tracking-wider block">Production Web SaaS</span>
-              <p className="text-xs font-bold">Sub-Second Interactions</p>
-              <span className="text-[10px] text-[#b9bcd0] font-mono">React 18 + TS Engine</span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                <span className="text-[9px] font-mono text-sky-400 font-bold uppercase tracking-wider">
+                  Product Architecture
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">Sub-Second Interactions</p>
+              <p className="text-[10px] text-[#86a8c7] font-mono">Next.js + Tailwind UI</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-purple-950/60 border border-purple-500/30 flex items-center justify-center">
-              <FiLayers className="w-6 h-6 text-purple-400" />
+            <div className="w-14 h-14 rounded-lg bg-sky-950/50 border border-sky-500/30 flex items-center justify-center">
+              <FiLayers className="w-6 h-6 text-sky-400" />
             </div>
           </div>
         );
@@ -277,7 +394,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessag
   };
 
   return (
-    <div className="pt-24 md:pt-32 pb-12 overflow-hidden relative">
+    <div className="pt-20 md:pt-28 pb-12 overflow-hidden relative">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Eyebrow & Hero Header */}
         <div className="text-center max-w-4xl mx-auto">
@@ -365,17 +482,17 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessag
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
-          onMouseEnter={() => setHoverMult(0.4)}
+          onMouseEnter={() => setHoverMult(0.35)}
           onMouseLeave={() => setHoverMult(1)}
           className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none py-3"
           style={{
-            maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+            maskImage: "linear-gradient(to right, transparent, black 4%, black 96%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 4%, black 96%, transparent)",
           }}
         >
           <div
             ref={trackRef}
-            className="flex gap-5 w-max will-change-transform px-6"
+            className="flex gap-6 w-max will-change-transform px-6"
           >
             {displayItems.map((item, idx) => (
               <a
@@ -383,40 +500,48 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data, onMessag
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-[300px] sm:w-[330px] shrink-0 bg-white border border-[#e5e5ee] rounded-2xl p-4 shadow-[0_12px_30px_-15px_rgba(32,31,50,0.12)] hover:border-[#262ef2] hover:shadow-[0_20px_40px_-15px_rgba(38,46,242,0.18)] hover:-translate-y-1.5 transition-all duration-200 flex flex-col justify-between"
+                className="group w-[320px] sm:w-[340px] md:w-[355px] h-[335px] shrink-0 bg-white border border-[#e5e5ee] rounded-2xl p-4 sm:p-5 shadow-[0_10px_30px_-15px_rgba(32,31,50,0.1)] hover:border-[#262ef2] hover:ring-1 hover:ring-[#262ef2]/30 hover:shadow-[0_16px_40px_-12px_rgba(38,46,242,0.16)] transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  {/* Top Bar */}
+                  {/* Top Bar: Clean Tag + Metric Badge */}
                   <div className="flex items-center justify-between mb-3">
                     <span
-                      className="text-[10px] font-mono font-bold text-white px-2.5 py-0.5 rounded-full"
+                      className="text-[10px] font-mono font-bold text-white px-2.5 py-0.5 rounded-full shadow-2xs"
                       style={{ backgroundColor: item.color }}
                     >
                       {item.tag}
                     </span>
-                    <span className="text-[11px] font-mono text-[#6e73fa] font-semibold flex items-center gap-1">
+                    <span className="text-[11px] font-mono text-[#262ef2] font-semibold bg-[#262ef2]/5 px-2.5 py-0.5 rounded-md border border-[#262ef2]/10">
                       {item.metric}
                     </span>
                   </div>
 
-                  {/* Visual Simulation HUD */}
+                  {/* Custom Graphical HUD Simulation (Glows softly on hover) */}
                   <div className="mb-3.5">
                     {renderCardVisual(item)}
                   </div>
 
                   {/* Title & Info */}
-                  <h4 className="text-base font-bold text-[#1f1f32] flex items-center justify-between">
+                  <h4 className="text-sm sm:text-base font-bold text-[#1f1f32] flex items-center justify-between">
                     {item.title}
-                    <FiExternalLink className="w-3.5 h-3.5 text-[#8c859d] group-hover:text-[#262ef2]" />
+                    <FiExternalLink className="w-3.5 h-3.5 text-[#8c859d] group-hover:text-[#262ef2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </h4>
                   <p className="text-xs font-semibold text-[#6e73fa] mt-0.5">{item.category}</p>
-                  <p className="text-xs text-[#4d5564] mt-1.5 leading-relaxed">{item.summary}</p>
+                  <p className="text-xs text-[#4d5564] mt-1 leading-relaxed line-clamp-2">{item.summary}</p>
                 </div>
 
-                {/* Card Bottom Link */}
-                <div className="mt-4 pt-2.5 border-t border-[#f0f0f6] flex items-center justify-between text-[11px] font-mono text-[#262ef2] font-semibold">
-                  <span>Launch Application</span>
-                  <span>↗</span>
+                {/* Card Bottom: Tech Pills + Interactive Pill Launch Button */}
+                <div className="pt-2.5 border-t border-[#f0f0f6] flex items-center justify-between text-xs">
+                  <div className="flex gap-1">
+                    {item.tech.slice(0, 2).map((t, tIdx) => (
+                      <span key={tIdx} className="text-[9px] font-mono text-[#61667b] bg-[#f3f3f9] px-1.5 py-0.5 rounded">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="font-mono text-[11px] font-semibold text-[#262ef2] bg-[#262ef2]/5 group-hover:bg-[#262ef2] group-hover:text-white px-2.5 py-1 rounded-md border border-[#262ef2]/10 group-hover:border-[#262ef2] transition-all flex items-center gap-1 shadow-2xs">
+                    Launch ↗
+                  </span>
                 </div>
               </a>
             ))}

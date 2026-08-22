@@ -49,13 +49,20 @@ const PRESET_KNOWLEDGE: Record<string, PromptAnswer> = {
     badge: "Real-time & Dashboards",
     highlightChips: ["Live Map Tracking", "PubNub RTC/RTM", "Police/Guard Dashboards", "Auto-Reconnect"],
   },
+  geospatial: {
+    query: "Tell me about his geospatial, Mapbox & Turf.js work",
+    response:
+      "Maroof built Trackaday (trackaday.buzz), a geospatial activity platform using Mapbox GL for vector map rendering and Turf.js for spatial calculations, polygon buffers, and route geometry. He also engineered live Google Maps telemetry systems for 56 Secure and VAHN.",
+    badge: "Geospatial & Maps",
+    highlightChips: ["Trackaday.buzz", "Mapbox GL", "Turf.js Spatial", "Google Maps Telemetry"],
+  },
 };
 
 const SKILL_FOLDERS = [
   { name: "Frontend Core", count: "React, Next.js, TS", color: "#262ef2", icon: <SiReact /> },
   { name: "Mobile Apps", count: "React Native, Expo", color: "#6e73fa", icon: <FiSmartphone /> },
+  { name: "Geospatial & Maps", count: "Mapbox GL, Turf.js", color: "#0ea5e9", icon: <FiLayers /> },
   { name: "State & Realtime", count: "Zustand, PubNub, RTC", color: "#0c9618", icon: <FiCpu /> },
-  { name: "Dashboards & Maps", count: "Google Maps, Analytics", color: "#ca7c0e", icon: <FiLayers /> },
   { name: "Design Systems", count: "Storybook, Reusable UI", color: "#aa26f2", icon: <FiCode /> },
   { name: "Backend & APIs", count: "Node.js, MongoDB, REST", color: "#0c5696", icon: <FiDatabase /> },
 ];

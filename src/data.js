@@ -104,12 +104,30 @@ export const data = {
     "Storybook",
     "PubNub",
     "Google Maps API",
+    "Mapbox GL",
+    "Turf.js",
+    "Geospatial Analysis",
     "Performance Optimization",
     "Real-time Systems",
     "Dashboard Development",
     "Reusable Component Architecture",
   ],
   projects: [
+    {
+      name: "Trackaday",
+      tagline: "Geospatial route tracking & spatial analysis",
+      description:
+        "An interactive geospatial route and activity tracker leveraging Mapbox GL for high-performance vector map rendering and Turf.js for spatial calculations, polygon buffers, and route geometry.",
+      tech: ["React", "Mapbox GL", "Turf.js", "TypeScript", "Geospatial"],
+      features: [
+        "Interactive Mapbox GL vector tile rendering",
+        "Turf.js spatial calculations & distance geometry",
+        "Real-time route playback & telemetry",
+        "Geofencing & buffer polygon analysis",
+      ],
+      status: "Live",
+      link: "https://www.trackaday.buzz/",
+    },
     {
       name: "Graple.ai",
       tagline: "Boost engagement with data-driven experiments",

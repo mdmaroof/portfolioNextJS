@@ -21,13 +21,15 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
 
   const categories = [
     { id: "all", label: "All Projects" },
+    { id: "geospatial", label: "Geospatial & Maps" },
     { id: "saas", label: "SaaS & Analytics" },
     { id: "emergency", label: "Health & PWA" },
-    { id: "interactive", label: "Interactive & Games" },
+    { id: "interactive", label: "Interactive Games" },
   ];
 
   const filteredProjects = projects.filter((p) => {
     if (filter === "all") return true;
+    if (filter === "geospatial") return p.name.includes("Trackaday");
     if (filter === "saas") return p.name.includes("Graple") || p.name.includes("Symzo");
     if (filter === "emergency") return p.name.includes("SnapAid");
     if (filter === "interactive") return p.name.includes("Twist");

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiTerminal, FiExternalLink, FiMail, FiZap, FiTrash2, FiClock } from "react-icons/fi";
+import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2 } from "react-icons/fi";
 import { SiReact } from "react-icons/si";
 
 interface Message {
@@ -8,7 +8,6 @@ interface Message {
   text: string;
   badge?: string;
   chips?: string[];
-  codeSnippet?: string;
   link?: { label: string; url: string };
   tokens?: number;
   time?: string;
@@ -26,11 +25,11 @@ const SKILL_FOLDERS = [
 const COMPREHENSIVE_KB = [
   {
     keywords: ["stack", "tech", "skill", "language", "framework", "library", "react", "next"],
-    badge: "Core Stack & Engineering",
+    badge: "Core Stack & Architecture",
     response:
       "Mohd Maroof is a Senior Frontend Engineer with 6+ years of production experience specializing in:\n• Frontend: React 18/19, Next.js (App Router, Server Components, SSR/SSG)\n• Mobile: React Native, Expo, Native Camera Modules, Custom Optical Scanners\n• Languages: TypeScript (Strict Mode), JavaScript (ESNext)\n• State: Zustand (Atomic State), Redux Toolkit, Context Architecture\n• Styling: Tailwind CSS, CSS Modules, Radix UI, Framer Motion\n• Real-Time: WebSockets, PubNub RTC/RTM, Live Google Maps & Mapbox GL.",
     chips: ["React & Next.js", "React Native", "TypeScript", "Zustand", "Tailwind CSS"],
-    link: { label: "View Detailed Experience", url: "#experience" },
+    link: { label: "View Detailed Work History", url: "#experience" },
   },
   {
     keywords: ["ethos", "qr", "camera", "ascend", "scanner", "optical", "retail"],
@@ -221,7 +220,7 @@ export const AgentSection: React.FC = () => {
     const streamSpeed = 12; // Realistic fast LLM token stream speed
 
     const interval = setInterval(() => {
-      charPos += 3; // stream 3 characters per tick
+      charPos += 3;
       if (charPos >= fullResponse.length) {
         clearInterval(interval);
         setStreamingText("");
@@ -273,7 +272,7 @@ export const AgentSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* Left Column: Technical Spectrum Cards (5 Cols) */}
-          <div className="lg:col-span-5 craft-card p-6 md:p-8 flex flex-col justify-between bg-white border border-[#e5e5ee]">
+          <div className="lg:col-span-5 rounded-[28px] bg-white border border-[#e5e5ee] p-6 md:p-8 flex flex-col justify-between shadow-sm">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#262ef2]" />
@@ -312,11 +311,11 @@ export const AgentSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Realistic Streaming Knowledge Terminal (7 Cols) */}
-          <div className="lg:col-span-7 craft-card p-6 md:p-8 flex flex-col justify-between bg-[#12131d] text-white border border-white/15 shadow-xl">
+          {/* Right Column: Clean Studio Knowledge Console (7 Cols) */}
+          <div className="lg:col-span-7 rounded-[28px] bg-white border border-[#e5e5ee] p-6 md:p-8 flex flex-col justify-between shadow-sm">
             <div>
               {/* Terminal Window Header */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#ececf4]">
                 <div className="flex items-center gap-3">
                   {/* macOS Traffic Lights */}
                   <div className="flex items-center gap-1.5">
@@ -324,19 +323,19 @@ export const AgentSection: React.FC = () => {
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                   </div>
-                  <span className="text-xs font-mono font-bold text-[#b9bcd0]">
+                  <span className="text-xs font-mono font-bold text-[#1f1f32]">
                     maroof-agent@v2.8: ~/knowledge
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     Streaming Ready
                   </span>
                   <button
                     onClick={() => executeQuery("/clear")}
-                    className="text-[#8c859d] hover:text-white transition-colors p-1"
+                    className="text-[#8c859d] hover:text-[#1f1f32] transition-colors p-1"
                     title="Clear Terminal"
                     aria-label="Clear chat"
                   >
@@ -356,15 +355,15 @@ export const AgentSection: React.FC = () => {
                     className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
                   >
                     {msg.sender === "user" ? (
-                      <div className="max-w-[85%] p-3 rounded-2xl rounded-tr-xs bg-[#262ef2] text-white text-xs font-mono shadow-md">
-                        <span className="text-white/60 text-[10px] block mb-0.5">query &gt;</span>
+                      <div className="max-w-[85%] p-3.5 rounded-2xl rounded-tr-xs bg-[#201f32] text-white text-xs font-mono shadow-sm">
+                        <span className="text-[#8b90ff] text-[10px] font-bold block mb-0.5">query &gt;</span>
                         {msg.text}
                       </div>
                     ) : (
-                      <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-white/[0.04] border border-white/10 text-[#e2e2ec] space-y-2.5 shadow-sm">
+                      <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-[#f6f6fc] border border-[#e4e4f0] text-[#1f1f32] space-y-2.5 shadow-2xs">
                         {msg.badge && (
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8b90ff] bg-[#262ef2]/20 px-2 py-0.5 rounded border border-[#262ef2]/30">
+                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2 py-0.5 rounded-md border border-[#262ef2]/20">
                               {msg.badge}
                             </span>
                             {msg.tokens && (
@@ -375,17 +374,17 @@ export const AgentSection: React.FC = () => {
                           </div>
                         )}
 
-                        <div className="text-xs leading-relaxed whitespace-pre-line text-[#d1d5db]">
+                        <div className="text-xs leading-relaxed whitespace-pre-line text-[#2d3142] font-sans">
                           {msg.text}
                         </div>
 
                         {/* Highlight Chips */}
                         {msg.chips && msg.chips.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 pt-1.5">
+                          <div className="flex flex-wrap gap-1.5 pt-1">
                             {msg.chips.map((chip, cIdx) => (
                               <span
                                 key={cIdx}
-                                className="text-[10px] font-mono text-[#a3a6c2] bg-white/5 px-2 py-0.5 rounded border border-white/10"
+                                className="text-[10px] font-mono text-[#4d5564] bg-white px-2 py-0.5 rounded border border-[#dcdae8] shadow-2xs"
                               >
                                 {chip}
                               </span>
@@ -400,7 +399,7 @@ export const AgentSection: React.FC = () => {
                               href={msg.link.url}
                               target={msg.link.url.startsWith("http") ? "_blank" : undefined}
                               rel={msg.link.url.startsWith("http") ? "noopener noreferrer" : undefined}
-                              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#8b90ff] hover:text-white transition-colors"
+                              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#262ef2] hover:underline"
                             >
                               <span>{msg.link.label}</span>
                               <FiExternalLink className="w-3 h-3" />
@@ -414,20 +413,20 @@ export const AgentSection: React.FC = () => {
 
                 {/* Real-time Streaming Output Indicator */}
                 {isStreaming && (
-                  <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-white/[0.04] border border-white/10 text-[#e2e2ec] space-y-2.5 font-mono">
+                  <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-[#f6f6fc] border border-[#e4e4f0] text-[#1f1f32] space-y-2.5 font-mono">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8b90ff] bg-[#262ef2]/20 px-2 py-0.5 rounded border border-[#262ef2]/30">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2 py-0.5 rounded-md border border-[#262ef2]/20">
                         {activeBadge || "Streaming Answer"}
                       </span>
-                      <span className="text-[9px] font-mono text-emerald-400 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[9px] font-mono text-emerald-600 flex items-center gap-1 font-bold">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         Generating
                       </span>
                     </div>
 
-                    <div className="text-xs leading-relaxed whitespace-pre-line text-[#d1d5db]">
+                    <div className="text-xs leading-relaxed whitespace-pre-line text-[#2d3142] font-sans">
                       {streamingText}
-                      <span className="inline-block w-1.5 h-3.5 bg-[#8b90ff] ml-1 align-middle animate-pulse" />
+                      <span className="inline-block w-1.5 h-3.5 bg-[#262ef2] ml-1 align-middle animate-pulse" />
                     </div>
                   </div>
                 )}
@@ -437,8 +436,8 @@ export const AgentSection: React.FC = () => {
             {/* Input Form & Suggested Query Pills */}
             <div className="pt-2">
               <form onSubmit={handleSubmit} className="relative mb-3 font-mono">
-                <div className="flex items-center bg-black/40 border border-white/15 rounded-2xl px-3.5 py-2.5 shadow-inner focus-within:border-[#262ef2] focus-within:ring-2 focus-within:ring-[#262ef2]/30 transition-all">
-                  <span className="text-xs text-[#8b90ff] mr-2 font-bold">
+                <div className="flex items-center bg-[#f8f8fc] border border-[#d2d2e2] rounded-2xl px-3.5 py-2.5 shadow-xs focus-within:bg-white focus-within:border-[#262ef2] focus-within:ring-2 focus-within:ring-[#262ef2]/15 transition-all">
+                  <span className="text-xs text-[#262ef2] mr-2 font-bold font-mono">
                     $
                   </span>
                   <input
@@ -446,12 +445,12 @@ export const AgentSection: React.FC = () => {
                     value={inputVal}
                     onChange={(e) => setInputVal(e.target.value)}
                     placeholder={typedPlaceholder || "Type any question or command (/clear)..."}
-                    className="w-full text-xs sm:text-sm text-white bg-transparent outline-none placeholder-[#6b7280]"
+                    className="w-full text-xs sm:text-sm text-[#1f1f32] bg-transparent outline-none placeholder-[#8c859d] font-mono"
                   />
                   <button
                     type="submit"
                     disabled={!inputVal.trim() || isStreaming}
-                    className="w-8 h-8 rounded-xl bg-[#262ef2] text-white flex items-center justify-center hover:bg-[#1d24cf] disabled:opacity-40 disabled:pointer-events-none transition-all ml-2 shrink-0 shadow-md"
+                    className="w-8 h-8 rounded-xl bg-[#262ef2] text-white flex items-center justify-center hover:bg-[#1d24cf] disabled:opacity-40 disabled:pointer-events-none transition-all ml-2 shrink-0 shadow-xs"
                     aria-label="Execute Query"
                   >
                     <FiSend className="w-3.5 h-3.5" />
@@ -468,35 +467,35 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("What is Maroof's core tech stack?")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 text-[#a3a6c2] border border-white/10 hover:bg-white/10 hover:text-white transition-all font-mono"
+                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
                   >
                     ⚡ /stack
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about Ethos and his custom QR scanner")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 text-[#a3a6c2] border border-white/10 hover:bg-white/10 hover:text-white transition-all font-mono"
+                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
                   >
                     📱 /ethos-qr
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about VAHN and the Fleet App MVP")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 text-[#a3a6c2] border border-white/10 hover:bg-white/10 hover:text-white transition-all font-mono"
+                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
                   >
                     🚗 /vahn-fleet
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about Trackaday and Mapbox GL")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 text-[#a3a6c2] border border-white/10 hover:bg-white/10 hover:text-white transition-all font-mono"
+                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
                   >
                     🗺️ /trackaday
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Is Maroof available for senior contracts?")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 text-[#a3a6c2] border border-white/10 hover:bg-white/10 hover:text-white transition-all font-mono"
+                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
                   >
                     🤝 /hire
                   </button>

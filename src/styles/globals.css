@@ -41,6 +41,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Hide scrollbars when desired */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Subtle background grid pattern */
 body::before {
   content: "";

@@ -240,42 +240,47 @@ export const CurvedCarouselSection: React.FC = () => {
               <div className="w-[245px] sm:w-[265px] md:w-[280px] h-[525px] md:h-[560px] bg-[#121316] rounded-[42px] md:rounded-[46px] p-[8px] shadow-[0_35px_80px_-15px_rgba(20,20,35,0.35),0_0_0_1.5px_#333242,inset_0_0_0_1.5px_#09090c] relative">
                 
                 {/* Phone Inner Display Bezel */}
-                <div className="w-full h-full bg-gradient-to-b from-[#ffffff] via-[#fafbff] to-[#eef0f8] rounded-[34px] md:rounded-[38px] overflow-hidden flex flex-col justify-between relative border border-[#d2d2df]/60 shadow-inner">
+                <div className="w-full h-full bg-gradient-to-b from-[#ffffff] via-[#fafbff] to-[#eef0f8] rounded-[34px] md:rounded-[38px] overflow-hidden flex flex-col justify-start relative border border-[#d2d2df]/60 shadow-inner">
                   
-                  {/* Top iOS Status Bar */}
-                  <div className="w-full pt-3 px-5 flex items-center justify-between z-30 select-none text-[11px] font-semibold text-[#1f1f32]">
-                    <span>9:41</span>
+                  {/* Top iOS Status Bar Container */}
+                  <div className="relative w-full pt-3 px-5 flex items-center justify-between z-30 select-none text-[11px] font-semibold text-[#1f1f32]">
+                    {/* Time */}
+                    <span className="w-10 text-left font-sans">9:41</span>
 
-                    {/* Dynamic Island Capsule */}
-                    <div className="w-18 h-4.5 bg-black rounded-full flex items-center justify-end px-2 gap-1 shadow-sm">
-                      <span className="w-2 h-2 rounded-full bg-[#11121d] border border-white/20" />
-                      <span className="w-1 h-1 rounded-full bg-[#053d26]" />
+                    {/* Mathematically Dead-Centered Dynamic Island */}
+                    <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-[72px] h-[19px] bg-black rounded-full flex items-center justify-end px-2 gap-1.5 shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                      {/* Camera Lens */}
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#141522] border-[0.5px] border-[#313248] flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full bg-[#0a0b12]" />
+                      </span>
+                      {/* Sensor */}
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#062416]" />
                     </div>
 
                     {/* Status Icons */}
-                    <div className="flex items-center gap-1 text-xs text-[#1f1f32]">
+                    <div className="w-12 flex items-center justify-end gap-1 text-xs text-[#1f1f32]">
                       <BsReception4 className="w-3 h-3" />
                       <FiWifi className="w-3 h-3" />
                       <IoIosBatteryFull className="w-4 h-4 text-[#1f1f32]" />
                     </div>
                   </div>
 
-                  {/* Upper Half: Orbit Rings with Badges */}
-                  <div className="relative w-full h-[240px] flex items-center justify-center mt-2">
-                    <div className="absolute w-40 h-40 sm:w-44 sm:h-44 rounded-full border border-[#c9cbf0]/70" />
-                    <div className="absolute w-52 h-52 sm:w-58 sm:h-58 rounded-full border border-[#e2e3fa]/60" />
+                  {/* Top Visible Orbit Area: Fixed at Top with clean subtle breathing room below status bar */}
+                  <div className="relative w-full h-[200px] flex items-center justify-center mt-4 sm:mt-5">
+                    <div className="absolute w-36 h-36 sm:w-40 sm:h-40 rounded-full border border-[#c9cbf0]/70" />
+                    <div className="absolute w-48 h-48 sm:w-52 sm:h-52 rounded-full border border-[#e2e3fa]/60" />
 
                     {/* Company Badges on the orbit */}
-                    <span className="absolute top-2 left-5 w-6 h-6 rounded-lg bg-[#262ef2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                    <span className="absolute top-1 left-5 w-6 h-6 rounded-lg bg-[#262ef2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
                       ET
                     </span>
-                    <span className="absolute top-2 right-5 w-6 h-6 rounded-lg bg-[#6e73fa] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                    <span className="absolute top-1 right-5 w-6 h-6 rounded-lg bg-[#6e73fa] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
                       VA
                     </span>
-                    <span className="absolute bottom-6 left-6 w-6 h-6 rounded-lg bg-[#0c9618] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                    <span className="absolute bottom-3 left-6 w-6 h-6 rounded-lg bg-[#0c9618] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
                       MC
                     </span>
-                    <span className="absolute bottom-6 right-6 w-6 h-6 rounded-lg bg-[#aa26f2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                    <span className="absolute bottom-3 right-6 w-6 h-6 rounded-lg bg-[#aa26f2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
                       56
                     </span>
 
@@ -295,7 +300,7 @@ export const CurvedCarouselSection: React.FC = () => {
                   </div>
 
                   {/* Lower screen: iOS Bottom Home Bar */}
-                  <div className="w-full pb-3 flex flex-col items-center justify-end z-10">
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
                     <div className="w-24 h-0.5 bg-[#1f1f32]/25 rounded-full" />
                   </div>
                 </div>

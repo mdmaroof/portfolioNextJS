@@ -4,12 +4,11 @@ import { LazyMotion, MotionConfig, domAnimation, m, useScroll } from "framer-mot
 import { FiCheck } from "react-icons/fi";
 import { Navbar } from "../component/navbar.section";
 import { HeaderComponent } from "../component/header.section";
-import { ScrollShipmentsSection } from "../component/scrollShipments.section";
 import { OverviewSection } from "../component/overview.section";
 import { CurvedCarouselSection } from "../component/curvedCarousel.section";
 import { WorkHistory } from "../component/workHistory.section";
 import { AgentSection } from "../component/agent.section";
-import { ProjectsSection } from "../component/projects.section";
+import { PhoneScrollShowcaseSection } from "../component/phoneScrollShowcase.section";
 import { Footer } from "../component/footer.section";
 import { data } from "../data";
 import { seo } from "../lib/seo";
@@ -161,23 +160,20 @@ export default function Home() {
           {/* 1. Clean Hero with Typewriter & CTAs */}
           <HeaderComponent data={data} onMessageSentSuccess={handleMessageSentSuccess} />
 
-          {/* 2. Interactive Scroll-Driven Horizontal Showcase with Live Progress Scrubber */}
-          <ScrollShipmentsSection />
-
-          {/* 3. Overview Metrics */}
+          {/* 2. Overview Metrics */}
           <OverviewSection />
 
-          {/* 4. Curved Arc Experience Carousel with Orbiting Mobile Stage */}
+          {/* 3. Curved Arc Experience Carousel with Orbiting Mobile Stage */}
           <CurvedCarouselSection />
 
-          {/* 5. Detailed Roles & Contributions */}
+          {/* 4. Detailed Roles & Contributions */}
           <WorkHistory work={data.work} />
 
-          {/* 6. Interactive "Ask Maroof" Custom AI Agent & Bento Grid */}
+          {/* 5. Interactive "Ask Maroof" Custom AI Agent & Bento Grid */}
           <AgentSection />
 
-          {/* 7. Projects Showcase (including Trackaday & Geospatial) */}
-          <ProjectsSection projects={data.projects as any} />
+          {/* 6. Interactive Phone Scroll Showcase (Scroll to change projects inside phone) */}
+          <PhoneScrollShowcaseSection />
         </main>
 
         {/* 8. High-Craft Studio Footer */}

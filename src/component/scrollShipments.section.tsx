@@ -191,7 +191,7 @@ export const ScrollShipmentsSection: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className="w-[320px] sm:w-[380px] md:w-[420px] h-[370px] sm:h-[390px] shrink-0 bg-white/90 backdrop-blur-xl border border-white/95 rounded-[28px] p-6 sm:p-7 shadow-[0_20px_50px_-15px_rgba(32,31,50,0.12),inset_0_1px_0_rgba(255,255,255,0.95)] hover:border-[#262ef2] hover:shadow-[0_25px_60px_-15px_rgba(38,46,242,0.18)] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                  className="w-[290px] xs:w-[320px] sm:w-[360px] md:w-[420px] h-[370px] sm:h-[390px] shrink-0 bg-white/90 backdrop-blur-xl border border-white/95 rounded-[28px] p-5 sm:p-7 shadow-[0_20px_50px_-15px_rgba(32,31,50,0.12),inset_0_1px_0_rgba(255,255,255,0.95)] hover:border-[#262ef2] hover:shadow-[0_25px_60px_-15px_rgba(38,46,242,0.18)] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
                 >
                   {/* Subtle Brand Color Sheen Corner */}
                   <div

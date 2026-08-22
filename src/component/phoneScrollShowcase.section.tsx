@@ -224,7 +224,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
           </div>
 
           {/* Fluid Sliding Glass Capsule Tab Bar */}
-          <div className="mb-4 sm:mb-5 relative inline-flex p-1.5 bg-white/80 backdrop-blur-2xl rounded-full border border-white/95 shadow-[0_12px_36px_-12px_rgba(32,31,50,0.14)] max-w-full overflow-x-auto gap-1 select-none">
+          <div className="mb-4 sm:mb-5 relative inline-flex p-1.5 bg-white/80 backdrop-blur-2xl rounded-full border border-white/95 shadow-[0_12px_36px_-12px_rgba(32,31,50,0.14)] max-w-full overflow-x-auto no-scrollbar gap-1 select-none">
             {/* Single Continuous Sliding Dark Capsule */}
             <m.div
               initial={false}

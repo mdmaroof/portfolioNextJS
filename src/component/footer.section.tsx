@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-[36px] sm:rounded-[44px] bg-white/85 backdrop-blur-2xl border border-white/95 p-8 sm:p-12 md:p-16 shadow-[0_30px_90px_-20px_rgba(38,46,242,0.1),0_0_0_1px_rgba(255,255,255,0.9)] overflow-hidden"
+          className="relative rounded-[32px] sm:rounded-[44px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-10 md:p-14 shadow-[0_30px_90px_-20px_rgba(38,46,242,0.1),0_0_0_1px_rgba(255,255,255,0.9)] overflow-hidden"
         >
           {/* Subtle Ambient Radial Glows */}
           <div className="absolute -top-24 -right-24 w-[450px] h-[300px] bg-[#262ef2]/8 blur-[100px] pointer-events-none" />

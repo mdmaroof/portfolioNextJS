@@ -19,7 +19,7 @@ export const chatbotAnswers = {
 • Strongest areas: real-time product experiences, map-based workflows, reusable UI architecture, and performance.
 • Has worked across sales operations, fleet logistics, security monitoring, education technology, and geospatial SaaS.`,
     chips: ["6+ Years", "React", "Next.js", "React Native", "India"],
-    keywords: ["about", "maroof", "profile", "background", "introduce", "who is"],
+    keywords: ["about", "profile", "background", "introduce", "who is", "summary"],
   },
   stack: {
     badge: "CORE TECHNICAL STACK",
@@ -61,6 +61,26 @@ export const chatbotAnswers = {
     link: { label: "Launch Trackaday", url: "https://www.trackaday.buzz/" },
     keywords: ["trackaday", "mapbox", "turf", "geo", "route", "geospatial"],
   },
+  graple: {
+    badge: "GRAPLE.AI (EXPERIMENTATION PLATFORM)",
+    text: `Graple.ai is a full-stack experimentation and retention platform for product teams.
+• Helps teams design, launch, and analyse A/B tests and engagement campaigns.
+• Includes real-time analytics, user cohort segmentation, retention funnels, and a campaign builder.
+• Built with React, Next.js, Node.js, MongoDB, and TypeScript.`,
+    chips: ["A/B Testing", "Analytics", "Next.js", "MongoDB"],
+    link: { label: "Open Graple.ai", url: "https://graple-theta.vercel.app/" },
+    keywords: ["graple", "ab test", "a b test", "experiment", "retention", "cohort", "campaign"],
+  },
+  snapaid: {
+    badge: "SNAPAID (EMERGENCY GUIDANCE)",
+    text: `SnapAid is an emergency medical-guidance web app designed for clarity and speed.
+• Provides AI-assisted symptom triage and step-by-step first-aid guidance.
+• Designed as an offline-first experience for critical situations.
+• Includes a location-based hospital finder.`,
+    chips: ["Offline First", "AI Guidance", "React", "Accessibility"],
+    link: { label: "Open SnapAid", url: "https://snapaid.live/" },
+    keywords: ["snapaid", "first aid", "emergency", "medical", "symptom", "hospital"],
+  },
   projects: {
     badge: "SELECTED PRODUCT WORK",
     text: `Maroof's portfolio includes products across several domains:
@@ -81,6 +101,24 @@ export const chatbotAnswers = {
 • Earlier roles at 56 Secure and Noon Academy focused on live tracking, dashboards, RTC/RTM, and Storybook.`,
     chips: ["Ethos", "VAHN", "Buzztales", "56 Secure", "Noon Academy"],
     keywords: ["experience", "career", "history", "worked", "company", "56 secure", "noon", "buzztales"],
+  },
+  secure: {
+    badge: "56 SECURE (LIVE MONITORING)",
+    text: `At 56 Secure, Maroof built critical operational dashboards from scratch.
+• Delivered Admin, Guard, and Police dashboards for monitoring workflows.
+• Integrated Google Maps for real-time live tracking.
+• Built Smart Eye alert features to support monitoring and response coordination.`,
+    chips: ["Google Maps", "Live Tracking", "Dashboards", "Alerts"],
+    keywords: ["56 secure", "smart eye", "police dashboard", "guard dashboard", "security monitoring"],
+  },
+  noon: {
+    badge: "NOON ACADEMY (REAL-TIME LEARNING)",
+    text: `At Noon Academy, Maroof worked on reliable real-time learning experiences.
+• Integrated RTC and RTM capabilities using PubNub.
+• Built breakout-room workflows with auto-reconnect logic.
+• Set up Storybook to support component-driven development and UI consistency.`,
+    chips: ["PubNub", "RTC / RTM", "Storybook", "Auto-reconnect"],
+    keywords: ["noon academy", "pubnub", "rtc", "rtm", "breakout room", "storybook", "education"],
   },
   hire: {
     badge: "AVAILABILITY & CONTRACTS",
@@ -114,15 +152,57 @@ export const chatbotAnswers = {
   },
 };
 
+const COMMON_QUERY_ALIASES = {
+  "frontend developer": ["frontend", "react", "nextjs", "experience"],
+  "mobile app": ["mobile", "react native"],
+  "mobile developer": ["mobile", "react native"],
+  "web developer": ["react", "nextjs", "frontend"],
+  "live tracking": ["tracking", "mapbox", "geospatial"],
+  "location tracking": ["tracking", "mapbox", "geospatial"],
+  "real time": ["realtime", "pubnub", "tracking"],
+  "map app": ["mapbox", "geospatial", "route"],
+  "job opening": ["hire", "contract"],
+  "work with": ["hire", "collaborate"],
+};
+
+const STOP_WORDS = new Set([
+  "a", "an", "and", "are", "can", "do", "for", "give", "how", "i", "in", "is", "me", "of", "on", "tell", "the", "to", "what", "with", "you", "his",
+]);
+
+const normalizeText = (value) => value
+  .toLowerCase()
+  .replace(/next\.js/g, "nextjs")
+  .replace(/[^a-z0-9+#]+/g, " ")
+  .trim()
+  .replace(/\s+/g, " ");
+
 /** @param {string} query @returns {ChatbotAnswer} */
 export const getChatbotAnswer = (query) => {
-  const normalizedQuery = query.toLowerCase().trim();
+  let normalizedQuery = normalizeText(query);
 
-  for (const answer of Object.values(chatbotAnswers)) {
-    if (answer.keywords.some((keyword) => normalizedQuery.includes(keyword))) {
-      return answer;
+  Object.entries(COMMON_QUERY_ALIASES).forEach(([phrase, aliases]) => {
+    if (normalizedQuery.includes(phrase)) normalizedQuery += ` ${aliases.join(" ")}`;
+  });
+
+  const queryWords = new Set(normalizedQuery.split(" ").filter((word) => word.length > 2 && !STOP_WORDS.has(word)));
+  let bestMatch = chatbotAnswers.about;
+  let bestScore = 0;
+
+  Object.values(chatbotAnswers).forEach((answer) => {
+    const score = answer.keywords.reduce((total, keyword) => {
+      const normalizedKeyword = normalizeText(keyword);
+      const isPhrase = normalizedKeyword.includes(" ");
+
+      if (isPhrase && normalizedQuery.includes(normalizedKeyword)) return total + 12;
+      if (!isPhrase && queryWords.has(normalizedKeyword)) return total + 5;
+      return total;
+    }, 0);
+
+    if (score > bestScore) {
+      bestMatch = answer;
+      bestScore = score;
     }
-  }
+  });
 
-  return chatbotAnswers.about;
+  return bestMatch;
 };

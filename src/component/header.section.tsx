@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { FiArrowRight, FiCpu, FiMail, FiCheck, FiCopy, FiZap, FiActivity, FiRadio, FiShield, FiTrendingUp, FiLayers } from "react-icons/fi";
+import { FiArrowRight, FiCpu, FiMail, FiCheck, FiCopy, FiZap, FiActivity, FiRadio, FiTrendingUp } from "react-icons/fi";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from "react-icons/si";
 
 interface HeaderComponentProps {
@@ -17,8 +17,8 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!stageRef.current) return;
@@ -54,26 +54,25 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
-          {/* Left Column: Bold Headline & Action Hub */}
+          {/* Left Column: Refined Editorial Headline & Action Hub */}
           <div className="lg:col-span-7 space-y-6 text-left">
             {/* Live Status Beacon */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-[#e3e2e8] text-xs font-mono text-[#201f32] font-semibold shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              <span>Senior Frontend Engineer · 6+ Yrs Exp</span>
+              <span>Senior Frontend Engineer · 6+ Yrs Experience</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#1f1f32] leading-[1.08]">
-              Architecting High-Speed Products. <br />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#1f1f32] leading-[1.12]">
+              Turning Complex Code <br />
               <span className="serif-accent blue-accent font-normal italic">
-                Precision Web &amp; Mobile Systems.
+                Into Fluid Software.
               </span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-base sm:text-lg text-[#4d5564] leading-relaxed max-w-xl font-normal">
-              Senior Frontend Engineer specializing in <strong className="text-[#201f32]">React, Next.js, and React Native</strong>. 
-              Proven track record of turning complex architectures into sub-second, production-grade user experiences.
+              Hi, I'm <strong className="text-[#1f1f32] font-bold">Mohd Maroof</strong>. I architect sub-second web platforms, 0-to-1 mobile applications, and high-precision design systems with React, Next.js, and TypeScript.
             </p>
 
             {/* Action Buttons Row */}
@@ -104,7 +103,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
                 ) : (
                   <>
                     <FiCopy className="w-4 h-4 text-[#262ef2]" />
-                    <span>{email}</span>
+                    <span>Copy Email</span>
                   </>
                 )}
               </button>

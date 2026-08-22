@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { m } from "framer-motion";
 import { FiGithub, FiLinkedin, FiMail, FiArrowUpRight, FiCheck, FiCopy } from "react-icons/fi";
 
 export const Footer: React.FC = () => {
@@ -12,10 +13,16 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer id="contact" className="py-16 md:py-24 relative bg-transparent">
+    <footer id="contact" className="py-16 md:py-24 relative bg-transparent overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Studio Frosted Glassmorphism Card */}
-        <div className="relative rounded-[36px] sm:rounded-[44px] bg-white/85 backdrop-blur-2xl border border-white/95 p-8 sm:p-12 md:p-16 shadow-[0_30px_90px_-20px_rgba(38,46,242,0.1),0_0_0_1px_rgba(255,255,255,0.9)] overflow-hidden">
+        <m.div
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="relative rounded-[36px] sm:rounded-[44px] bg-white/85 backdrop-blur-2xl border border-white/95 p-8 sm:p-12 md:p-16 shadow-[0_30px_90px_-20px_rgba(38,46,242,0.1),0_0_0_1px_rgba(255,255,255,0.9)] overflow-hidden"
+        >
           {/* Subtle Ambient Radial Glows */}
           <div className="absolute -top-24 -right-24 w-[450px] h-[300px] bg-[#262ef2]/8 blur-[100px] pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-[400px] h-[250px] bg-[#6e73fa]/10 blur-[100px] pointer-events-none" />
@@ -94,7 +101,7 @@ export const Footer: React.FC = () => {
               </a>
             </div>
           </div>
-        </div>
+        </m.div>
 
         {/* Bottom Minimal Studio Bar */}
         <div className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c859d]">

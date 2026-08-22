@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { m } from "framer-motion";
 import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2, FiActivity, FiZap } from "react-icons/fi";
 import { SiReact } from "react-icons/si";
 
@@ -252,7 +253,13 @@ export const AgentSection: React.FC = () => {
     <section id="agent" className="py-16 md:py-24 relative">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <m.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12"
+        >
           <div className="inline-block mb-3">
             <span className="tag">
               <FiAward className="text-[#262ef2] mr-1" />
@@ -266,13 +273,19 @@ export const AgentSection: React.FC = () => {
           <p className="mt-3 text-base md:text-lg text-[#4d5564] max-w-xl mx-auto">
             Interact directly with Maroof&apos;s streaming knowledge engine to inspect technical decisions, mobile architectures, and contract availability.
           </p>
-        </div>
+        </m.div>
 
         {/* 2-Column Bento Layout with Authentic Frosted Glassmorphism */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* Left Column: Technical Spectrum Cards (5 Cols) */}
-          <div className="lg:col-span-5 rounded-[32px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-8 flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(38,46,242,0.08),0_0_0_1px_rgba(255,255,255,0.9)]">
+          <m.div
+            initial={{ opacity: 0, x: -35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5 rounded-[32px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-8 flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(38,46,242,0.08),0_0_0_1px_rgba(255,255,255,0.9)]"
+          >
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#262ef2]" />
@@ -312,10 +325,16 @@ export const AgentSection: React.FC = () => {
               </span>
               <span className="font-mono text-[#262ef2] font-bold">100% Ship Rate</span>
             </div>
-          </div>
+          </m.div>
 
           {/* Right Column: Frosted Glass Knowledge Terminal (7 Cols) */}
-          <div className="lg:col-span-7 rounded-[32px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-8 flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(38,46,242,0.08),0_0_0_1px_rgba(255,255,255,0.9)]">
+          <m.div
+            initial={{ opacity: 0, x: 35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-7 rounded-[32px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-8 flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(38,46,242,0.08),0_0_0_1px_rgba(255,255,255,0.9)]"
+          >
             <div>
               {/* Terminal Window Top Bar */}
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e8e8f2]">
@@ -511,7 +530,7 @@ export const AgentSection: React.FC = () => {
               </div>
             </div>
 
-          </div>
+          </m.div>
         </div>
       </div>
     </section>

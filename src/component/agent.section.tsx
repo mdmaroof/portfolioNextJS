@@ -5,243 +5,229 @@ import { SiReact } from "react-icons/si";
 
 interface Message {
   id: string;
-  sender: "user" | "agent";
+  sender: "agent" | "user";
   text: string;
   badge?: string;
-  chips?: string[];
-  link?: { label: string; url: string };
   tokens?: number;
-  time?: string;
+  chips?: string[];
+  link?: {
+    label: string;
+    url: string;
+  };
 }
 
-const SKILL_FOLDERS = [
-  { name: "Frontend Core", count: "React, Next.js, TS", color: "#262ef2", icon: <SiReact /> },
-  { name: "Mobile Apps", count: "React Native, Camera Vision", color: "#6e73fa", icon: <FiSmartphone /> },
-  { name: "Geospatial & Maps", count: "Mapbox GL, Turf.js", color: "#0ea5e9", icon: <FiLayers /> },
-  { name: "State & Realtime", count: "Zustand, WebSockets, RTC", color: "#0c9618", icon: <FiCpu /> },
-  { name: "Design Systems", count: "Storybook, Reusable UI", color: "#aa26f2", icon: <FiCode /> },
-  { name: "Backend & APIs", count: "Node.js, MongoDB, REST", color: "#0c5696", icon: <FiDatabase /> },
+interface SkillFolder {
+  name: string;
+  count: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+const SKILL_FOLDERS: SkillFolder[] = [
+  { name: "React & Next.js Core", count: "6+ Yrs", icon: <SiReact className="w-4 h-4" />, color: "#262ef2" },
+  { name: "React Native Mobile", count: "4 Apps", icon: <FiSmartphone className="w-4 h-4" />, color: "#6e73fa" },
+  { name: "Real-time Telemetry & RTC", count: "3 Projects", icon: <FiActivity className="w-4 h-4" />, color: "#0c9618" },
+  { name: "TypeScript & State Engines", count: "Enterprise", icon: <FiCode className="w-4 h-4" />, color: "#ca7c0e" },
+  { name: "Design Systems & WebGL", count: "60 FPS", icon: <FiLayers className="w-4 h-4" />, color: "#aa26f2" },
 ];
 
-const COMPREHENSIVE_KB = [
+const INITIAL_MESSAGES: Message[] = [
   {
-    keywords: ["stack", "tech", "skill", "language", "framework", "library", "react", "next"],
-    badge: "Core Stack & Architecture",
-    response:
-      "Mohd Maroof is a Senior Frontend Engineer with 6+ years of production experience specializing in:\n• Frontend: React 18/19, Next.js (App Router, Server Components, SSR/SSG)\n• Mobile: React Native, Expo, Native Camera Modules, Custom Optical Scanners\n• Languages: TypeScript (Strict Mode), JavaScript (ESNext)\n• State: Zustand (Atomic State), Redux Toolkit, Context Architecture\n• Styling: Tailwind CSS, CSS Modules, Radix UI, Framer Motion\n• Real-Time: WebSockets, PubNub RTC/RTM, Live Google Maps & Mapbox GL.",
-    chips: ["React & Next.js", "React Native", "TypeScript", "Zustand", "Tailwind CSS"],
-    link: { label: "View Detailed Work History", url: "#experience" },
-  },
-  {
-    keywords: ["ethos", "qr", "camera", "ascend", "scanner", "optical", "retail"],
-    badge: "Ethos Ascend (Active Contract)",
-    response:
-      "At Ethos Watches (Feb 2026 — Present), Maroof is developing 'Ascend', a React Native mobile application for enterprise sales operations.\n• Engineered a custom optical QR camera scanner achieving sub-100ms scan speeds.\n• Architected offline-first SQLite/AsyncStorage sync pipelines for field personnel.\n• Streamlined field inventory lookup and client consultation UX flows.",
+    id: "init-1",
+    sender: "agent",
+    badge: "ETHOS ASCEND (ACTIVE CONTRACT)",
+    tokens: 97,
+    text: `At Ethos Watches (Feb 2026 — Present), Maroof is developing 'Ascend', a React Native mobile application for enterprise sales operations.
+• Engineered a custom optical QR camera scanner achieving sub-100ms scan speeds.
+• Architected offline-first SQLite/AsyncStorage sync pipelines for field personnel.
+• Streamlined field inventory lookup and client consultation UX flows.`,
     chips: ["Sub-100ms QR Scanner", "React Native Vision", "Offline Cache", "Active Contract"],
-    link: { label: "Ethos Watches Official", url: "https://www.ethoswatches.com/" },
-  },
-  {
-    keywords: ["vahn", "fleet", "logistics", "telemetry", "mvp", "0 to 1", "zustand"],
-    badge: "VAHN Fleet MVP (0 to 1)",
-    response:
-      "At VAHN (Dec 2024 — Jan 2026), Maroof architected the Fleet App MVP from 0 to 1.\n• Delivered the first production release with live Google Maps vehicle telemetry (48+ active units).\n• Re-architected application state using lightweight Zustand stores to eliminate redundant renders.\n• Implemented Mixpanel user analytics pipelines to guide operational feature investments.",
-    chips: ["0 to 1 MVP", "Zustand State Engine", "48+ Units Synced", "Mixpanel Telemetry"],
-    link: { label: "VAHN Official Site", url: "https://vahn.in/" },
-  },
-  {
-    keywords: ["trackaday", "map", "mapbox", "turf", "geo", "gis", "polygon", "spatial"],
-    badge: "Trackaday (Geospatial Side Project)",
-    response:
-      "Trackaday (trackaday.buzz) is Maroof's flagship geospatial route tracking application.\n• Mapbox GL Vector Tiles: Sub-second vector map rendering and route visualizer.\n• Turf.js Spatial Calculations: Calculates polygon buffers, route geometries, elevation, and proximity.\n• Real-Time GPS Telemetry: Interactive route playback with historical pace and elevation graphs.",
-    chips: ["Mapbox GL", "Turf.js", "Spatial Buffers", "Live Route GPS"],
-    link: { label: "Visit Trackaday.buzz Live", url: "https://www.trackaday.buzz/" },
-  },
-  {
-    keywords: ["56", "secure", "police", "guard", "alarm", "smart eye", "radar", "dashboard"],
-    badge: "56 Secure Command Dashboards",
-    response:
-      "At 56 Secure (Mar 2021 — Oct 2023), Maroof engineered security command systems from scratch.\n• Multi-Tenant Dashboards: Built responsive Admin, Guard, and Police tracking dashboards.\n• Live Telemetry Radar: Google Maps API integration with real-time guard GPS positions.\n• WebSocket Dispatch: Sub-second alert dispatching triggered by Smart Eye AI intrusion feeds.",
-    chips: ["Multi-Tenant Dashboards", "Google Maps Radar", "Smart Eye AI Feeds", "WebSockets"],
-    link: { label: "56 Secure Official", url: "https://56secure.com/" },
-  },
-  {
-    keywords: ["noon", "academy", "webrtc", "rtc", "rtm", "pubnub", "education", "edtech"],
-    badge: "Noon Academy (Live RTC Scale)",
-    response:
-      "At Noon Academy (May 2020 — Feb 2021), Maroof scaled the live classroom platform.\n• WebRTC / PubNub Rooms: Engineered audio/video breakout rooms for 100,000+ concurrent students.\n• Network Resilience: Implemented automatic exponential-backoff reconnection logic for weak networks.\n• Component Library: Authored Storybook-driven reusable components across the web client.",
-    chips: ["PubNub RTC/RTM", "Breakout Rooms", "Auto-Reconnect", "Storybook UI"],
-    link: { label: "Noon Academy Site", url: "https://www.noonacademy.com/" },
-  },
-  {
-    keywords: ["buzztales", "founder", "startup", "leadership", "architect", "business"],
-    badge: "Buzztales Technologies (Founder)",
-    response:
-      "Maroof founded Buzztales Technologies Pvt. Ltd. (Nov 2023 — Nov 2024), leading engineering and product strategy.\n• Scalable Architecture: Architected full-stack React and Node.js solutions for startup clients.\n• Sprint Execution: Directed cross-functional engineering sprints with rapid 0-to-1 iterations.\n• Founder Mindset: Combines deep technical frontend craft with commercial product velocity.",
-    chips: ["Startup Founder", "Lead Architect", "Full Product Lifecycle", "6+ Yrs Exp"],
-  },
-  {
-    keywords: ["hire", "available", "contract", "full-time", "remote", "contact", "email", "timezone", "rate", "notice"],
-    badge: "Availability & Engagement",
-    response:
-      "Maroof is available for:\n• Senior Frontend Contracts & Architecture Advisory\n• Full-Time Senior Remote Roles (Staff / Senior Frontend Engineer)\n• 0-to-1 MVP Sprints for funded startups\n• Location: India (Works comfortably with US, EU, and Global timezones)\n• Direct Email: maroofmohdmalik@gmail.com",
-    chips: ["Open for Contracts", "Full-Time Remote", "Global Timezones", "Immediate Start"],
-    link: { label: "Send Email Directly", url: "mailto:maroofmohdmalik@gmail.com" },
-  },
-  {
-    keywords: ["graple", "snapaid", "twist", "symzo", "projects", "side project"],
-    badge: "Independent Shipped Software",
-    response:
-      "Maroof has shipped 5 independent production applications:\n1. Trackaday (trackaday.buzz) — Mapbox GL & Turf.js spatial analysis.\n2. Graple.ai (graple-theta.vercel.app) — SaaS A/B testing & retention engine.\n3. SnapAid (snapaid.live) — 100% offline emergency medical triage PWA.\n4. Twist N Words (twistnwords.vercel.app) — 60 FPS touch physics word game.\n5. Symzo (symzo.in) — Sub-second product design system architecture.",
-    chips: ["Trackaday", "Graple.ai", "SnapAid", "Twist N Words", "Symzo"],
-    link: { label: "Explore Side Projects", url: "#projects" },
+    link: {
+      label: "Ethos Watches Official Site",
+      url: "https://www.ethoswatches.com/",
+    },
   },
 ];
+
+const KNOWLEDGE_RESPONSES: Record<string, { badge: string; text: string; chips: string[]; link?: { label: string; url: string } }> = {
+  stack: {
+    badge: "CORE TECHNICAL STACK",
+    text: `Maroof specializes in modern frontend engineering across web and mobile:
+• Core Frameworks: React, Next.js (SSR / SSG / App Router), React Native.
+• Language & Typing: TypeScript (strict mode), JavaScript ES2024.
+• State & Telemetry: Zustand, Redux Toolkit, WebSockets, PubNub RTC, Mapbox GL.
+• Performance: 60 FPS frame budgets, Lighthouse 98+ scores, sub-100ms cold starts.`,
+    chips: ["React", "Next.js", "TypeScript", "React Native", "Zustand", "WebSockets"],
+  },
+  ethos: {
+    badge: "ETHOS ASCEND (ACTIVE CONTRACT)",
+    text: `Active Senior Frontend contract architecting 'Ascend' mobile for Ethos Watches:
+• Developed custom high-speed QR camera optical scanner (<100ms decode).
+• Built full offline synchronization pipeline using AsyncStorage and optimistic state updates.
+• Engineered custom design system components adhering to high-end luxury brand standards.`,
+    chips: ["React Native", "Camera Vision", "Offline Sync", "Custom QR"],
+    link: {
+      label: "Ethos Watches Official",
+      url: "https://www.ethoswatches.com/",
+    },
+  },
+  vahn: {
+    badge: "VAHN FLEET (0 TO 1 MVP)",
+    text: `Delivered VAHN's Fleet Logistics platform from initial concept to active production:
+• Architected real-time fleet telematics dashboard tracking 48+ active vehicles with Google Maps API.
+• Structured atomic state management with Zustand, eliminating 70% of unnecessary re-renders.
+• Integrated Mixpanel telemetry pipelines for mission-critical driver and dispatcher events.`,
+    chips: ["TypeScript", "Zustand", "Mixpanel", "Google Maps Telemetry"],
+    link: {
+      label: "VAHN Official Site",
+      url: "https://vahn.in/",
+    },
+  },
+  trackaday: {
+    badge: "TRACKADAY (GEOSPATIAL SAAS)",
+    text: `Production geospatial route tracking application:
+• Built with Mapbox GL vector tile rendering and Turf.js spatial distance calculations.
+• Real-time route recording, elevation contour mapping, and GPX/KML export engines.
+• Sub-second map re-renders with optimized GeoJSON clustering.`,
+    chips: ["Mapbox GL", "Turf.js", "Geospatial", "React"],
+    link: {
+      label: "Launch Trackaday",
+      url: "https://www.trackaday.buzz/",
+    },
+  },
+  hire: {
+    badge: "AVAILABILITY & CONTRACTS",
+    text: `Mohd Maroof is currently available for:
+• Senior Frontend Developer Contracts (Remote Worldwide).
+• 0-to-1 Mobile & Web MVP Architecture.
+• High-Performance React / Next.js / React Native consulting.
+• Reach out directly: maroofmohdmalik@gmail.com`,
+    chips: ["Remote Global", "Senior Contract", "Available Now", "Fast Sprints"],
+    link: {
+      label: "Send Email Inquiry",
+      url: "mailto:maroofmohdmalik@gmail.com",
+    },
+  },
+};
 
 export const AgentSection: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "init",
-      sender: "agent",
-      text: "Maroof Knowledge Engine v2.8 online. Query anything regarding Mohd Maroof's 6+ years of technical architecture, shipped systems, or contract availability.",
-      badge: "System Ready",
-      chips: ["Core Stack", "Ethos QR Vision", "VAHN Fleet MVP", "Trackaday Geospatial", "Hire Maroof"],
-      time: "Just now",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [inputVal, setInputVal] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingText, setStreamingText] = useState("");
   const [activeBadge, setActiveBadge] = useState("");
-  const [activeChips, setActiveChips] = useState<string[]>([]);
-  const [activeLink, setActiveLink] = useState<{ label: string; url: string } | undefined>(undefined);
-  const [typedPlaceholder, setTypedPlaceholder] = useState("");
   const chatScrollRef = useRef<HTMLDivElement>(null);
 
-  const prompts = [
+  // Typewriter effect for placeholder
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [typedPlaceholder, setTypedPlaceholder] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const placeholderQueries = [
+    "Ask about Ethos and his custom QR scanner...",
     "What is Maroof's core tech stack?",
-    "How does his custom QR scanner in Ethos work?",
-    "Tell me about Trackaday and Mapbox GL…",
+    "Tell me about VAHN and the Fleet App MVP...",
+    "Tell me about Trackaday and Mapbox GL...",
     "Is Maroof available for senior contracts?",
   ];
 
-  // Typewriter placeholder
   useEffect(() => {
-    let currentIdx = 0;
-    let charIdx = 0;
-    let deleting = false;
-    let timer: any = null;
+    let timer: NodeJS.Timeout;
+    const currentFullText = placeholderQueries[placeholderIndex];
 
-    const tick = () => {
-      const fullText = prompts[currentIdx];
-      if (!deleting) {
-        charIdx++;
-        setTypedPlaceholder(fullText.slice(0, charIdx));
-        if (charIdx === fullText.length) {
-          deleting = true;
-          timer = setTimeout(tick, 2400);
-          return;
-        }
-        timer = setTimeout(tick, 45);
+    if (!isDeleting) {
+      if (typedPlaceholder.length < currentFullText.length) {
+        timer = setTimeout(() => {
+          setTypedPlaceholder(currentFullText.slice(0, typedPlaceholder.length + 1));
+        }, 35);
       } else {
-        charIdx--;
-        setTypedPlaceholder(fullText.slice(0, charIdx));
-        if (charIdx === 0) {
-          deleting = false;
-          currentIdx = (currentIdx + 1) % prompts.length;
-          timer = setTimeout(tick, 400);
-          return;
-        }
-        timer = setTimeout(tick, 25);
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2200);
       }
-    };
+    } else {
+      if (typedPlaceholder.length > 0) {
+        timer = setTimeout(() => {
+          setTypedPlaceholder(typedPlaceholder.slice(0, -1));
+        }, 18);
+      } else {
+        setIsDeleting(false);
+        setPlaceholderIndex((prev) => (prev + 1) % placeholderQueries.length);
+      }
+    }
 
-    timer = setTimeout(tick, 500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [typedPlaceholder, isDeleting, placeholderIndex]);
 
-  // Auto-scroll chat
+  // Auto-scroll on new messages or streaming
   useEffect(() => {
     if (chatScrollRef.current) {
       chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
     }
-  }, [messages, isStreaming, streamingText]);
+  }, [messages, streamingText]);
 
-  // Execute real Token Streaming response
-  const executeQuery = (query: string) => {
-    if (!query.trim() || isStreaming) return;
+  // Realistic character-by-character token streaming
+  const executeQuery = (queryText: string) => {
+    if (!queryText.trim() || isStreaming) return;
 
-    const trimmed = query.trim();
-    if (trimmed === "/clear") {
-      setMessages([
-        {
-          id: `init-${Date.now()}`,
-          sender: "agent",
-          text: "Terminal cleared. Ready for new query.",
-          badge: "Ready",
-          chips: ["Core Stack", "Ethos QR Vision", "Trackaday", "Hire Maroof"],
-          time: "Just now",
-        },
-      ]);
+    const lower = queryText.toLowerCase().trim();
+
+    // Check for clear command
+    if (lower === "/clear" || lower === "clear") {
+      setMessages([]);
       setInputVal("");
       return;
     }
 
-    const userMsg: Message = {
-      id: `u-${Date.now()}`,
-      sender: "user",
-      text: trimmed,
-      time: "Just now",
-    };
+    // Determine matched response
+    let responseData = KNOWLEDGE_RESPONSES.stack;
+    if (lower.includes("ethos") || lower.includes("qr") || lower.includes("ascend")) {
+      responseData = KNOWLEDGE_RESPONSES.ethos;
+    } else if (lower.includes("vahn") || lower.includes("fleet") || lower.includes("logistics")) {
+      responseData = KNOWLEDGE_RESPONSES.vahn;
+    } else if (lower.includes("track") || lower.includes("map") || lower.includes("geo")) {
+      responseData = KNOWLEDGE_RESPONSES.trackaday;
+    } else if (lower.includes("hire") || lower.includes("available") || lower.includes("contact") || lower.includes("rate") || lower.includes("contract")) {
+      responseData = KNOWLEDGE_RESPONSES.hire;
+    }
 
+    // Add user query
+    const userMsg: Message = {
+      id: `user-${Date.now()}`,
+      sender: "user",
+      text: queryText,
+    };
     setMessages((prev) => [...prev, userMsg]);
     setInputVal("");
     setIsStreaming(true);
+    setActiveBadge(responseData.badge);
     setStreamingText("");
 
-    // Find semantic match in KB
-    const lower = trimmed.toLowerCase();
-    let match = COMPREHENSIVE_KB.find((item) => item.keywords.some((kw) => lower.includes(kw)));
-
-    if (!match) {
-      match = {
-        keywords: [],
-        badge: "Senior Engineer Profile",
-        response: `Mohd Maroof has 6+ years of senior frontend engineering experience across React, Next.js, React Native, and strict TypeScript. He has shipped high-impact architectures for Ethos Watches (sub-100ms QR vision), VAHN Fleet (0 to 1 MVP), 56 Secure (live radar dashboards), and Noon Academy (RTC scaling).`,
-        chips: ["6+ Years Exp", "React / Next.js", "React Native", "TypeScript", "Available for Hire"],
-        link: { label: "Email Mohd Maroof Directly", url: "mailto:maroofmohdmalik@gmail.com" },
-      };
-    }
-
-    setActiveBadge(match.badge);
-    setActiveChips(match.chips);
-    setActiveLink(match.link);
-
-    const fullResponse = match.response;
-    let charPos = 0;
-    const streamSpeed = 12;
+    // Simulate realistic character-by-character token stream
+    const fullText = responseData.text;
+    let currIdx = 0;
 
     const interval = setInterval(() => {
-      charPos += 3;
-      if (charPos >= fullResponse.length) {
+      currIdx += Math.floor(Math.random() * 4) + 2;
+      if (currIdx >= fullText.length) {
         clearInterval(interval);
         setStreamingText("");
         setIsStreaming(false);
 
         const agentMsg: Message = {
-          id: `a-${Date.now()}`,
+          id: `agent-${Date.now()}`,
           sender: "agent",
-          text: fullResponse,
-          badge: match.badge,
-          chips: match.chips,
-          link: match.link,
-          tokens: Math.floor(fullResponse.length / 3.8),
-          time: "Just now",
+          badge: responseData.badge,
+          tokens: Math.floor(fullText.length / 4) + 12,
+          text: fullText,
+          chips: responseData.chips,
+          link: responseData.link,
         };
         setMessages((prev) => [...prev, agentMsg]);
       } else {
-        setStreamingText(fullResponse.slice(0, charPos));
+        setStreamingText(fullText.slice(0, currIdx));
       }
-    }, streamSpeed);
+    }, 16);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -327,7 +313,7 @@ export const AgentSection: React.FC = () => {
             </div>
           </m.div>
 
-          {/* Right Column: Frosted Glass Knowledge Terminal (7 Cols) */}
+          {/* Right Column: High-Craft AI Knowledge Terminal (7 Cols) */}
           <m.div
             initial={{ opacity: 0, x: 35 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -337,27 +323,27 @@ export const AgentSection: React.FC = () => {
           >
             <div>
               {/* Terminal Window Top Bar */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e8e8f2]">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#e8e8f2]">
+                <div className="flex items-center gap-2.5 min-w-0">
                   {/* macOS Traffic Lights */}
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                   </div>
-                  <span className="text-xs font-mono font-bold text-[#1f1f32]">
-                    maroof-agent@v2.8: ~/knowledge
+                  <span className="text-xs font-mono font-bold text-[#1f1f32] truncate">
+                    maroof-agent@v2.8 ~/knowledge
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Streaming Ready
+                    <span>Ready</span>
                   </span>
                   <button
                     onClick={() => executeQuery("/clear")}
-                    className="text-[#8c859d] hover:text-[#1f1f32] transition-colors p-1"
+                    className="w-7 h-7 rounded-lg bg-[#f4f4fa] hover:bg-[#ebebf5] text-[#8c859d] hover:text-[#1f1f32] transition-colors flex items-center justify-center border border-[#e3e2e8]"
                     title="Clear Terminal"
                     aria-label="Clear chat"
                   >
@@ -369,7 +355,7 @@ export const AgentSection: React.FC = () => {
               {/* Chat Stream History Container */}
               <div
                 ref={chatScrollRef}
-                className="space-y-4 max-h-[340px] overflow-y-auto pr-1.5 no-scrollbar mb-4 font-mono"
+                className="space-y-3.5 max-h-[340px] overflow-y-auto pr-1 no-scrollbar mb-4"
               >
                 {messages.map((msg) => (
                   <div
@@ -382,22 +368,41 @@ export const AgentSection: React.FC = () => {
                         {msg.text}
                       </div>
                     ) : (
-                      <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-white/90 border border-[#e4e4f2] text-[#1f1f32] space-y-2.5 shadow-2xs">
+                      <div className="max-w-[98%] w-full p-4 sm:p-5 rounded-2xl rounded-tl-xs bg-white border border-[#e5e5f0] text-[#1f1f32] space-y-3 shadow-2xs">
+                        {/* Message Top Bar: Badge + Token count */}
                         {msg.badge && (
-                          <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2 py-0.5 rounded-md border border-[#262ef2]/20">
+                          <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#f0f0f8]">
+                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2.5 py-0.5 rounded-full border border-[#262ef2]/20">
                               {msg.badge}
                             </span>
                             {msg.tokens && (
-                              <span className="text-[9px] font-mono text-[#8c859d]">
-                                ⚡ {msg.tokens} tokens · 18ms
+                              <span className="text-[10px] font-mono text-[#8c859d] flex items-center gap-1">
+                                <span>⚡ {msg.tokens} tokens</span>
+                                <span>· 18ms</span>
                               </span>
                             )}
                           </div>
                         )}
 
-                        <div className="text-xs leading-relaxed whitespace-pre-line text-[#2d3142] font-sans">
-                          {msg.text}
+                        {/* Structured Output Content */}
+                        <div className="text-xs sm:text-[13px] leading-relaxed text-[#2d3142] font-sans space-y-2">
+                          {msg.text.split("\n").map((line, lIdx) => {
+                            if (line.startsWith("•")) {
+                              return (
+                                <div key={lIdx} className="flex items-start gap-2 text-xs sm:text-[13px] text-[#374151]">
+                                  <span className="w-4 h-4 rounded-md bg-[#262ef2]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <FiCheck className="w-2.5 h-2.5 text-[#262ef2]" strokeWidth={2.5} />
+                                  </span>
+                                  <span>{line.replace("•", "").trim()}</span>
+                                </div>
+                              );
+                            }
+                            return (
+                              <p key={lIdx} className="font-normal text-[#4d5564]">
+                                {line}
+                              </p>
+                            );
+                          })}
                         </div>
 
                         {/* Highlight Chips */}
@@ -406,7 +411,7 @@ export const AgentSection: React.FC = () => {
                             {msg.chips.map((chip, cIdx) => (
                               <span
                                 key={cIdx}
-                                className="text-[10px] font-mono text-[#4d5564] bg-[#f8f8fc] px-2 py-0.5 rounded border border-[#dcdae8] shadow-2xs"
+                                className="text-[10px] font-mono font-medium text-[#201f32] bg-[#f4f4fa] px-2.5 py-0.5 rounded-md border border-[#e2e2ec] shadow-2xs"
                               >
                                 {chip}
                               </span>
@@ -414,14 +419,14 @@ export const AgentSection: React.FC = () => {
                           </div>
                         )}
 
-                        {/* Action Link Button if available */}
+                        {/* Action Link Button */}
                         {msg.link && (
-                          <div className="pt-1">
+                          <div className="pt-2 border-t border-[#f0f0f8]">
                             <a
                               href={msg.link.url}
                               target={msg.link.url.startsWith("http") ? "_blank" : undefined}
                               rel={msg.link.url.startsWith("http") ? "noopener noreferrer" : undefined}
-                              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#262ef2] hover:underline"
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#262ef2] hover:bg-[#1d24cf] text-white text-xs font-bold transition-all shadow-xs"
                             >
                               <span>{msg.link.label}</span>
                               <FiExternalLink className="w-3 h-3" />
@@ -435,18 +440,18 @@ export const AgentSection: React.FC = () => {
 
                 {/* Real-time Streaming Output Indicator */}
                 {isStreaming && (
-                  <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-white/90 border border-[#e4e4f2] text-[#1f1f32] space-y-2.5 font-mono shadow-2xs">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2 py-0.5 rounded-md border border-[#262ef2]/20">
+                  <div className="max-w-[98%] w-full p-4 sm:p-5 rounded-2xl rounded-tl-xs bg-white border border-[#e5e5f0] text-[#1f1f32] space-y-3 shadow-2xs">
+                    <div className="flex items-center justify-between pb-2 border-b border-[#f0f0f8]">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2.5 py-0.5 rounded-full border border-[#262ef2]/20">
                         {activeBadge || "Streaming Answer"}
                       </span>
-                      <span className="text-[9px] font-mono text-emerald-600 flex items-center gap-1 font-bold">
+                      <span className="text-[10px] font-mono text-emerald-600 flex items-center gap-1 font-bold">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         Generating
                       </span>
                     </div>
 
-                    <div className="text-xs leading-relaxed whitespace-pre-line text-[#2d3142] font-sans">
+                    <div className="text-xs sm:text-[13px] leading-relaxed whitespace-pre-line text-[#2d3142] font-sans">
                       {streamingText}
                       <span className="inline-block w-1.5 h-3.5 bg-[#262ef2] ml-1 align-middle animate-pulse" />
                     </div>
@@ -458,7 +463,7 @@ export const AgentSection: React.FC = () => {
             {/* Input Form & Suggested Query Pills */}
             <div className="pt-2">
               <form onSubmit={handleSubmit} className="relative mb-3 font-mono">
-                <div className="flex items-center bg-white border border-[#d2d2e2] rounded-2xl px-3.5 py-2.5 shadow-2xs focus-within:border-[#262ef2] focus-within:ring-2 focus-within:ring-[#262ef2]/15 transition-all">
+                <div className="flex items-center bg-[#f8f8fc] border border-[#e1e1ec] rounded-2xl px-3.5 py-2.5 shadow-2xs focus-within:bg-white focus-within:border-[#262ef2] focus-within:ring-2 focus-within:ring-[#262ef2]/15 transition-all">
                   <span className="text-xs text-[#262ef2] mr-2 font-bold font-mono">
                     $
                   </span>
@@ -472,7 +477,7 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="submit"
                     disabled={!inputVal.trim() || isStreaming}
-                    className="w-8 h-8 rounded-xl bg-[#262ef2] text-white flex items-center justify-center hover:bg-[#1d24cf] disabled:opacity-40 disabled:pointer-events-none transition-all ml-2 shrink-0 shadow-xs"
+                    className="w-8 h-8 rounded-xl bg-[#262ef2] text-white flex items-center justify-center hover:bg-[#1d24cf] disabled:opacity-40 disabled:pointer-events-none transition-all ml-2 shrink-0 shadow-xs hover:scale-105 active:scale-95"
                     aria-label="Execute Query"
                   >
                     <FiSend className="w-3.5 h-3.5" />
@@ -489,7 +494,7 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("What is Maroof's core tech stack?")}
-                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs hover:shadow-xs group"
                   >
                     <FiZap className="w-3 h-3 text-[#262ef2] group-hover:scale-110 transition-transform" />
                     <span>/stack</span>
@@ -497,7 +502,7 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about Ethos and his custom QR scanner")}
-                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
                     <FiSmartphone className="w-3 h-3 text-[#6e73fa] group-hover:scale-110 transition-transform" />
                     <span>/ethos-qr</span>
@@ -505,7 +510,7 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about VAHN and the Fleet App MVP")}
-                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
                     <FiActivity className="w-3 h-3 text-[#6e73fa] group-hover:scale-110 transition-transform" />
                     <span>/vahn-fleet</span>
@@ -513,7 +518,7 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about Trackaday and Mapbox GL")}
-                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
                     <FiLayers className="w-3 h-3 text-[#0ea5e9] group-hover:scale-110 transition-transform" />
                     <span>/trackaday</span>
@@ -521,7 +526,7 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("Is Maroof available for senior contracts?")}
-                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
                     <FiAward className="w-3 h-3 text-[#262ef2] group-hover:scale-110 transition-transform" />
                     <span>/hire</span>

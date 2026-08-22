@@ -42,18 +42,6 @@ const MILESTONES: CareerMilestone[] = [
     highlightTag: "Production MVP",
   },
   {
-    company: "Mercor",
-    role: "Senior Frontend Developer",
-    period: "Apr 2024 — Nov 2024",
-    summary: "Architected reusable component systems for the Lystface platform and engineered high-performance marketing and responsive dashboards.",
-    tech: ["Next.js", "Design Systems", "Tailwind"],
-    metric: "UI Systems",
-    initials: "MC",
-    color: "#0c9618",
-    location: "Remote",
-    highlightTag: "UI Systems",
-  },
-  {
     company: "Buzztales Technologies",
     role: "Founder & Lead Architect",
     period: "Nov 2023 — Nov 2024",
@@ -277,8 +265,8 @@ export const CurvedCarouselSection: React.FC = () => {
                     <span className="absolute top-1 right-5 w-6 h-6 rounded-lg bg-[#6e73fa] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
                       VA
                     </span>
-                    <span className="absolute bottom-3 left-6 w-6 h-6 rounded-lg bg-[#0c9618] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
-                      MC
+                    <span className="absolute bottom-3 left-6 w-6 h-6 rounded-lg bg-[#f25c26] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                      BT
                     </span>
                     <span className="absolute bottom-3 right-6 w-6 h-6 rounded-lg bg-[#aa26f2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
                       56

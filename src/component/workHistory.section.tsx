@@ -37,13 +37,6 @@ const WORK_METADATA: Record<string, WorkMeta> = {
     tech: ["TypeScript", "Zustand", "Mixpanel", "Fleet Maps"],
     highlight: "0 to 1 MVP Delivered",
   },
-  "Mercor": {
-    color: "#0c9618",
-    initials: "MC",
-    focus: "Design Systems & UI",
-    tech: ["Next.js", "Design Systems", "Tailwind CSS", "Dashboard UI"],
-    highlight: "Component Architecture",
-  },
   "Buzztales Technologies Pvt. Ltd.": {
     color: "#f25c26",
     initials: "BT",
@@ -124,36 +117,29 @@ export const WorkHistory: React.FC<WorkHistoryProps> = ({ work }) => {
                         <h3 className="text-base sm:text-lg font-bold text-[#1f1f32] leading-tight">
                           {item.organisation}
                         </h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs text-[#6e73fa] font-mono flex items-center gap-1 font-medium">
-                            <FiMapPin className="w-3 h-3 text-[#262ef2]" /> {item.location}
-                          </span>
-                          <span className="text-[11px] font-mono text-[#8c859d] bg-[#f3f3f9] px-2 py-0.5 rounded border border-[#e3e2e5]">
-                            {meta.focus}
-                          </span>
-                        </div>
+                        <span className="text-xs text-[#6e73fa] font-mono flex items-center gap-1 font-medium mt-1">
+                          <FiMapPin className="w-3 h-3 text-[#262ef2]" /> {item.location}
+                        </span>
                       </div>
                     </div>
 
-                    <span className="text-xs font-mono font-semibold text-[#262ef2] bg-[#262ef2]/5 px-3 py-1 rounded-full border border-[#262ef2]/10 shrink-0 flex items-center gap-1.5">
+                    <span className="text-xs font-mono font-semibold text-[#262ef2] bg-[#262ef2]/5 px-3 py-1 rounded-full border border-[#262ef2]/10 shrink-0 flex items-center gap-1.5 whitespace-nowrap">
                       <FiCalendar className="w-3 h-3" />
                       {item.from} — {item.to}
                     </span>
                   </div>
 
                   {/* Role Title */}
-                  <div className="mt-4 mb-3 pb-3 border-b border-[#f0f0f6]">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-lg font-bold text-[#1f1f32]">
-                        {item.role}
-                      </h4>
-                      <span
-                        className="text-[10px] font-mono font-bold text-white px-2.5 py-0.5 rounded-full"
-                        style={{ backgroundColor: meta.color }}
-                      >
-                        {meta.highlight}
-                      </span>
-                    </div>
+                  <div className="mt-3 mb-3 pb-3 border-b border-[#f0f0f6] flex items-center justify-between gap-2">
+                    <h4 className="text-base sm:text-lg font-bold text-[#1f1f32]">
+                      {item.role}
+                    </h4>
+                    <span
+                      className="text-[10px] font-mono font-bold text-white px-2.5 py-0.5 rounded-full whitespace-nowrap shrink-0"
+                      style={{ backgroundColor: meta.color }}
+                    >
+                      {meta.highlight}
+                    </span>
                   </div>
 
                   {/* Structured Deliverables List */}
@@ -163,8 +149,8 @@ export const WorkHistory: React.FC<WorkHistoryProps> = ({ work }) => {
                         key={lIdx}
                         className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#f8f8fc] border border-[#e9e9f2] text-xs text-[#374151] leading-relaxed group-hover:bg-white group-hover:border-[#e2e2ec] transition-colors"
                       >
-                        <span className="w-5 h-5 rounded-full bg-[#262ef2]/10 text-[#262ef2] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
-                          ✓
+                        <span className="w-5 h-5 rounded-lg bg-[#262ef2]/10 flex items-center justify-center shrink-0 mt-0.5">
+                          <FiCheck className="w-3 h-3 text-[#262ef2]" strokeWidth={2.5} />
                         </span>
                         <span className="font-medium">{lbl}</span>
                       </div>

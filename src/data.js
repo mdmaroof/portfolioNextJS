@@ -42,17 +42,6 @@ export const data = {
       ],
     },
     {
-      organisation: "Mercor",
-      role: "Senior Frontend Developer",
-      from: "April 2024",
-      to: "November 2024",
-      location: "Remote",
-      labels: [
-        "Developed reusable components for the Lystface project.",
-        "Built responsive dashboard interfaces and an official marketing website.",
-      ],
-    },
-    {
       organisation: "Buzztales Technologies Pvt. Ltd.",
       role: "Founder",
       from: "November 2023",

@@ -8,7 +8,6 @@ import { OverviewSection } from "../component/overview.section";
 import { CurvedCarouselSection } from "../component/curvedCarousel.section";
 import { WorkHistory } from "../component/workHistory.section";
 import { AgentSection } from "../component/agent.section";
-import { FeatureStageSection } from "../component/featureStage.section";
 import { ProjectsSection } from "../component/projects.section";
 import { Footer } from "../component/footer.section";
 import { data } from "../data";
@@ -164,19 +163,16 @@ export default function Home() {
           {/* 2. Overview Metrics */}
           <OverviewSection />
 
-          {/* 3. Curved Arc Experience Carousel with Orbiting Mobile Stage (User Image 1) */}
+          {/* 3. Curved Arc Experience Carousel with Orbiting Mobile Stage */}
           <CurvedCarouselSection />
 
           {/* 4. Detailed Roles & Contributions */}
           <WorkHistory work={data.work} />
 
-          {/* 5. Interactive "Ask Maroof" Custom AI Agent & Bento Grid (User Image 2) */}
+          {/* 5. Interactive "Ask Maroof" Custom AI Agent & Bento Grid */}
           <AgentSection />
 
-          {/* 6. Apple-Style Architecture Stage with Floating Before/After Cards (User Image 3) */}
-          <FeatureStageSection />
-
-          {/* 7. Projects Showcase with Pill Category Filter */}
+          {/* 6. Projects Showcase with Pill Category Filter (including Trackaday & Geospatial) */}
           <ProjectsSection projects={data.projects as any} />
         </main>
 

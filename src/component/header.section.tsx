@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiArrowRight, FiCpu, FiMail } from "react-icons/fi";
+import { FiArrowRight, FiCpu, FiMail, FiCheck, FiCopy, FiSparkles } from "react-icons/fi";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from "react-icons/si";
 
 interface HeaderComponentProps {
@@ -9,15 +9,17 @@ interface HeaderComponentProps {
 
 export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
   const [typedText, setTypedText] = useState("");
+  const [copied, setCopied] = useState(false);
+  const email = "maroofmohdmalik@gmail.com";
 
   const headlines = [
-    "Building High-Scale Web Apps",
-    "Crafting Fluid Mobile Experiences",
-    "Architecting Real-time Dashboards",
-    "Delivering Production-Ready MVPs",
+    "with Sub-Second Speed.",
+    "with 0-to-1 Execution.",
+    "for High-Scale Web & Mobile.",
+    "with Precision UI Systems.",
   ];
 
-  // Typewriter
+  // Smooth Typewriter
   useEffect(() => {
     let wordIdx = 0;
     let charIdx = 0;
@@ -31,26 +33,32 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
         setTypedText(fullWord.slice(0, charIdx));
         if (charIdx === fullWord.length) {
           isDeleting = true;
-          timer = setTimeout(tick, 2000);
+          timer = setTimeout(tick, 2200);
           return;
         }
-        timer = setTimeout(tick, 55);
+        timer = setTimeout(tick, 50);
       } else {
         charIdx--;
         setTypedText(fullWord.slice(0, charIdx));
         if (charIdx === 0) {
           isDeleting = false;
           wordIdx = (wordIdx + 1) % headlines.length;
-          timer = setTimeout(tick, 450);
+          timer = setTimeout(tick, 400);
           return;
         }
-        timer = setTimeout(tick, 30);
+        timer = setTimeout(tick, 25);
       }
     };
 
-    timer = setTimeout(tick, 500);
+    timer = setTimeout(tick, 400);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="pt-24 md:pt-32 pb-14 overflow-hidden relative">
@@ -68,7 +76,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
           {/* Main Hero Headline */}
           <div className="relative my-2">
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#1f1f32] leading-[1.08]">
-              Make Your Product <br />
+              Crafting High-Speed Products <br />
               <span className="serif-accent blue-accent font-normal inline-block mt-1">
                 {typedText}
                 <span className="inline-block w-1.5 h-8 sm:h-12 bg-[#262ef2] ml-1.5 align-middle animate-pulse" />
@@ -83,8 +91,8 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
           </p>
 
           {/* CTA Action Buttons */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-            <a href="#experience" className="btn-dark">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a href="#experience" className="btn-dark px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all">
               <span>View Experience</span>
               <span className="btn-arrow">
                 <FiArrowRight className="btn-arrow-icon" />
@@ -92,22 +100,34 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
               </span>
             </a>
 
-            <a href="#agent" className="btn-outline">
+            <a href="#agent" className="btn-outline px-6 py-3 rounded-xl shadow-2xs hover:shadow-xs transition-all">
               <span>Ask AI Agent</span>
               <FiCpu className="w-4 h-4 text-[#262ef2]" />
             </a>
 
-            <a
-              href="mailto:maroofmohdmalik@gmail.com"
-              className="px-5 py-3 rounded-lg text-sm font-medium text-[#4d5564] hover:text-[#201f32] hover:bg-white/70 border border-transparent hover:border-[#e3e2e5] transition-all flex items-center gap-1.5"
+            <button
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-[#e2e2ec] hover:border-[#262ef2] text-[#201f32] font-mono text-xs sm:text-sm font-semibold transition-all shadow-xs hover:shadow-sm"
             >
-              <FiMail className="w-4 h-4 text-[#6e73fa]" />
-              maroofmohdmalik@gmail.com
-            </a>
+              {copied ? (
+                <>
+                  <FiCheck className="w-4 h-4 text-emerald-600" />
+                  <span className="text-emerald-600">Email Copied!</span>
+                </>
+              ) : (
+                <>
+                  <FiCopy className="w-4 h-4 text-[#262ef2]" />
+                  <span>{email}</span>
+                </>
+              )}
+            </button>
           </div>
 
           {/* Core Tech Stack Badges Row */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#8c859d] mr-1 hidden sm:inline-block">
+              Core Stack:
+            </span>
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#e3e2e5] text-[#201f32] shadow-2xs">
               <SiReact className="text-[#00d8ff] w-3.5 h-3.5" /> React &amp; React Native
             </span>

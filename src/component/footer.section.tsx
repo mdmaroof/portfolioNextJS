@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiGithub, FiLinkedin, FiMail, FiArrowUpRight, FiCheck, FiCopy, FiMapPin, FiSparkles } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiMail, FiArrowUpRight, FiCheck, FiCopy } from "react-icons/fi";
 
 export const Footer: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -106,12 +106,6 @@ export const Footer: React.FC = () => {
             <span className="font-semibold text-[#1f1f32]">
               Mohd Maroof <span className="font-normal text-[#8c859d]">· Senior Frontend Developer</span>
             </span>
-          </div>
-
-          {/* Center Location & Availability */}
-          <div className="flex items-center gap-1.5 text-xs text-[#4d5564] font-medium">
-            <FiMapPin className="w-3.5 h-3.5 text-[#262ef2]" />
-            <span>India · Available for Global Remote Work</span>
           </div>
 
           {/* Right Copyright */}

@@ -4,6 +4,7 @@ import { LazyMotion, MotionConfig, domAnimation, m, useScroll } from "framer-mot
 import { FiCheck } from "react-icons/fi";
 import { Navbar } from "../component/navbar.section";
 import { HeaderComponent } from "../component/header.section";
+import { ScrollShipmentsSection } from "../component/scrollShipments.section";
 import { OverviewSection } from "../component/overview.section";
 import { CurvedCarouselSection } from "../component/curvedCarousel.section";
 import { WorkHistory } from "../component/workHistory.section";
@@ -160,7 +161,10 @@ export default function Home() {
           {/* 1. Clean Hero with Typewriter & CTAs */}
           <HeaderComponent data={data} onMessageSentSuccess={handleMessageSentSuccess} />
 
-          {/* 2. Overview Metrics */}
+          {/* 2. Hero Scroll-Animated Horizontal Showcase */}
+          <ScrollShipmentsSection />
+
+          {/* 3. Overview Metrics */}
           <OverviewSection />
 
           {/* 3. Curved Arc Experience Carousel with Orbiting Mobile Stage */}

@@ -11,6 +11,7 @@ import { WorkHistory } from "../component/workHistory.section";
 import { AgentSection } from "../component/agent.section";
 import { PhoneScrollShowcaseSection } from "../component/phoneScrollShowcase.section";
 import { Footer } from "../component/footer.section";
+import { FloatingChatbot } from "../component/floatingChatbot.component";
 import { data } from "../data";
 import { seo } from "../lib/seo";
 
@@ -182,6 +183,9 @@ export default function Home() {
 
         {/* 8. High-Craft Studio Footer */}
         <Footer />
+
+        {/* 9. Persistent Site-Wide Floating AI Agent Chatbot */}
+        <FloatingChatbot />
       </MotionConfig>
     </LazyMotion>
   );

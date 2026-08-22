@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2 } from "react-icons/fi";
+import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2, FiActivity } from "react-icons/fi";
 import { SiReact } from "react-icons/si";
 
 interface Message {
@@ -217,7 +217,7 @@ export const AgentSection: React.FC = () => {
 
     const fullResponse = match.response;
     let charPos = 0;
-    const streamSpeed = 12; // Realistic fast LLM token stream speed
+    const streamSpeed = 12;
 
     const interval = setInterval(() => {
       charPos += 3;
@@ -268,11 +268,11 @@ export const AgentSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 2-Column Bento Layout */}
+        {/* 2-Column Bento Layout with Authentic Frosted Glassmorphism */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* Left Column: Technical Spectrum Cards (5 Cols) */}
-          <div className="lg:col-span-5 rounded-[28px] bg-white border border-[#e5e5ee] p-6 md:p-8 flex flex-col justify-between shadow-sm">
+          <div className="lg:col-span-5 rounded-[32px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-8 flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(38,46,242,0.08),0_0_0_1px_rgba(255,255,255,0.9)]">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#262ef2]" />
@@ -286,36 +286,39 @@ export const AgentSection: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 my-6">
               {SKILL_FOLDERS.map((folder, idx) => (
-                <div key={idx} className="bento-folder group">
+                <div
+                  key={idx}
+                  className="flex items-center justify-between p-3.5 rounded-2xl bg-white/90 border border-[#e8e8f2] shadow-2xs hover:border-[#262ef2] hover:shadow-xs transition-all"
+                >
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center text-sm"
+                      className="w-8 h-8 rounded-xl flex items-center justify-center text-sm shadow-2xs"
                       style={{ backgroundColor: `${folder.color}15`, color: folder.color }}
                     >
                       {folder.icon}
                     </div>
-                    <span className="text-sm font-medium text-[#201f32]">{folder.name}</span>
+                    <span className="text-sm font-semibold text-[#1f1f32]">{folder.name}</span>
                   </div>
-                  <span className="text-xs font-mono text-[#61667b] bg-[#f3f3f9] px-2.5 py-1 rounded-md border border-[#e3e2e5]">
+                  <span className="text-[11px] font-mono text-[#61667b] bg-[#f4f4fa] px-2.5 py-1 rounded-lg border border-[#e3e2e8]">
                     {folder.count}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-[#e3e2e5] flex items-center justify-between text-xs text-[#61667b]">
-              <span className="flex items-center gap-1.5">
+            <div className="pt-4 border-t border-[#e8e8f2] flex items-center justify-between text-xs text-[#61667b]">
+              <span className="flex items-center gap-1.5 font-medium">
                 <FiCheck className="text-emerald-500" /> 6+ Years In Production
               </span>
-              <span className="font-mono text-[#262ef2] font-semibold">100% Ship Rate</span>
+              <span className="font-mono text-[#262ef2] font-bold">100% Ship Rate</span>
             </div>
           </div>
 
-          {/* Right Column: Clean Studio Knowledge Console (7 Cols) */}
-          <div className="lg:col-span-7 rounded-[28px] bg-white border border-[#e5e5ee] p-6 md:p-8 flex flex-col justify-between shadow-sm">
+          {/* Right Column: Frosted Glass Knowledge Terminal (7 Cols) */}
+          <div className="lg:col-span-7 rounded-[32px] bg-white/85 backdrop-blur-2xl border border-white/95 p-6 sm:p-8 flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(38,46,242,0.08),0_0_0_1px_rgba(255,255,255,0.9)]">
             <div>
-              {/* Terminal Window Header */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#ececf4]">
+              {/* Terminal Window Top Bar */}
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e8e8f2]">
                 <div className="flex items-center gap-3">
                   {/* macOS Traffic Lights */}
                   <div className="flex items-center gap-1.5">
@@ -329,7 +332,7 @@ export const AgentSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     Streaming Ready
                   </span>
@@ -360,7 +363,7 @@ export const AgentSection: React.FC = () => {
                         {msg.text}
                       </div>
                     ) : (
-                      <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-[#f6f6fc] border border-[#e4e4f0] text-[#1f1f32] space-y-2.5 shadow-2xs">
+                      <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-white/90 border border-[#e4e4f2] text-[#1f1f32] space-y-2.5 shadow-2xs">
                         {msg.badge && (
                           <div className="flex items-center justify-between">
                             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2 py-0.5 rounded-md border border-[#262ef2]/20">
@@ -384,7 +387,7 @@ export const AgentSection: React.FC = () => {
                             {msg.chips.map((chip, cIdx) => (
                               <span
                                 key={cIdx}
-                                className="text-[10px] font-mono text-[#4d5564] bg-white px-2 py-0.5 rounded border border-[#dcdae8] shadow-2xs"
+                                className="text-[10px] font-mono text-[#4d5564] bg-[#f8f8fc] px-2 py-0.5 rounded border border-[#dcdae8] shadow-2xs"
                               >
                                 {chip}
                               </span>
@@ -413,7 +416,7 @@ export const AgentSection: React.FC = () => {
 
                 {/* Real-time Streaming Output Indicator */}
                 {isStreaming && (
-                  <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-[#f6f6fc] border border-[#e4e4f0] text-[#1f1f32] space-y-2.5 font-mono">
+                  <div className="max-w-[98%] p-4 rounded-2xl rounded-tl-xs bg-white/90 border border-[#e4e4f2] text-[#1f1f32] space-y-2.5 font-mono shadow-2xs">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2 py-0.5 rounded-md border border-[#262ef2]/20">
                         {activeBadge || "Streaming Answer"}
@@ -436,7 +439,7 @@ export const AgentSection: React.FC = () => {
             {/* Input Form & Suggested Query Pills */}
             <div className="pt-2">
               <form onSubmit={handleSubmit} className="relative mb-3 font-mono">
-                <div className="flex items-center bg-[#f8f8fc] border border-[#d2d2e2] rounded-2xl px-3.5 py-2.5 shadow-xs focus-within:bg-white focus-within:border-[#262ef2] focus-within:ring-2 focus-within:ring-[#262ef2]/15 transition-all">
+                <div className="flex items-center bg-white border border-[#d2d2e2] rounded-2xl px-3.5 py-2.5 shadow-2xs focus-within:border-[#262ef2] focus-within:ring-2 focus-within:ring-[#262ef2]/15 transition-all">
                   <span className="text-xs text-[#262ef2] mr-2 font-bold font-mono">
                     $
                   </span>
@@ -467,37 +470,42 @@ export const AgentSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => executeQuery("What is Maroof's core tech stack?")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
-                    ⚡ /stack
+                    <FiZap className="w-3 h-3 text-[#262ef2] group-hover:scale-110 transition-transform" />
+                    <span>/stack</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about Ethos and his custom QR scanner")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
-                    📱 /ethos-qr
+                    <FiSmartphone className="w-3 h-3 text-[#6e73fa] group-hover:scale-110 transition-transform" />
+                    <span>/ethos-qr</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about VAHN and the Fleet App MVP")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
-                    🚗 /vahn-fleet
+                    <FiActivity className="w-3 h-3 text-[#6e73fa] group-hover:scale-110 transition-transform" />
+                    <span>/vahn-fleet</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Tell me about Trackaday and Mapbox GL")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
-                    🗺️ /trackaday
+                    <FiLayers className="w-3 h-3 text-[#0ea5e9] group-hover:scale-110 transition-transform" />
+                    <span>/trackaday</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => executeQuery("Is Maroof available for senior contracts?")}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#f3f3f9] text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] hover:bg-white transition-all font-mono font-medium shadow-2xs"
+                    className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl bg-white text-[#4d5564] border border-[#d8d8e5] hover:border-[#262ef2] hover:text-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
                   >
-                    🤝 /hire
+                    <FiAward className="w-3 h-3 text-[#262ef2] group-hover:scale-110 transition-transform" />
+                    <span>/hire</span>
                   </button>
                 </div>
               </div>

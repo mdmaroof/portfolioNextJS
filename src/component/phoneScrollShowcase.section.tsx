@@ -291,7 +291,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
 
           {/* Authentic iPhone 15 Pro Titanium Chassis */}
           <div className="flex justify-center items-center">
-            <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_25px_80px_-15px_rgba(20,20,35,0.4),0_0_0_1px_rgba(255,255,255,0.18),inset_0_1px_2px_rgba(255,255,255,0.3)] relative flex flex-col justify-between select-none">
+            <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_16px_36px_-12px_rgba(20,20,35,0.14),0_0_0_1px_rgba(20,20,35,0.08),inset_0_1px_1px_rgba(255,255,255,0.2)] relative flex flex-col justify-between select-none">
               
               {/* Inner Retina OLED Screen */}
               <div className="w-full h-full bg-[#f8f8fc] rounded-[42px] overflow-hidden relative flex flex-col justify-between border border-[#e5e5ee] p-3.5 sm:p-4">

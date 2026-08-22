@@ -16,6 +16,7 @@ interface ShipmentItem {
   highlights: string[];
   tech: string[];
   link: string;
+  linkLabel: string;
 }
 
 const SHIPMENTS: ShipmentItem[] = [
@@ -32,6 +33,7 @@ const SHIPMENTS: ShipmentItem[] = [
     highlights: ["Mapbox GL Vector Tile Engine", "Turf.js Spatial Distance Buffers", "Live Route GPS Playback"],
     tech: ["Mapbox GL", "Turf.js", "Geospatial", "React"],
     link: "https://www.trackaday.buzz/",
+    linkLabel: "Visit Live App",
   },
   {
     id: "02",
@@ -45,7 +47,8 @@ const SHIPMENTS: ShipmentItem[] = [
     summary: "Sales operations mobile app featuring custom optical QR camera vision with offline-first synchronization.",
     highlights: ["Sub-100ms Optical QR Scanner", "Offline-First Sync Pipeline", "Field Usability Design System"],
     tech: ["React Native", "Camera Vision", "Offline Sync", "TypeScript"],
-    link: "https://github.com/mdmaroof",
+    link: "https://www.ethoswatches.com/",
+    linkLabel: "Company Site",
   },
   {
     id: "03",
@@ -59,7 +62,8 @@ const SHIPMENTS: ShipmentItem[] = [
     summary: "Built production MVP from scratch with live vehicle telemetry, atomic Zustand state, and Mixpanel analytics.",
     highlights: ["0 to 1 Production MVP Release", "Lightweight Zustand State Engine", "Mixpanel Analytics Pipeline"],
     tech: ["TypeScript", "Zustand", "Mixpanel", "Google Maps"],
-    link: "https://github.com/mdmaroof",
+    link: "https://vahn.in/",
+    linkLabel: "Company Site",
   },
   {
     id: "04",
@@ -74,6 +78,7 @@ const SHIPMENTS: ShipmentItem[] = [
     highlights: ["Automated A/B Funnels & Lift", "Cohort User Segmentation Engine", "Real-Time Analytics Dashboard"],
     tech: ["Next.js", "TypeScript", "Node.js", "MongoDB"],
     link: "https://graple-theta.vercel.app/",
+    linkLabel: "Launch App",
   },
   {
     id: "05",
@@ -88,6 +93,7 @@ const SHIPMENTS: ShipmentItem[] = [
     highlights: ["100% Offline IndexedDB Cache", "AI Symptom Diagnostic Parser", "Emergency First-Aid Flow"],
     tech: ["React", "Offline PWA", "AI Triage", "Tailwind"],
     link: "https://snapaid.live/",
+    linkLabel: "Launch App",
   },
   {
     id: "06",
@@ -101,7 +107,8 @@ const SHIPMENTS: ShipmentItem[] = [
     summary: "Multi-tenant command dashboards with live Google Maps telemetry and Smart Eye threat dispatching.",
     highlights: ["Multi-Tenant Command Dispatch", "Google Maps Fleet Radar", "WebSocket Live Alarm Feeds"],
     tech: ["Google Maps API", "WebSockets", "Smart Eye", "React"],
-    link: "https://github.com/mdmaroof",
+    link: "https://56secure.com/",
+    linkLabel: "Company Site",
   },
   {
     id: "07",
@@ -116,6 +123,7 @@ const SHIPMENTS: ShipmentItem[] = [
     highlights: ["60 FPS Touch Drag Engine", "Dynamic Letter Rearrangement", "Local Streak & High Score"],
     tech: ["React", "Physics Gestures", "State Engine"],
     link: "https://twistnwords.vercel.app/",
+    linkLabel: "Play Game",
   },
 ];
 
@@ -270,9 +278,9 @@ export const ScrollShipmentsSection: React.FC = () => {
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs font-semibold text-white bg-[#201f32] hover:bg-[#262ef2] px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-2xs"
+                      className="font-mono text-xs font-semibold text-white bg-[#201f32] hover:bg-[#262ef2] px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-2xs shrink-0 whitespace-nowrap"
                     >
-                      <span>Launch</span>
+                      <span>{item.linkLabel}</span>
                       <FiExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>

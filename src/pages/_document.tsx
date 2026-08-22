@@ -5,7 +5,8 @@ export default function Document() {
     <Html lang="en" dir="ltr" className="scroll-smooth">
       <Head>
         <meta name="theme-color" content="#f3f3f9" />
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="light only" />
+        <meta name="supported-color-schemes" content="light" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta

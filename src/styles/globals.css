@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light only;
   --ink: #201f32;
   --ink-heading: #1f1f32;
   --gray: #4d5564;
@@ -27,18 +28,33 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
-  background: var(--bg);
+  background-color: #f3f3f9 !important;
+  color-scheme: light only !important;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--bg);
-  color: var(--ink);
+  background-color: #f3f3f9 !important;
+  color: #201f32 !important;
+  color-scheme: light only !important;
   font-family: var(--sans);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force exact light UI across all mobile devices & auto-dark modes */
+@media (prefers-color-scheme: dark) {
+  :root, html, body {
+    color-scheme: light only !important;
+    background-color: #f3f3f9 !important;
+    color: #201f32 !important;
+  }
+}
+
+input, textarea, select, button {
+  color-scheme: light only !important;
 }
 
 /* Hide scrollbars when desired */

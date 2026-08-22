@@ -1,5 +1,5 @@
 import React from "react";
-import { FiBriefcase, FiMapPin, FiCalendar, FiCheckCircle } from "react-icons/fi";
+import { FiBriefcase, FiMapPin, FiCalendar, FiCheckCircle, FiCheck, FiLayers, FiActivity, FiCpu } from "react-icons/fi";
 
 interface WorkItem {
   organisation: string;
@@ -14,58 +14,178 @@ interface WorkHistoryProps {
   work: WorkItem[];
 }
 
+interface WorkMeta {
+  color: string;
+  initials: string;
+  focus: string;
+  tech: string[];
+  highlight: string;
+}
+
+const WORK_METADATA: Record<string, WorkMeta> = {
+  "Ethos": {
+    color: "#262ef2",
+    initials: "ET",
+    focus: "Mobile & Sales Ops",
+    tech: ["React Native", "Camera Vision", "Offline Sync", "TypeScript"],
+    highlight: "Sub-100ms QR Engine",
+  },
+  "VAHN": {
+    color: "#6e73fa",
+    initials: "VA",
+    focus: "Fleet Logistics & Maps",
+    tech: ["TypeScript", "Zustand", "Mixpanel", "Fleet Maps"],
+    highlight: "0 to 1 MVP Delivered",
+  },
+  "Mercor": {
+    color: "#0c9618",
+    initials: "MC",
+    focus: "Design Systems & UI",
+    tech: ["Next.js", "Design Systems", "Tailwind CSS", "Dashboard UI"],
+    highlight: "Component Architecture",
+  },
+  "Buzztales Technologies Pvt. Ltd.": {
+    color: "#f25c26",
+    initials: "BT",
+    focus: "Startup Leadership",
+    tech: ["System Architecture", "React", "Node.js", "Full Lifecycle"],
+    highlight: "Founder & Lead Architect",
+  },
+  "56 Secure": {
+    color: "#aa26f2",
+    initials: "56",
+    focus: "Live Radar & Security",
+    tech: ["Google Maps API", "WebSockets", "Smart Eye Alerts", "Command UI"],
+    highlight: "Multi-Tenant Dispatch",
+  },
+  "Noon Academy": {
+    color: "#ca7c0e",
+    initials: "NA",
+    focus: "EdTech RTC & Reliability",
+    tech: ["PubNub RTC/RTM", "Storybook", "Breakout Rooms", "Auto-Reconnect"],
+    highlight: "RTC Audio/Video Scale",
+  },
+};
+
 export const WorkHistory: React.FC<WorkHistoryProps> = ({ work }) => {
   return (
-    <section id="work-history" className="py-14">
+    <section id="work-history" className="py-16 md:py-24 relative">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="text-center mb-10">
+        {/* Section Header */}
+        <div className="text-center mb-14">
           <div className="inline-block mb-3">
             <span className="tag">
               <FiBriefcase className="text-[#262ef2] mr-1" />
-              Career Journey
+              Verified Career History
             </span>
           </div>
-          <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#1f1f32]">
-            Detailed Roles &amp; <span className="serif-accent blue-accent font-normal">Contributions</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#1f1f32]">
+            Detailed Roles &amp; <br />
+            <span className="serif-accent blue-accent font-normal">Production Contributions</span>
           </h2>
+          <p className="mt-3 text-base md:text-lg text-[#4d5564] max-w-xl mx-auto">
+            Deep-dive breakdown of direct responsibilities, technical architectures, and delivered business impact.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {work.map((item, idx) => (
-            <div
-              key={idx}
-              className="craft-card p-6 bg-white flex flex-col justify-between hover:border-[#262ef2]/60"
-            >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-bold text-[#262ef2] bg-[#262ef2]/10 px-2.5 py-0.5 rounded-full">
-                    {item.organisation}
-                  </span>
-                  <span className="text-xs font-mono text-[#61667b] flex items-center gap-1">
-                    <FiCalendar className="w-3 h-3" /> {item.from} — {item.to}
-                  </span>
+        {/* High-Craft 2-Column Experience Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+          {work.map((item, idx) => {
+            const meta = WORK_METADATA[item.organisation] || {
+              color: "#262ef2",
+              initials: item.organisation.slice(0, 2).toUpperCase(),
+              focus: "Engineering",
+              tech: ["React", "TypeScript", "Next.js"],
+              highlight: "Production Verified",
+            };
+
+            return (
+              <div
+                key={idx}
+                className="group craft-card p-6 md:p-8 bg-white flex flex-col justify-between hover:border-[#262ef2] hover:shadow-[0_20px_45px_-15px_rgba(38,46,242,0.12)] transition-all duration-300 relative overflow-hidden"
+              >
+                {/* Subtle Brand Color Accent Corner */}
+                <div
+                  className="absolute top-0 right-0 w-28 h-28 rounded-bl-[70px] opacity-10 pointer-events-none transition-transform group-hover:scale-110"
+                  style={{ backgroundColor: meta.color }}
+                />
+
+                <div>
+                  {/* Top Bar: Company Badge + Timeframe Pill */}
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="w-10 h-10 rounded-xl text-white text-sm font-bold flex items-center justify-center shadow-xs shrink-0"
+                        style={{ backgroundColor: meta.color }}
+                      >
+                        {meta.initials}
+                      </span>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-bold text-[#1f1f32] leading-tight">
+                          {item.organisation}
+                        </h3>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-xs text-[#6e73fa] font-mono flex items-center gap-1 font-medium">
+                            <FiMapPin className="w-3 h-3 text-[#262ef2]" /> {item.location}
+                          </span>
+                          <span className="text-[11px] font-mono text-[#8c859d] bg-[#f3f3f9] px-2 py-0.5 rounded border border-[#e3e2e5]">
+                            {meta.focus}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <span className="text-xs font-mono font-semibold text-[#262ef2] bg-[#262ef2]/5 px-3 py-1 rounded-full border border-[#262ef2]/10 shrink-0 flex items-center gap-1.5">
+                      <FiCalendar className="w-3 h-3" />
+                      {item.from} — {item.to}
+                    </span>
+                  </div>
+
+                  {/* Role Title */}
+                  <div className="mt-4 mb-3 pb-3 border-b border-[#f0f0f6]">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-lg font-bold text-[#1f1f32]">
+                        {item.role}
+                      </h4>
+                      <span
+                        className="text-[10px] font-mono font-bold text-white px-2.5 py-0.5 rounded-full"
+                        style={{ backgroundColor: meta.color }}
+                      >
+                        {meta.highlight}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Structured Deliverables List */}
+                  <div className="space-y-2.5 my-4">
+                    {item.labels.map((lbl, lIdx) => (
+                      <div
+                        key={lIdx}
+                        className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#f8f8fc] border border-[#e9e9f2] text-xs text-[#374151] leading-relaxed group-hover:bg-white group-hover:border-[#e2e2ec] transition-colors"
+                      >
+                        <span className="w-5 h-5 rounded-full bg-[#262ef2]/10 text-[#262ef2] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                          ✓
+                        </span>
+                        <span className="font-medium">{lbl}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-[#1f1f32] mt-1">{item.role}</h3>
-                <p className="text-xs text-[#6e73fa] flex items-center gap-1 mt-0.5 mb-3 font-mono">
-                  <FiMapPin className="w-3 h-3" /> {item.location}
-                </p>
 
-                <ul className="space-y-1.5 text-xs text-[#4d5564] leading-relaxed">
-                  {item.labels.map((lbl, lIdx) => (
-                    <li key={lIdx} className="flex items-start gap-1.5">
-                      <FiCheckCircle className="w-3.5 h-3.5 text-[#262ef2] shrink-0 mt-0.5" />
-                      <span>{lbl}</span>
-                    </li>
+                {/* Card Bottom: Tech Stack Chips */}
+                <div className="mt-5 pt-3.5 border-t border-[#f0f0f6] flex flex-wrap items-center gap-1.5 text-xs">
+                  {meta.tech.map((t, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="text-[10px] font-mono font-medium text-[#201f32] bg-[#f3f3f9] px-2.5 py-0.5 rounded border border-[#e3e2e5]"
+                    >
+                      {t}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
-
-              <div className="mt-4 pt-3 border-t border-[#f0f0f6] flex items-center justify-between text-[11px] text-[#8c859d] font-mono">
-                <span>0{idx + 1} / 0{work.length}</span>
-                <span className="text-emerald-600 font-semibold">Production Verified</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

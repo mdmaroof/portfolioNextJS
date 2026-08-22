@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { m, useScroll, AnimatePresence } from "framer-motion";
-import { FiFolder, FiExternalLink, FiCheck, FiCompass, FiTrendingUp, FiShield, FiLayers, FiCode, FiWifi, FiBattery, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiFolder, FiExternalLink, FiCheck, FiCompass, FiTrendingUp, FiShield, FiLayers, FiCode, FiWifi, FiBattery } from "react-icons/fi";
 import { IconType } from "react-icons";
 
 interface PhoneProject {
@@ -272,21 +272,9 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
             })}
           </div>
 
-          {/* Authentic iPhone 15 Pro Titanium Chassis with Floating Nav Chevrons */}
-          <div className="flex justify-center items-center gap-3 sm:gap-6 relative">
-            {/* Left Chevron Button */}
-            <button
-              onClick={() => {
-                if (activeIndex > 0) handleTabClick(activeIndex - 1);
-              }}
-              disabled={activeIndex === 0}
-              className="hidden sm:flex w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-md items-center justify-center text-[#201f32] disabled:opacity-30 disabled:pointer-events-none hover:bg-white hover:scale-110 active:scale-95 transition-all z-20"
-              aria-label="Previous project"
-            >
-              <FiChevronLeft className="w-5 h-5" />
-            </button>
-
-            <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_25px_80px_-15px_rgba(20,20,35,0.4),0_0_0_1px_rgba(255,255,255,0.18),inset_0_1px_2px_rgba(255,255,255,0.3)] relative flex flex-col justify-between select-none shrink-0">
+          {/* Authentic iPhone 15 Pro Titanium Chassis */}
+          <div className="flex justify-center items-center">
+            <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_25px_80px_-15px_rgba(20,20,35,0.4),0_0_0_1px_rgba(255,255,255,0.18),inset_0_1px_2px_rgba(255,255,255,0.3)] relative flex flex-col justify-between select-none">
               
               {/* Inner Retina OLED Screen */}
               <div className="w-full h-full bg-[#f8f8fc] rounded-[42px] overflow-hidden relative flex flex-col justify-between border border-[#e5e5ee] p-3.5 sm:p-4">
@@ -442,18 +430,6 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Right Chevron Button */}
-            <button
-              onClick={() => {
-                if (activeIndex < PHONE_PROJECTS.length - 1) handleTabClick(activeIndex + 1);
-              }}
-              disabled={activeIndex === PHONE_PROJECTS.length - 1}
-              className="hidden sm:flex w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-md items-center justify-center text-[#201f32] disabled:opacity-30 disabled:pointer-events-none hover:bg-white hover:scale-110 active:scale-95 transition-all z-20"
-              aria-label="Next project"
-            >
-              <FiChevronRight className="w-5 h-5" />
-            </button>
           </div>
 
           {/* Bottom Progress Counter */}

@@ -179,14 +179,24 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
 
   // Update physical sliding indicator coordinates on activeIndex change
   useEffect(() => {
-    const currentTab = tabRefs.current[activeIndex];
-    if (currentTab) {
-      setIndicatorStyle({
-        left: currentTab.offsetLeft,
-        width: currentTab.offsetWidth,
-        opacity: 1,
-      });
-    }
+    const updateIndicator = () => {
+      const currentTab = tabRefs.current[activeIndex];
+      if (currentTab) {
+        setIndicatorStyle({
+          left: currentTab.offsetLeft,
+          width: currentTab.offsetWidth,
+          opacity: 1,
+        });
+      }
+    };
+
+    updateIndicator();
+    const frameId = requestAnimationFrame(updateIndicator);
+    window.addEventListener("resize", updateIndicator);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", updateIndicator);
+    };
   }, [activeIndex]);
 
   const currentProject = PHONE_PROJECTS[activeIndex] || PHONE_PROJECTS[0];
@@ -259,7 +269,10 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                     tabRefs.current[idx] = el;
                   }}
                   onClick={() => handleTabClick(idx)}
-                  className="relative px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 flex items-center gap-1.5 z-10 whitespace-nowrap hover:scale-[1.03] active:scale-[0.97] group"
+                  className={`relative py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 flex items-center gap-1.5 z-10 whitespace-nowrap hover:scale-[1.03] active:scale-[0.97] group ${
+                    isActive ? "px-3.5" : "px-2.5 sm:px-3.5"
+                  }`}
+                  aria-label={proj.name}
                 >
                   {/* Animated Icon with Pop Motion on Active */}
                   <m.div
@@ -277,9 +290,12 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                     />
                   </m.div>
 
+                  {/* Project Name: Mobile shows ONLY on active tab; sm+ screens show all names */}
                   <span
                     className={`transition-colors duration-200 ${
-                      isActive ? "text-white font-bold" : "text-[#64748b] group-hover:text-[#1f1f32]"
+                      isActive
+                        ? "inline text-white font-bold"
+                        : "hidden sm:inline text-[#64748b] group-hover:text-[#1f1f32]"
                     }`}
                   >
                     {proj.name}

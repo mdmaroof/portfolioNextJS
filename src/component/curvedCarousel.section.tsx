@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import { m } from "framer-motion";
 import { FiBriefcase, FiCheckCircle, FiMapPin, FiWifi } from "react-icons/fi";
 import { IoIosBatteryFull } from "react-icons/io";
 import { BsReception4 } from "react-icons/bs";
@@ -185,37 +184,28 @@ export const CurvedCarouselSection: React.FC = () => {
   const displayMilestones = [...MILESTONES, ...MILESTONES];
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-24 md:py-20" id="milestones">
-      {/* Background Animated Solar Sun / Gear Watermark (Left) */}
-      <m.div
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-        className="absolute top-8 left-6 md:left-20 w-44 h-44 opacity-15 pointer-events-none select-none"
-      >
+    <section className="relative overflow-hidden pt-10 pb-20 md:py-24" id="milestones">
+      {/* Background Decorative Faded Sun Gears (Hidden on Mobile to Avoid Text Overlap) */}
+      <div className="hidden md:block absolute top-6 left-10 lg:left-24 w-36 lg:w-44 h-36 lg:h-44 opacity-10 pointer-events-none select-none">
         <svg viewBox="0 0 100 100" fill="none" stroke="#201f32" strokeWidth="1.2">
           <circle cx="50" cy="50" r="30" strokeDasharray="4 3" />
           <circle cx="50" cy="50" r="18" />
           <path d="M50 10 L50 20 M50 80 L50 90 M10 50 L20 50 M80 50 L90 50 M22 22 L29 29 M71 71 L78 78 M22 78 L29 71 M71 29 L78 22" />
         </svg>
-      </m.div>
+      </div>
 
-      {/* Background Animated Solar Sun / Gear Watermark (Right) */}
-      <m.div
-        animate={{ rotate: -360 }}
-        transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-        className="absolute top-8 right-6 md:right-20 w-44 h-44 opacity-15 pointer-events-none select-none"
-      >
+      <div className="hidden md:block absolute top-6 right-10 lg:right-24 w-36 lg:w-44 h-36 lg:h-44 opacity-10 pointer-events-none select-none">
         <svg viewBox="0 0 100 100" fill="none" stroke="#201f32" strokeWidth="1.2">
           <circle cx="50" cy="50" r="30" strokeDasharray="4 3" />
           <circle cx="50" cy="50" r="18" />
           <path d="M50 10 L50 20 M50 80 L50 90 M10 50 L20 50 M80 50 L90 50 M22 22 L29 29 M71 71 L78 78 M22 78 L29 71 M71 29 L78 22" />
         </svg>
-      </m.div>
+      </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
         {/* Section Heading */}
-        <div className="text-center mb-6">
-          <div className="inline-block mb-2.5">
+        <div className="text-center mb-5 sm:mb-6">
+          <div className="inline-block mb-2">
             <span className="tag">
               <FiBriefcase className="text-[#262ef2] mr-1" />
               Career Milestones &amp; Production Track
@@ -228,7 +218,7 @@ export const CurvedCarouselSection: React.FC = () => {
         </div>
 
         {/* Central Stage: Elegant Tall Mobile Phone & Scaled Milestone Cards */}
-        <div className="relative min-h-[540px] md:min-h-[580px] flex items-center justify-center">
+        <div className="relative min-h-[520px] sm:min-h-[540px] md:min-h-[580px] flex items-center justify-center">
           
           {/* Central Scaled iPhone Mockup */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
@@ -259,30 +249,24 @@ export const CurvedCarouselSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Top Visible Orbit Area: Animated Rotating Orbit */}
+                  {/* Top Visible Orbit Area */}
                   <div className="relative w-full h-[200px] flex items-center justify-center mt-4 sm:mt-5">
                     <div className="absolute w-36 h-36 sm:w-40 sm:h-40 rounded-full border border-[#c9cbf0]/70" />
                     <div className="absolute w-48 h-48 sm:w-52 sm:h-52 rounded-full border border-[#e2e3fa]/60" />
 
-                    {/* Orbiting Rotating Container with Company Badges */}
-                    <m.div
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 24, ease: "linear" }}
-                      className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                    >
-                      <span className="absolute top-1 left-5 w-6 h-6 rounded-lg bg-[#262ef2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
-                        ET
-                      </span>
-                      <span className="absolute top-1 right-5 w-6 h-6 rounded-lg bg-[#6e73fa] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
-                        VA
-                      </span>
-                      <span className="absolute bottom-3 left-6 w-6 h-6 rounded-lg bg-[#f25c26] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
-                        BT
-                      </span>
-                      <span className="absolute bottom-3 right-6 w-6 h-6 rounded-lg bg-[#aa26f2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
-                        56
-                      </span>
-                    </m.div>
+                    {/* Upright Company Badges Positioned Along the Orbit Ring */}
+                    <span className="absolute top-1 left-5 w-6 h-6 rounded-lg bg-[#262ef2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                      ET
+                    </span>
+                    <span className="absolute top-1 right-5 w-6 h-6 rounded-lg bg-[#6e73fa] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                      VA
+                    </span>
+                    <span className="absolute bottom-3 left-6 w-6 h-6 rounded-lg bg-[#f25c26] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                      BT
+                    </span>
+                    <span className="absolute bottom-3 right-6 w-6 h-6 rounded-lg bg-[#aa26f2] text-white text-[9px] font-bold flex items-center justify-center border border-white shadow-xs">
+                      56
+                    </span>
 
                     {/* Center Text inside the Orbit */}
                     <div className="text-center z-10 px-2 select-none">
@@ -308,7 +292,7 @@ export const CurvedCarouselSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Scaled Frosted Glassmorphism Carousel Cards Layer */}
+          {/* Scaled Frosted Glassmorphism Carousel Cards Layer (Butter-Smooth Perpetual Horizontal Stream) */}
           <div
             ref={containerRef}
             onPointerDown={handlePointerDown}
@@ -325,98 +309,73 @@ export const CurvedCarouselSection: React.FC = () => {
               {displayMilestones.map((item, idx) => (
                 <div
                   key={idx}
-                  className="w-[270px] sm:w-[295px] md:w-[320px] h-[200px] md:h-[210px] shrink-0"
+                  className="w-[270px] sm:w-[295px] md:w-[320px] h-[200px] md:h-[210px] shrink-0 bg-white/85 backdrop-blur-xl border border-white/95 rounded-[18px] md:rounded-[20px] p-3.5 md:p-4 shadow-[0_15px_35px_-12px_rgba(32,31,50,0.14),inset_0_1px_0_rgba(255,255,255,0.95)] hover:border-[#262ef2] hover:bg-white/95 transition-all duration-200 flex flex-col justify-between"
                 >
-                  {/* Individual Rainfall Card (Rains down rapidly one-by-one on section enter) */}
-                  <m.div
-                    initial={{
-                      opacity: 0,
-                      y: -300,
-                      rotate: idx % 2 === 0 ? -3 : 3,
-                      scale: 0.94,
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      y: 0,
-                      rotate: 0,
-                      scale: 1,
-                    }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 340,
-                      damping: 22,
-                      mass: 0.7,
-                      delay: (idx % MILESTONES.length) * 0.05,
-                    }}
-                    className="w-full h-full bg-white/85 backdrop-blur-xl border border-white/95 rounded-[18px] md:rounded-[20px] p-3.5 md:p-4 shadow-[0_15px_35px_-12px_rgba(32,31,50,0.14),inset_0_1px_0_rgba(255,255,255,0.95)] hover:border-[#262ef2] hover:bg-white/95 transition-all duration-200 flex flex-col justify-between"
-                  >
-                    {/* Card Header: Company Badge + Period */}
-                    <div>
-                      <div className="flex items-center justify-between gap-1.5 mb-2">
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="w-6 h-6 rounded-md text-white text-[10px] font-bold flex items-center justify-center shadow-2xs"
-                            style={{ backgroundColor: item.color }}
-                          >
-                            {item.initials}
-                          </span>
-                          <div>
-                            <h4 className="text-xs sm:text-sm font-bold text-[#1f1f32] leading-none">
-                              {item.company}
-                            </h4>
-                            <span className="text-[9px] text-[#6e73fa] font-mono mt-0.5 block font-medium">
-                              {item.period}
-                            </span>
-                          </div>
-                        </div>
-
+                  {/* Card Header: Company Badge + Period */}
+                  <div>
+                    <div className="flex items-center justify-between gap-1.5 mb-2">
+                      <div className="flex items-center gap-2">
                         <span
-                          className="text-[9px] font-mono font-bold text-white px-2 py-0.5 rounded-full shrink-0 shadow-2xs"
+                          className="w-6 h-6 rounded-md text-white text-[10px] font-bold flex items-center justify-center shadow-2xs"
                           style={{ backgroundColor: item.color }}
                         >
-                          {item.highlightTag}
+                          {item.initials}
                         </span>
-                      </div>
-
-                      {/* Role Title */}
-                      <h5 className="text-[11px] sm:text-xs font-bold text-[#201f32] mb-1 line-clamp-1">
-                        {item.role}
-                      </h5>
-
-                      {/* Summary */}
-                      <p className="text-[10px] sm:text-[11px] text-[#4d5564] leading-relaxed line-clamp-2">
-                        {item.summary}
-                      </p>
-                    </div>
-
-                    {/* Card Bottom: Frosted Tech Chips & Verified Metric */}
-                    <div>
-                      {/* Frosted Tech Chips */}
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {item.tech.slice(0, 3).map((t, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="text-[9px] font-mono text-[#201f32] bg-white/70 backdrop-blur-sm px-1.5 py-0.5 rounded border border-[#e3e2e5]/80"
-                          >
-                            {t}
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-bold text-[#1f1f32] leading-none">
+                            {item.company}
+                          </h4>
+                          <span className="text-[9px] text-[#6e73fa] font-mono mt-0.5 block font-medium">
+                            {item.period}
                           </span>
-                        ))}
+                        </div>
                       </div>
 
-                      {/* Bottom Metric Row */}
-                      <div className="pt-1.5 border-t border-[#e3e2e5]/70 flex items-center justify-between text-[10px]">
-                        <span className="font-mono text-[#262ef2] font-semibold flex items-center gap-1">
-                          <FiCheckCircle className="w-3 h-3 text-emerald-500" />
-                          {item.metric}
-                        </span>
-                        <span className="text-[#8c859d] font-mono text-[9px] flex items-center gap-0.5">
-                          <FiMapPin className="w-2.5 h-2.5 text-[#6e73fa]" />
-                          {item.location}
-                        </span>
-                      </div>
+                      <span
+                        className="text-[9px] font-mono font-bold text-white px-2 py-0.5 rounded-full shrink-0 shadow-2xs"
+                        style={{ backgroundColor: item.color }}
+                      >
+                        {item.highlightTag}
+                      </span>
                     </div>
-                  </m.div>
+
+                    {/* Role Title */}
+                    <h5 className="text-[11px] sm:text-xs font-bold text-[#201f32] mb-1 line-clamp-1">
+                      {item.role}
+                    </h5>
+
+                    {/* Summary */}
+                    <p className="text-[10px] sm:text-[11px] text-[#4d5564] leading-relaxed line-clamp-2">
+                      {item.summary}
+                    </p>
+                  </div>
+
+                  {/* Card Bottom: Frosted Tech Chips & Verified Metric */}
+                  <div>
+                    {/* Frosted Tech Chips */}
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {item.tech.slice(0, 3).map((t, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="text-[9px] font-mono text-[#201f32] bg-white/70 backdrop-blur-sm px-1.5 py-0.5 rounded border border-[#e3e2e5]/80"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Bottom Metric Row */}
+                    <div className="pt-1.5 border-t border-[#e3e2e5]/70 flex items-center justify-between text-[10px]">
+                      <span className="font-mono text-[#262ef2] font-semibold flex items-center gap-1">
+                        <FiCheckCircle className="w-3 h-3 text-emerald-500" />
+                        {item.metric}
+                      </span>
+                      <span className="text-[#8c859d] font-mono text-[9px] flex items-center gap-0.5">
+                        <FiMapPin className="w-2.5 h-2.5 text-[#6e73fa]" />
+                        {item.location}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

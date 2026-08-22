@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { m, useScroll, AnimatePresence } from "framer-motion";
+import { m, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { FiFolder, FiExternalLink, FiCheck, FiCompass, FiTrendingUp, FiShield, FiLayers, FiCode, FiWifi, FiBattery } from "react-icons/fi";
 import { IconType } from "react-icons";
 
@@ -30,7 +30,7 @@ const PHONE_PROJECTS: PhoneProject[] = [
     tag: "Side Project",
     metric: "Mapbox GL + Turf.js",
     metricLabel: "Spatial Buffers & Vector Telemetry",
-    color: "#0ea5e9",
+    color: "#0284c7",
     icon: FiCompass,
     description:
       "Interactive geospatial route and activity tracker leveraging Mapbox GL for vector map rendering and Turf.js for spatial calculations and route geometry.",
@@ -52,7 +52,7 @@ const PHONE_PROJECTS: PhoneProject[] = [
     tag: "Side Project",
     metric: "+28.4% Lift",
     metricLabel: "A/B Experimentation & Funnels",
-    color: "#0c9618",
+    color: "#10b981",
     icon: FiTrendingUp,
     description:
       "Full-stack experimentation platform helping product teams design, launch, and analyze A/B tests and engagement funnels with real-time statistical significance.",
@@ -74,7 +74,7 @@ const PHONE_PROJECTS: PhoneProject[] = [
     tag: "Side Project",
     metric: "Zero Latency",
     metricLabel: "Offline IndexedDB Medical Triage",
-    color: "#ca7c0e",
+    color: "#f59e0b",
     icon: FiShield,
     description:
       "Progressive Web App providing immediate step-by-step first-aid protocols during medical emergencies with 100% offline-first IndexedDB storage.",
@@ -96,7 +96,7 @@ const PHONE_PROJECTS: PhoneProject[] = [
     tag: "Side Project",
     metric: "60 FPS Touch",
     metricLabel: "Physics Gesture State Engine",
-    color: "#f25c26",
+    color: "#f97316",
     icon: FiLayers,
     description:
       "Physics-based word rearrangement puzzle game with 60 FPS touch drag gestures, local score persistence, and dynamic difficulty algorithms.",
@@ -118,7 +118,7 @@ const PHONE_PROJECTS: PhoneProject[] = [
     tag: "Side Project",
     metric: "Sub-Second UX",
     metricLabel: "Component Token Architecture",
-    color: "#0c5696",
+    color: "#3b82f6",
     icon: FiCode,
     description:
       "Modern product engineering and design system architecture delivering sub-second interaction speeds and pixel-perfect responsiveness.",
@@ -141,24 +141,41 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const prevIndexRef = useRef(0);
+  const lastStepTimeRef = useRef(0);
 
-  // Hook scroll progress
+  // Hook scroll progress with smooth spring damping
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 75,
+    damping: 26,
+    mass: 0.5,
+    restDelta: 0.001,
+  });
+
   useEffect(() => {
-    return scrollYProgress.on("change", (latest) => {
+    return smoothProgress.on("change", (latest) => {
       const count = PHONE_PROJECTS.length;
-      const index = Math.min(count - 1, Math.floor(latest * count));
-      if (index !== prevIndexRef.current) {
-        setDirection(index > prevIndexRef.current ? 1 : -1);
-        prevIndexRef.current = index;
-        setActiveIndex(index);
+      const targetIndex = Math.min(count - 1, Math.max(0, Math.floor(latest * count)));
+      const now = Date.now();
+
+      if (targetIndex !== prevIndexRef.current) {
+        // Enforce strict 1-step per scroll threshold and prevent double-skipping
+        if (now - lastStepTimeRef.current > 220) {
+          const step = targetIndex > prevIndexRef.current ? 1 : -1;
+          const nextIndex = Math.min(count - 1, Math.max(0, prevIndexRef.current + step));
+
+          setDirection(step);
+          prevIndexRef.current = nextIndex;
+          setActiveIndex(nextIndex);
+          lastStepTimeRef.current = now;
+        }
       }
     });
-  }, [scrollYProgress]);
+  }, [smoothProgress]);
 
   // Update physical sliding indicator coordinates on activeIndex change
   useEffect(() => {
@@ -180,6 +197,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
     setDirection(idx > activeIndex ? 1 : -1);
     prevIndexRef.current = idx;
     setActiveIndex(idx);
+    lastStepTimeRef.current = Date.now();
   };
 
   return (
@@ -187,7 +205,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
       ref={containerRef}
       id="projects"
       className="relative bg-transparent"
-      style={{ height: `${PHONE_PROJECTS.length * 85}vh` }}
+      style={{ height: `${PHONE_PROJECTS.length * 115}vh` }}
     >
       {/* Sticky Full-Viewport Stage */}
       <div className="sticky top-0 h-screen flex flex-col justify-center items-center overflow-hidden py-6 sm:py-8">
@@ -241,7 +259,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                     tabRefs.current[idx] = el;
                   }}
                   onClick={() => handleTabClick(idx)}
-                  className="relative px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 flex items-center gap-1.5 z-10 whitespace-nowrap hover:scale-[1.03] active:scale-[0.97]"
+                  className="relative px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 flex items-center gap-1.5 z-10 whitespace-nowrap hover:scale-[1.03] active:scale-[0.97] group"
                 >
                   {/* Animated Icon with Pop Motion on Active */}
                   <m.div
@@ -253,16 +271,15 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                     className="flex items-center justify-center"
                   >
                     <Icon
-                      className={`w-3.5 h-3.5 transition-colors ${
-                        isActive ? "text-white" : "text-[#6e73fa]"
+                      className={`w-3.5 h-3.5 transition-colors duration-200 ${
+                        isActive ? "text-white" : "text-[#64748b] group-hover:text-[#1f1f32]"
                       }`}
-                      style={{ color: isActive ? proj.color : undefined }}
                     />
                   </m.div>
 
                   <span
                     className={`transition-colors duration-200 ${
-                      isActive ? "text-white font-bold" : "text-[#4d5564] hover:text-[#201f32]"
+                      isActive ? "text-white font-bold" : "text-[#64748b] group-hover:text-[#1f1f32]"
                     }`}
                   >
                     {proj.name}

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { m, useScroll, AnimatePresence } from "framer-motion";
-import { FiFolder, FiExternalLink, FiCheck, FiCompass, FiTrendingUp, FiShield, FiLayers, FiCode, FiWifi, FiBattery } from "react-icons/fi";
+import { FiFolder, FiExternalLink, FiCheck, FiCompass, FiTrendingUp, FiShield, FiLayers, FiCode, FiWifi, FiBattery, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { IconType } from "react-icons";
 
 interface PhoneProject {
@@ -136,6 +136,8 @@ const PHONE_PROJECTS: PhoneProject[] = [
 
 export const PhoneScrollShowcaseSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const prevIndexRef = useRef(0);
@@ -157,6 +159,18 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
       }
     });
   }, [scrollYProgress]);
+
+  // Update physical sliding indicator coordinates on activeIndex change
+  useEffect(() => {
+    const currentTab = tabRefs.current[activeIndex];
+    if (currentTab) {
+      setIndicatorStyle({
+        left: currentTab.offsetLeft,
+        width: currentTab.offsetWidth,
+        opacity: 1,
+      });
+    }
+  }, [activeIndex]);
 
   const currentProject = PHONE_PROJECTS[activeIndex] || PHONE_PROJECTS[0];
   const CurrentIcon = currentProject.icon;
@@ -193,6 +207,29 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
 
           {/* Fluid Sliding Glass Capsule Tab Bar */}
           <div className="mb-4 sm:mb-5 relative inline-flex p-1.5 bg-white/80 backdrop-blur-2xl rounded-full border border-white/95 shadow-[0_12px_36px_-12px_rgba(32,31,50,0.14)] max-w-full overflow-x-auto gap-1 select-none">
+            {/* Single Continuous Sliding Dark Capsule */}
+            <m.div
+              initial={false}
+              animate={{
+                x: indicatorStyle.left,
+                width: indicatorStyle.width,
+                opacity: indicatorStyle.opacity,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 420,
+                damping: 28,
+                mass: 0.7,
+              }}
+              className="absolute top-1.5 bottom-1.5 left-0 bg-[#161722] rounded-full border border-white/25 shadow-[0_4px_18px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.45)] pointer-events-none z-0"
+            >
+              {/* Dynamic ambient color glow matching active project */}
+              <div
+                className="absolute inset-0 rounded-full opacity-35 blur-[8px] transition-colors duration-300 pointer-events-none"
+                style={{ backgroundColor: currentProject.color }}
+              />
+            </m.div>
+
             {PHONE_PROJECTS.map((proj, idx) => {
               const isActive = activeIndex === idx;
               const Icon = proj.icon;
@@ -200,24 +237,12 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
               return (
                 <button
                   key={idx}
+                  ref={(el) => {
+                    tabRefs.current[idx] = el;
+                  }}
                   onClick={() => handleTabClick(idx)}
                   className="relative px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 flex items-center gap-1.5 z-10 whitespace-nowrap hover:scale-[1.03] active:scale-[0.97]"
                 >
-                  {/* Sliding Glass Capsule with Specular Top Highlight & Brand Halo */}
-                  {isActive && (
-                    <m.div
-                      layoutId="activeProjectPill"
-                      className="absolute inset-0 bg-[#161722] rounded-full border border-white/25 shadow-[0_4px_16px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.45)] -z-10"
-                      transition={{ type: "spring", stiffness: 460, damping: 28, mass: 0.7 }}
-                    >
-                      {/* Subtle Ambient Brand Glow inside active capsule */}
-                      <div
-                        className="absolute inset-0 rounded-full opacity-25 blur-[6px] pointer-events-none"
-                        style={{ backgroundColor: proj.color }}
-                      />
-                    </m.div>
-                  )}
-
                   {/* Animated Icon with Pop Motion on Active */}
                   <m.div
                     animate={{
@@ -236,7 +261,7 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                   </m.div>
 
                   <span
-                    className={`transition-colors ${
+                    className={`transition-colors duration-200 ${
                       isActive ? "text-white font-bold" : "text-[#4d5564] hover:text-[#201f32]"
                     }`}
                   >
@@ -247,9 +272,21 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
             })}
           </div>
 
-          {/* Authentic iPhone 15 Pro Titanium Chassis */}
-          <div className="flex justify-center items-center">
-            <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_25px_80px_-15px_rgba(20,20,35,0.4),0_0_0_1px_rgba(255,255,255,0.18),inset_0_1px_2px_rgba(255,255,255,0.3)] relative flex flex-col justify-between select-none">
+          {/* Authentic iPhone 15 Pro Titanium Chassis with Floating Nav Chevrons */}
+          <div className="flex justify-center items-center gap-3 sm:gap-6 relative">
+            {/* Left Chevron Button */}
+            <button
+              onClick={() => {
+                if (activeIndex > 0) handleTabClick(activeIndex - 1);
+              }}
+              disabled={activeIndex === 0}
+              className="hidden sm:flex w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-md items-center justify-center text-[#201f32] disabled:opacity-30 disabled:pointer-events-none hover:bg-white hover:scale-110 active:scale-95 transition-all z-20"
+              aria-label="Previous project"
+            >
+              <FiChevronLeft className="w-5 h-5" />
+            </button>
+
+            <div className="w-[275px] sm:w-[295px] md:w-[305px] h-[570px] sm:h-[610px] md:h-[630px] rounded-[52px] bg-[#1a1a24] p-3 shadow-[0_25px_80px_-15px_rgba(20,20,35,0.4),0_0_0_1px_rgba(255,255,255,0.18),inset_0_1px_2px_rgba(255,255,255,0.3)] relative flex flex-col justify-between select-none shrink-0">
               
               {/* Inner Retina OLED Screen */}
               <div className="w-full h-full bg-[#f8f8fc] rounded-[42px] overflow-hidden relative flex flex-col justify-between border border-[#e5e5ee] p-3.5 sm:p-4">
@@ -270,17 +307,17 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Screen Dynamic Fluid Glass Transition Content */}
-                <div className="my-auto pt-2 pb-1 overflow-y-auto no-scrollbar relative min-h-[360px] flex flex-col justify-center">
+                {/* Screen Dynamic Fluid Glass Transition Content with Prominent Horizontal Movement */}
+                <div className="my-auto pt-2 pb-1 overflow-hidden relative min-h-[365px] flex flex-col justify-center">
                   <AnimatePresence custom={direction} mode="wait">
                     <m.div
                       key={currentProject.id}
                       custom={direction}
                       variants={{
                         enter: (dir: number) => ({
-                          x: dir > 0 ? 36 : -36,
+                          x: dir > 0 ? 140 : -140,
                           opacity: 0,
-                          scale: 0.94,
+                          scale: 0.9,
                           filter: "blur(6px)",
                         }),
                         center: {
@@ -290,9 +327,9 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                           filter: "blur(0px)",
                         },
                         exit: (dir: number) => ({
-                          x: dir > 0 ? -36 : 36,
+                          x: dir > 0 ? -140 : 140,
                           opacity: 0,
-                          scale: 0.94,
+                          scale: 0.9,
                           filter: "blur(6px)",
                         }),
                       }}
@@ -300,10 +337,10 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                       animate="center"
                       exit="exit"
                       transition={{
-                        type: "spring",
-                        stiffness: 320,
-                        damping: 28,
-                        opacity: { duration: 0.22 },
+                        x: { type: "spring", stiffness: 290, damping: 26, mass: 0.8 },
+                        opacity: { duration: 0.2 },
+                        scale: { duration: 0.24 },
+                        filter: { duration: 0.2 },
                       }}
                       className="space-y-2.5 w-full"
                     >
@@ -405,6 +442,18 @@ export const PhoneScrollShowcaseSection: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            {/* Right Chevron Button */}
+            <button
+              onClick={() => {
+                if (activeIndex < PHONE_PROJECTS.length - 1) handleTabClick(activeIndex + 1);
+              }}
+              disabled={activeIndex === PHONE_PROJECTS.length - 1}
+              className="hidden sm:flex w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-md items-center justify-center text-[#201f32] disabled:opacity-30 disabled:pointer-events-none hover:bg-white hover:scale-110 active:scale-95 transition-all z-20"
+              aria-label="Next project"
+            >
+              <FiChevronRight className="w-5 h-5" />
+            </button>
           </div>
 
           {/* Bottom Progress Counter */}

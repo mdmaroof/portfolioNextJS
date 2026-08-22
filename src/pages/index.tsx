@@ -4,6 +4,7 @@ import { LazyMotion, MotionConfig, domAnimation, m, useScroll } from "framer-mot
 import { FiCheck } from "react-icons/fi";
 import { Navbar } from "../component/navbar.section";
 import { HeaderComponent } from "../component/header.section";
+import { ScrollShipmentsSection } from "../component/scrollShipments.section";
 import { OverviewSection } from "../component/overview.section";
 import { CurvedCarouselSection } from "../component/curvedCarousel.section";
 import { WorkHistory } from "../component/workHistory.section";
@@ -157,22 +158,25 @@ export default function Home() {
 
         {/* Main Sections Hierarchy */}
         <main className="relative z-10 min-h-screen">
-          {/* 1. Hero with Typewriter & continuous Project Ticker */}
+          {/* 1. Clean Hero with Typewriter & CTAs */}
           <HeaderComponent data={data} onMessageSentSuccess={handleMessageSentSuccess} />
 
-          {/* 2. Overview Metrics */}
+          {/* 2. Interactive Scroll-Driven Horizontal Showcase with Live Progress Scrubber */}
+          <ScrollShipmentsSection />
+
+          {/* 3. Overview Metrics */}
           <OverviewSection />
 
-          {/* 3. Curved Arc Experience Carousel with Orbiting Mobile Stage */}
+          {/* 4. Curved Arc Experience Carousel with Orbiting Mobile Stage */}
           <CurvedCarouselSection />
 
-          {/* 4. Detailed Roles & Contributions */}
+          {/* 5. Detailed Roles & Contributions */}
           <WorkHistory work={data.work} />
 
-          {/* 5. Interactive "Ask Maroof" Custom AI Agent & Bento Grid */}
+          {/* 6. Interactive "Ask Maroof" Custom AI Agent & Bento Grid */}
           <AgentSection />
 
-          {/* 6. Projects Showcase with Pill Category Filter (including Trackaday & Geospatial) */}
+          {/* 7. Projects Showcase (including Trackaday & Geospatial) */}
           <ProjectsSection projects={data.projects as any} />
         </main>
 

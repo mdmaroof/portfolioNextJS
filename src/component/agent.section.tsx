@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { m } from "framer-motion";
 import { FiSend, FiCheck, FiCpu, FiLayers, FiCode, FiSmartphone, FiDatabase, FiAward, FiExternalLink, FiTrash2, FiActivity, FiZap } from "react-icons/fi";
 import { SiReact } from "react-icons/si";
+import { getChatbotAnswer } from "../data/chatbot";
 
 interface Message {
   id: string;
   sender: "agent" | "user";
   text: string;
   badge?: string;
-  tokens?: number;
   chips?: string[];
   link?: {
     label: string;
@@ -35,80 +35,14 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: "init-1",
     sender: "agent",
-    badge: "ETHOS ASCEND (ACTIVE CONTRACT)",
-    tokens: 97,
-    text: `At Ethos Watches (Feb 2026 — Present), Maroof is developing 'Ascend', a React Native mobile application for enterprise sales operations.
-• Engineered a custom optical QR camera scanner achieving sub-100ms scan speeds.
-• Architected offline-first SQLite/AsyncStorage sync pipelines for field personnel.
-• Streamlined field inventory lookup and client consultation UX flows.`,
-    chips: ["Sub-100ms QR Scanner", "React Native Vision", "Offline Cache", "Active Contract"],
-    link: {
-      label: "Ethos Watches Official Site",
-      url: "https://www.ethoswatches.com/",
-    },
+    badge: "MAROOF'S PORTFOLIO AGENT",
+    text: `I'm here to answer from Mohd Maroof's actual portfolio—not generic boilerplate.
+• Ask about his work at Ethos, VAHN, 56 Secure, Noon Academy, or Buzztales.
+• Explore Trackaday, Graple.ai, SnapAid, and other products.
+• I can also help with skills, availability, and getting in touch.`,
+    chips: ["Experience", "Projects", "Skills", "Contact"],
   },
 ];
-
-const KNOWLEDGE_RESPONSES: Record<string, { badge: string; text: string; chips: string[]; link?: { label: string; url: string } }> = {
-  stack: {
-    badge: "CORE TECHNICAL STACK",
-    text: `Maroof specializes in modern frontend engineering across web and mobile:
-• Core Frameworks: React, Next.js (SSR / SSG / App Router), React Native.
-• Language & Typing: TypeScript (strict mode), JavaScript ES2024.
-• State & Telemetry: Zustand, Redux Toolkit, WebSockets, PubNub RTC, Mapbox GL.
-• Performance: 60 FPS frame budgets, Lighthouse 98+ scores, sub-100ms cold starts.`,
-    chips: ["React", "Next.js", "TypeScript", "React Native", "Zustand", "WebSockets"],
-  },
-  ethos: {
-    badge: "ETHOS ASCEND (ACTIVE CONTRACT)",
-    text: `Active Senior Frontend contract architecting 'Ascend' mobile for Ethos Watches:
-• Developed custom high-speed QR camera optical scanner (<100ms decode).
-• Built full offline synchronization pipeline using AsyncStorage and optimistic state updates.
-• Engineered custom design system components adhering to high-end luxury brand standards.`,
-    chips: ["React Native", "Camera Vision", "Offline Sync", "Custom QR"],
-    link: {
-      label: "Ethos Watches Official",
-      url: "https://www.ethoswatches.com/",
-    },
-  },
-  vahn: {
-    badge: "VAHN FLEET (0 TO 1 MVP)",
-    text: `Delivered VAHN's Fleet Logistics platform from initial concept to active production:
-• Architected real-time fleet telematics dashboard tracking 48+ active vehicles with Google Maps API.
-• Structured atomic state management with Zustand, eliminating 70% of unnecessary re-renders.
-• Integrated Mixpanel telemetry pipelines for mission-critical driver and dispatcher events.`,
-    chips: ["TypeScript", "Zustand", "Mixpanel", "Google Maps Telemetry"],
-    link: {
-      label: "VAHN Official Site",
-      url: "https://vahn.in/",
-    },
-  },
-  trackaday: {
-    badge: "TRACKADAY (GEOSPATIAL SAAS)",
-    text: `Production geospatial route tracking application:
-• Built with Mapbox GL vector tile rendering and Turf.js spatial distance calculations.
-• Real-time route recording, elevation contour mapping, and GPX/KML export engines.
-• Sub-second map re-renders with optimized GeoJSON clustering.`,
-    chips: ["Mapbox GL", "Turf.js", "Geospatial", "React"],
-    link: {
-      label: "Launch Trackaday",
-      url: "https://www.trackaday.buzz/",
-    },
-  },
-  hire: {
-    badge: "AVAILABILITY & CONTRACTS",
-    text: `Mohd Maroof is currently available for:
-• Senior Frontend Developer Contracts (Remote Worldwide).
-• 0-to-1 Mobile & Web MVP Architecture.
-• High-Performance React / Next.js / React Native consulting.
-• Reach out directly: maroofmohdmalik@gmail.com`,
-    chips: ["Remote Global", "Senior Contract", "Available Now", "Fast Sprints"],
-    link: {
-      label: "Send Email Inquiry",
-      url: "mailto:maroofmohdmalik@gmail.com",
-    },
-  },
-};
 
 const PLACEHOLDER_QUERIES = [
   "Ask about Ethos and his custom QR scanner...",
@@ -166,7 +100,7 @@ export const AgentSection: React.FC = () => {
     }
   }, [messages, streamingText]);
 
-  // Realistic character-by-character token streaming
+  // Character-by-character response streaming
   const executeQuery = (queryText: string) => {
     if (!queryText.trim() || isStreaming) return;
 
@@ -179,17 +113,7 @@ export const AgentSection: React.FC = () => {
       return;
     }
 
-    // Determine matched response
-    let responseData = KNOWLEDGE_RESPONSES.stack;
-    if (lower.includes("ethos") || lower.includes("qr") || lower.includes("ascend")) {
-      responseData = KNOWLEDGE_RESPONSES.ethos;
-    } else if (lower.includes("vahn") || lower.includes("fleet") || lower.includes("logistics")) {
-      responseData = KNOWLEDGE_RESPONSES.vahn;
-    } else if (lower.includes("track") || lower.includes("map") || lower.includes("geo")) {
-      responseData = KNOWLEDGE_RESPONSES.trackaday;
-    } else if (lower.includes("hire") || lower.includes("available") || lower.includes("contact") || lower.includes("rate") || lower.includes("contract")) {
-      responseData = KNOWLEDGE_RESPONSES.hire;
-    }
+    const responseData = getChatbotAnswer(queryText);
 
     // Add user query
     const userMsg: Message = {
@@ -203,7 +127,7 @@ export const AgentSection: React.FC = () => {
     setActiveBadge(responseData.badge);
     setStreamingText("");
 
-    // Simulate realistic character-by-character token stream
+    // Simulate a concise streamed response
     const fullText = responseData.text;
     let currIdx = 0;
 
@@ -218,7 +142,6 @@ export const AgentSection: React.FC = () => {
           id: `agent-${Date.now()}`,
           sender: "agent",
           badge: responseData.badge,
-          tokens: Math.floor(fullText.length / 4) + 12,
           text: fullText,
           chips: responseData.chips,
           link: responseData.link,
@@ -369,18 +292,12 @@ export const AgentSection: React.FC = () => {
                       </div>
                     ) : (
                       <div className="max-w-[98%] w-full p-4 sm:p-5 rounded-2xl rounded-tl-xs bg-white border border-[#e5e5f0] text-[#1f1f32] space-y-3 shadow-2xs">
-                        {/* Message Top Bar: Badge + Token count */}
+                        {/* Message category */}
                         {msg.badge && (
                           <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#f0f0f8]">
                             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262ef2] bg-[#262ef2]/10 px-2.5 py-0.5 rounded-full border border-[#262ef2]/20">
                               {msg.badge}
                             </span>
-                            {msg.tokens && (
-                              <span className="text-[10px] font-mono text-[#8c859d] flex items-center gap-1">
-                                <span>⚡ {msg.tokens} tokens</span>
-                                <span>· 18ms</span>
-                              </span>
-                            )}
                           </div>
                         )}
 
@@ -522,6 +439,22 @@ export const AgentSection: React.FC = () => {
                   >
                     <FiLayers className="w-3 h-3 text-[#0ea5e9] group-hover:scale-110 transition-transform" />
                     <span>/trackaday</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => executeQuery("Show me Maroof's projects")}
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                  >
+                    <FiCode className="w-3 h-3 text-[#0c9618] group-hover:scale-110 transition-transform" />
+                    <span>/projects</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => executeQuery("Tell me about Maroof's experience")}
+                    className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-xl bg-white hover:bg-[#f8f8fc] text-[#374151] hover:text-[#262ef2] border border-[#dedee8] hover:border-[#262ef2] transition-all font-mono font-medium shadow-2xs group"
+                  >
+                    <FiActivity className="w-3 h-3 text-[#ca7c0e] group-hover:scale-110 transition-transform" />
+                    <span>/experience</span>
                   </button>
                   <button
                     type="button"

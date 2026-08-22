@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { FiMessageSquare, FiX, FiSend, FiCpu, FiCheck, FiExternalLink, FiTrash2, FiMinus, FiZap } from "react-icons/fi";
+import { getChatbotAnswer } from "../data/chatbot";
 
 interface Message {
   id: string;
   sender: "agent" | "user";
   text: string;
   badge?: string;
-  tokens?: number;
   chips?: string[];
   link?: {
     label: string;
@@ -15,75 +15,13 @@ interface Message {
   };
 }
 
-const KNOWLEDGE_RESPONSES: Record<string, { badge: string; text: string; chips: string[]; link?: { label: string; url: string } }> = {
-  stack: {
-    badge: "CORE TECHNICAL STACK",
-    text: `Maroof specializes in modern frontend engineering across web and mobile:
-• Core Frameworks: React, Next.js (SSR / SSG / App Router), React Native.
-• Language & Typing: TypeScript (strict mode), JavaScript ES2024.
-• State & Telemetry: Zustand, Redux Toolkit, WebSockets, PubNub RTC, Mapbox GL.
-• Performance: 60 FPS frame budgets, Lighthouse 98+ scores, sub-100ms cold starts.`,
-    chips: ["React", "Next.js", "TypeScript", "React Native", "Zustand"],
-  },
-  ethos: {
-    badge: "ETHOS ASCEND (ACTIVE CONTRACT)",
-    text: `Active Senior Frontend contract architecting 'Ascend' mobile for Ethos Watches:
-• Developed custom high-speed QR camera optical scanner (<100ms decode).
-• Built full offline synchronization pipeline using AsyncStorage and optimistic state updates.
-• Engineered custom design system components adhering to high-end luxury brand standards.`,
-    chips: ["React Native", "Camera Vision", "Offline Sync", "Custom QR"],
-    link: {
-      label: "Ethos Watches Official",
-      url: "https://www.ethoswatches.com/",
-    },
-  },
-  vahn: {
-    badge: "VAHN FLEET (0 TO 1 MVP)",
-    text: `Delivered VAHN's Fleet Logistics platform from initial concept to active production:
-• Architected real-time fleet telematics dashboard tracking 48+ active vehicles with Google Maps API.
-• Structured atomic state management with Zustand, eliminating 70% of unnecessary re-renders.
-• Integrated Mixpanel telemetry pipelines for mission-critical driver and dispatcher events.`,
-    chips: ["TypeScript", "Zustand", "Mixpanel", "Google Maps Telemetry"],
-    link: {
-      label: "VAHN Official Site",
-      url: "https://vahn.in/",
-    },
-  },
-  trackaday: {
-    badge: "TRACKADAY (GEOSPATIAL SAAS)",
-    text: `Production geospatial route tracking application:
-• Built with Mapbox GL vector tile rendering and Turf.js spatial distance calculations.
-• Real-time route recording, elevation contour mapping, and GPX/KML export engines.
-• Sub-second map re-renders with optimized GeoJSON clustering.`,
-    chips: ["Mapbox GL", "Turf.js", "Geospatial", "React"],
-    link: {
-      label: "Launch Trackaday",
-      url: "https://www.trackaday.buzz/",
-    },
-  },
-  hire: {
-    badge: "AVAILABILITY & CONTRACTS",
-    text: `Mohd Maroof is currently available for:
-• Senior Frontend Developer Contracts (Remote Worldwide).
-• 0-to-1 Mobile & Web MVP Architecture.
-• High-Performance React / Next.js / React Native consulting.
-• Reach out directly: maroofmohdmalik@gmail.com`,
-    chips: ["Remote Global", "Senior Contract", "Available Now", "Fast Sprints"],
-    link: {
-      label: "Send Email Inquiry",
-      url: "mailto:maroofmohdmalik@gmail.com",
-    },
-  },
-};
-
 const INITIAL_MESSAGES: Message[] = [
   {
     id: "float-init-1",
     sender: "agent",
-    badge: "MOHD MAROOF'S AI ASSISTANT",
-    tokens: 42,
-    text: `Hi! I'm Maroof's AI assistant. Ask me anything about his 6+ years of production experience, tech stack, or contract availability.`,
-    chips: ["React / Native", "6+ Yrs Experience", "Available for Hire"],
+    badge: "MAROOF'S PORTFOLIO AGENT",
+    text: `Hi! I answer from Maroof's portfolio. Ask about his work, products, stack, availability, or how to get in touch.`,
+    chips: ["Experience", "Projects", "Skills", "Contact"],
   },
 ];
 
@@ -114,16 +52,7 @@ export const FloatingChatbot: React.FC = () => {
       return;
     }
 
-    let responseData = KNOWLEDGE_RESPONSES.stack;
-    if (lower.includes("ethos") || lower.includes("qr") || lower.includes("ascend")) {
-      responseData = KNOWLEDGE_RESPONSES.ethos;
-    } else if (lower.includes("vahn") || lower.includes("fleet") || lower.includes("logistics")) {
-      responseData = KNOWLEDGE_RESPONSES.vahn;
-    } else if (lower.includes("track") || lower.includes("map") || lower.includes("geo")) {
-      responseData = KNOWLEDGE_RESPONSES.trackaday;
-    } else if (lower.includes("hire") || lower.includes("available") || lower.includes("contact") || lower.includes("rate") || lower.includes("contract")) {
-      responseData = KNOWLEDGE_RESPONSES.hire;
-    }
+    const responseData = getChatbotAnswer(queryText);
 
     const userMsg: Message = {
       id: `user-${Date.now()}`,
@@ -150,7 +79,6 @@ export const FloatingChatbot: React.FC = () => {
           id: `agent-${Date.now()}`,
           sender: "agent",
           badge: responseData.badge,
-          tokens: Math.floor(fullText.length / 4) + 12,
           text: fullText,
           chips: responseData.chips,
           link: responseData.link,
@@ -238,11 +166,6 @@ export const FloatingChatbot: React.FC = () => {
                           <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#262ef2]">
                             {msg.badge}
                           </span>
-                          {msg.tokens && (
-                            <span className="text-[9px] font-mono text-[#8c859d]">
-                              ⚡ {msg.tokens} tokens
-                            </span>
-                          )}
                         </div>
                       )}
 
@@ -335,6 +258,13 @@ export const FloatingChatbot: React.FC = () => {
                   className="px-2.5 py-1 rounded-lg bg-white border border-[#dedee8] hover:border-[#262ef2] text-[10px] font-mono font-semibold text-[#4d5564] hover:text-[#262ef2] whitespace-nowrap shadow-2xs"
                 >
                   /vahn
+                </button>
+                <button
+                  type="button"
+                  onClick={() => executeQuery("Show me Maroof's projects")}
+                  className="px-2.5 py-1 rounded-lg bg-white border border-[#dedee8] hover:border-[#262ef2] text-[10px] font-mono font-semibold text-[#4d5564] hover:text-[#262ef2] whitespace-nowrap shadow-2xs"
+                >
+                  /projects
                 </button>
                 <button
                   type="button"

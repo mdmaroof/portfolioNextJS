@@ -1,27 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
-  <title id="title">Mohd Maroof MM monogram</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="background" x1="100" y1="80" x2="900" y2="940" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#17142a"/>
-      <stop offset="1" stop-color="#080914"/>
+    <!-- Background Light Studio Gradient -->
+    <linearGradient id="bgGrad" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="0.6" stop-color="#f4f5fc"/>
+      <stop offset="1" stop-color="#e8ebf8"/>
     </linearGradient>
-    <linearGradient id="monogram" x1="180" y1="310" x2="844" y2="730" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#64e7ff"/>
-      <stop offset="0.52" stop-color="#9b7cff"/>
-      <stop offset="1" stop-color="#ff8e7a"/>
+
+    <!-- Cobalt Monogram Gradient -->
+    <linearGradient id="cobaltGrad" x1="120" y1="120" x2="392" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#262ef2"/>
+      <stop offset="0.7" stop-color="#4f56f5"/>
+      <stop offset="1" stop-color="#6e73fa"/>
     </linearGradient>
-    <filter id="glow" x="-20%" y="-30%" width="140%" height="160%">
-      <feGaussianBlur stdDeviation="15" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+
+    <!-- Subtle Ambient Drop Shadow -->
+    <filter id="cardShadow" x="0" y="8" width="512" height="504" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#262ef2" flood-opacity="0.16"/>
     </filter>
   </defs>
-  <rect width="1024" height="1024" rx="236" fill="url(#background)"/>
-  <rect x="28" y="28" width="968" height="968" rx="214" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="12"/>
-  <g fill="none" stroke="url(#monogram)" stroke-linecap="round" stroke-linejoin="round" stroke-width="72" filter="url(#glow)">
-    <path d="M176 704V320L312 544L448 320V704"/>
-    <path d="M576 704V320L712 544L848 320V704"/>
+
+  <!-- Squircle Base Chassis -->
+  <rect x="24" y="24" width="464" height="464" rx="128" fill="url(#bgGrad)" filter="url(#cardShadow)"/>
+  <rect x="24" y="24" width="464" height="464" rx="128" stroke="#ffffff" stroke-width="6"/>
+  <rect x="25" y="25" width="462" height="462" rx="127" stroke="#262ef2" stroke-opacity="0.12" stroke-width="2"/>
+
+  <!-- Iconic Interlocking "M M" Monogram -->
+  <g fill="none" stroke="url(#cobaltGrad)" stroke-width="42" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left M -->
+    <path d="M120 348V164L196 276L272 164V348"/>
+    <!-- Right M -->
+    <path d="M240 348V164L316 276L392 164V348"/>
   </g>
+
+  <!-- Live Green Telemetry Status Dot on Corner -->
+  <circle cx="392" cy="120" r="22" fill="#ffffff"/>
+  <circle cx="392" cy="120" r="16" fill="#10b981"/>
 </svg>

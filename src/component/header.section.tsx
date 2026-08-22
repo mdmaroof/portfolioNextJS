@@ -72,7 +72,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ data }) => {
 
             {/* Subheadline */}
             <p className="text-base sm:text-lg text-[#4d5564] leading-relaxed max-w-xl font-normal">
-              Hi, I'm <strong className="text-[#1f1f32] font-bold">Mohd Maroof</strong>. I architect sub-second web platforms, 0-to-1 mobile applications, and high-precision design systems with React, Next.js, and TypeScript.
+              Hi, I&apos;m <strong className="text-[#1f1f32] font-bold">Mohd Maroof</strong>. I architect sub-second web platforms, 0-to-1 mobile applications, and high-precision design systems with React, Next.js, and TypeScript.
             </p>
 
             {/* Action Buttons Row */}

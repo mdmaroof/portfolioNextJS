@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { FiArrowRight, FiMenu, FiX, FiSend } from "react-icons/fi";
 
+const NAV_LINKS = [
+  { id: "overview", label: "Overview", href: "#overview" },
+  { id: "experience", label: "Experience", href: "#experience" },
+  { id: "agent", label: "AI Agent", href: "#agent" },
+  { id: "projects", label: "Projects", href: "#projects" },
+];
+
 export const Navbar: React.FC = () => {
   const [isCondensed, setIsCondensed] = useState(false);
   const [isHiddenInProjects, setIsHiddenInProjects] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("overview");
-
-  const navLinks = [
-    { id: "overview", label: "Overview", href: "#overview" },
-    { id: "experience", label: "Experience", href: "#experience" },
-    { id: "agent", label: "AI Agent", href: "#agent" },
-    { id: "projects", label: "Projects", href: "#projects" },
-  ];
 
   // Scroll condensing, section spy, and auto-hide in projects showcase
   useEffect(() => {
@@ -38,7 +38,7 @@ export const Navbar: React.FC = () => {
 
       // 3. Detect active section based on scroll position
       const scrollPosition = window.scrollY + 220;
-      for (const link of navLinks) {
+      for (const link of NAV_LINKS) {
         const el = document.getElementById(link.id);
         if (el) {
           const top = el.offsetTop;
@@ -94,7 +94,7 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Navigation Links with Animated Sliding Pill */}
           <div className="hidden md:flex items-center gap-1 bg-[#f4f4fa]/90 p-1 rounded-full border border-[#e3e2e8] relative">
-            {navLinks.map((link) => {
+            {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
@@ -160,7 +160,7 @@ export const Navbar: React.FC = () => {
               </span>
             </div>
 
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.id}
                 href={link.href}

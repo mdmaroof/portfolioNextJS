@@ -2,7 +2,7 @@ import React from "react";
 import { m } from "framer-motion";
 import { FiBriefcase, FiMapPin, FiCalendar, FiCheck, FiExternalLink, FiAward } from "react-icons/fi";
 
-interface WorkItem {
+export interface WorkItem {
   organisation: string;
   role: string;
   from: string;
@@ -11,7 +11,9 @@ interface WorkItem {
   labels: string[];
 }
 
-interface WorkHistoryProps {
+export type objectWork = WorkItem;
+
+export interface WorkHistoryProps {
   work: WorkItem[];
 }
 

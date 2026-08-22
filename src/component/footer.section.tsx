@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
 
             {/* Main Headline */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-extrabold tracking-tight text-[#1f1f32] leading-[1.12]">
-              Let's build something <br />
+              Let&apos;s build something <br />
               <span className="serif-accent blue-accent font-normal italic">remarkable together.</span>
             </h2>
 

@@ -110,6 +110,14 @@ const KNOWLEDGE_RESPONSES: Record<string, { badge: string; text: string; chips: 
   },
 };
 
+const PLACEHOLDER_QUERIES = [
+  "Ask about Ethos and his custom QR scanner...",
+  "What is Maroof's core tech stack?",
+  "Tell me about VAHN and the Fleet App MVP...",
+  "Tell me about Trackaday and Mapbox GL...",
+  "Is Maroof available for senior contracts?",
+];
+
 export const AgentSection: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [inputVal, setInputVal] = useState("");
@@ -123,17 +131,9 @@ export const AgentSection: React.FC = () => {
   const [typedPlaceholder, setTypedPlaceholder] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const placeholderQueries = [
-    "Ask about Ethos and his custom QR scanner...",
-    "What is Maroof's core tech stack?",
-    "Tell me about VAHN and the Fleet App MVP...",
-    "Tell me about Trackaday and Mapbox GL...",
-    "Is Maroof available for senior contracts?",
-  ];
-
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    const currentFullText = placeholderQueries[placeholderIndex];
+    const currentFullText = PLACEHOLDER_QUERIES[placeholderIndex];
 
     if (!isDeleting) {
       if (typedPlaceholder.length < currentFullText.length) {
@@ -152,7 +152,7 @@ export const AgentSection: React.FC = () => {
         }, 18);
       } else {
         setIsDeleting(false);
-        setPlaceholderIndex((prev) => (prev + 1) % placeholderQueries.length);
+        setPlaceholderIndex((prev) => (prev + 1) % PLACEHOLDER_QUERIES.length);
       }
     }
 
